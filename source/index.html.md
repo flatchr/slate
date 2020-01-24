@@ -148,10 +148,29 @@ Le code à insérer indiqué ci-contre.
 
 <h1 id="formulaire-de-candidature">Formulaire de candidature</h1>
 
-> Modèle de code
+> Body parameter
 
-```
-
+```json
+{
+  "vacancy": "string",
+  "firstname": "string",
+  "lastname": "string",
+  "api_key": "string",
+  "email": "email",
+  "phone": "integer",
+  "lastposition": "string",
+  "type": "string",
+  "resume": {
+            "fileName": "test.pdf",
+            "data": "base64 data file"
+            },
+  "comment": "string",
+  "offerer_id": "integer",
+  "urls": "object",
+  "legalNewsletterPartners": "boolean",
+  "smilarities": "boolean",
+  "response_text": "string",
+  } 
 ```
 
 Le site flatchr.io met à disposition un système de candidature par API.
@@ -173,8 +192,8 @@ https://careers.flatchr.io/vacancy/candidate/test
 |Libellé|Type|Obligatoire|Description|
 |---|---|---|---|
 |vacancy|string|<i class="fas fa-check"></i> |Identifiant unique de l’annonce|
-|firstName|string|<i class="fas fa-check"></i> |PréLibellé /[a-zA-Z]/|
-|lastName|string|<i class="fas fa-check"></i> |Libellé /[a-zA-Z]/|
+|firstname|string|<i class="fas fa-check"></i> |PréLibellé /[a-zA-Z]/|
+|lastname|string|<i class="fas fa-check"></i> |Libellé /[a-zA-Z]/|
 |api_key|string|<i class="fas fa-check"></i> |Clé API. Elle est créée dans l’interface Flatchr|
 |email|email||Email|
 |phone|integer||Téléphone|
@@ -280,8 +299,14 @@ print r.json()
 
 > Exemples de réponses
 
-```
- 
+```json
+{
+  "id": "string",
+  "offer_id": "string",
+  "created_at": "date",
+  "vacancy": "string",
+  "vacancy_id": "string"
+  } 
 ```
 
 
@@ -398,8 +423,14 @@ Obtenir toutes les tâches d'une entreprise.
 
 > Exemples de réponses
 
-```
-
+```json
+{
+  "date": "date",
+  "description": "string",
+  "done": "boolean",
+  "id": "string",
+  "type": "string"
+  } 
 ```
 
 
@@ -532,12 +563,18 @@ Créer une tâche d'utilisateur.
 |---|---|---|---|---|
 |company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
 |user|path|string|<i class="fas fa-check"></i> |Nom de l'utilisateur|
-|body|body|[Model_3](#schemamodel_3)|||
+|body|body|[Body](#schemamodel_3)|||
 
 > Exemples de réponses
 
-```
-
+```json
+{ 
+  "date": "date",
+  "description": "integer",
+  "done": "boolean",
+  "id": "string",
+  "type": "string"
+  }  
 ```
 
 
@@ -650,8 +687,8 @@ Effacer une tâche d'utilisateur.
 
 > Exemples de réponses
 
-```
- 
+```json
+ {"message": "Task deleted"}
 ```
 
 
@@ -772,12 +809,18 @@ Mettre à jour ou modifier une tâche d'utilisateur.
 |---|---|---|---|---|
 |company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
 |task|path|string|<i class="fas fa-check"></i> |Nom de la tâche|
-|body|body|[Model_7](#schemamodel_7)|||
+|body|body|[Body](#schemamodel_7)|||
 
 > Exemples de réponses
 
-```
- 
+```json
+{ 
+  "date": "date",
+  "description": "integer",
+  "done": "boolean",
+  "id": "string",
+  "type": "string"
+  }  
 ```
 
 
@@ -1125,8 +1168,15 @@ Chercher un candidat dans la CVthèque ?
 
 > Exemples de réponses
 
-```
- 
+```json
+{
+  "vacancy": "string",
+  "column": "string",
+  "firstname": "date",
+  "lastname": "string",
+  "created_at": "string",
+  "source": "string"
+  } 
 ```
 
 
@@ -1242,11 +1292,33 @@ Obtenir des informations sur un candidat de la CVthèque.
 
 > Exemples de réponses
 
-```
- 
+```json
+{
+  "id": "string",
+  "vacancy_id": "string",
+  "column_id": "integer",
+  "score": "integer",
+  "comment": "string",
+  "created_at": "integer",
+  "status": "integer",
+  "seen": "boolean",
+  "candidate": {
+                "email": "email",
+                "firstname": "string",
+                "lastname": "string",
+                "phone": "string",
+                "cv": "",
+                "aws":"",
+               },
+  "foreigner": "string",
+  "count_message": "string",
+  "count_message_new": "boolean",
+  "count_comment": "string",
+  "count_comment_new": "boolean"
+  } 
 ```
 
-> Réponse par défaut
+
 
 <h3 id="getcompanycompanyapplicantapplicant-responses">Réponses</h3>
 
@@ -1260,7 +1332,7 @@ Obtenir des informations sur un candidat de la CVthèque.
 |created_at|integer|Date de création|
 |status|integer|Statut du candidat|
 |seen|boolean|?|
-|candidate|[Model_12](#schemamodel_12)|Détails candidats|
+|candidate|[Candidate](#schemamodel_12)|Détails candidats|
 |foreigner|boolean|Candidat de nationalité étrangère|
 |count_message|integer|?|
 |count_message_new|boolean|?|
@@ -1306,8 +1378,8 @@ $.ajax({
 ```javascript--nodejs
 const fetch = require('node-fetch');
 const inputBody = '{
-  "firstName": "string",
-  "lastName": "string",
+  "firstname": "string",
+  "lastname": "string",
   "email": "string",
   "phone": "string",
   "last_position": "string",
@@ -1392,8 +1464,8 @@ Créer un nouveau candidat dans la CVthèque.
 
 ```json
 {
-  "firstName": "string",
-  "lastName": "string",
+  "firstname": "string",
+  "lastname": "string",
   "email": "string",
   "phone": "string",
   "last_position": "string",
@@ -1424,11 +1496,16 @@ Créer un nouveau candidat dans la CVthèque.
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
 |vacancy|path|string|<i class="fas fa-check"></i> |Annonce|
-|body|body|[Model_2](#schemamodel_2)|||
+|body|body|[Body](#schemamodel_2)|||
 
 > Exemples de réponses
 
-```
+```json
+{
+  "action": "string",
+  "status": "integer",
+  "anonym": "boolean"
+  },
  
 ```
 
@@ -1594,8 +1671,8 @@ const inputBody = '{
   "vacancy_id": "string",
   "column_id": 0,
   "score": 0,
-  "firstName": "string",
-  "lastName": "string",
+  "firstname": "string",
+  "lastname": "string",
   "email": "string",
   "status": 1
 }';
@@ -1663,8 +1740,8 @@ Modifier les informations d'un candidat de la CVthèque.
   "vacancy_id": "string",
   "column_id": 0,
   "score": 0,
-  "firstName": "string",
-  "lastName": "string",
+  "firstname": "string",
+  "lastname": "string",
   "email": "string",
   "status": 1
 }
@@ -1678,21 +1755,56 @@ Modifier les informations d'un candidat de la CVthèque.
 |vacancy|path|string|<i class="fas fa-check"></i> |Annonce|
 |applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
 |disable_mail|query|boolean||Désactiver l'e-mail obligatoire|
-|body|body|[Model_8](#schemamodel_8)|||
+|body|body|[Body](#schemamodel_8)|||
 
 > Exemples de réponses
 
-```
- 
+```json
+{
+  "id": "string",
+  "vacancy_id": "string",
+  "column_id": "integer",
+  "score": "integer",
+  "comment": "string",
+  "created_at": "integer",
+  "status": "integer",
+  "seen": "boolean",
+  "candidate": {
+                "email": "email",
+                "firstname": "string",
+                "lastname": "string",
+                "phone": "string",
+                "cv": "",
+                "aws":"",
+               },
+  "foreigner": "string",
+  "count_message": "string",
+  "count_message_new": "boolean",
+  "count_comment": "string",
+  "count_comment_new": "boolean"
+  }  
 ```
 
 
 
 <h3 id="putcompanycompanyvacancyvacancyapplicantapplicant-responses">Réponses</h3>
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|default|Default|Successful|string|
+|Libellé|Type|Description|
+|---|---|---|
+|id|string|Identifiant|
+|vacancy_id|string|Identifiant de l'annonce|
+|column_id|integer|Identifiant de la colonne|
+|score|integer|Score du candidat|
+|comment|string|Commentaire sur le candidat|
+|created_at|integer|Date de création|
+|status|integer|Statut du candidat|
+|seen|boolean|?|
+|candidate|[Candidate](#schemamodel_12)|Détails candidats|
+|foreigner|boolean|Candidat de nationalité étrangère|
+|count_message|integer|?|
+|count_message_new|boolean|?|
+|count_comment|integer|?|
+|count_comment_new|boolean|?|
 
 
 
@@ -1798,16 +1910,28 @@ Obtenir les évaluations d'un candidat.
 
 > Exemples de réponses
 
-```
- 
+```json
+{
+  "id": "string",
+  "value": "integer",
+  "created_at": "date",
+  "updated_at": "date",
+  "score": "string",
+  "score_tag": "string"
+} 
 ```
 
 
 <h3 id="getcompanycompanyapplicantapplicantratings-responses">Réponses</h3>
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|default|Default|Successful|string|
+|Libellé|Type|Description|
+|---|---|---|
+|id|string|Identifiant|
+|value|string|Valeur|
+|created_at|timestamp|Date de création|
+|updated_at|timestamp|Date de dernière modification|
+|score|string|?|
+|score_tag|string|?|
 
 
 <h1 id="flatchr-api-documentation-response">Réponse</h1>
@@ -1925,7 +2049,7 @@ Créer une réponse à une question.
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
 |applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
-|body|body|[Model_1](#schemamodel_1)|||
+|body|body|[Body](#schemamodel_1)|||
 
 > Exemples de réponses
 
@@ -1933,7 +2057,6 @@ Créer une réponse à une question.
  
 ```
 
-> Réponse par défaut
 
 <h3 id="postapplicantapplicantanswer-responses">Réponses</h3>
 
@@ -2062,11 +2185,18 @@ Créer un tag candidat.
 |---|---|---|---|---|
 |company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
 |applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
-|body|body|[Model_6](#schemamodel_6)|||
+|body|body|[Body](#schemamodel_6)|||
 
 > Exemples de réponses
 
 
+```json
+{
+  "id": "string",
+  "tag_id": "string",
+  "value": "string"
+}
+```
 
 <h3 id="postcompanycompanyapplicantapplicanttrait-responses">Réponses</h3>
 
@@ -2178,8 +2308,25 @@ Obtenir les fichiers liés à un candidat. Pour les commentaires/notes, mails ou
 
 > Exemples de réponses
 
-```
- 
+
+```json
+{
+  "tag": "string",
+  "created_by": "string",
+  "created_at": "string",
+  "author": {
+           "id": "string",
+           "firstname": "string",
+           "lastname": "string",
+           "picture": "string"
+            },
+  "attachment": {
+            "id": "string",
+            "name": "string",
+            "url": "string",
+            "created_at": "date"
+              }
+}
 ```
 
 
@@ -2190,8 +2337,8 @@ Obtenir les fichiers liés à un candidat. Pour les commentaires/notes, mails ou
 |id|integer|Identifiant|
 |created_by|integer|Créateur de la réponse|
 |created_at|timestamp|Date de création du fichier|
-|author|[Model_13](#schemamodel_13)||
-|attachment|[Model_14](#schemamodel_14)||
+|author|[Author](#schemamodel_13)||
+|attachment|[Attachment](#schemamodel_14)||
 
 
 
@@ -2304,12 +2451,28 @@ Ajouter un fichier à un candidat.
 |---|---|---|---|---|
 |company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
 |applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
-|body|body|[Model_5](#schemamodel_5)|||
+|body|body|[Body](#schemamodel_5)|||
 
 > Exemples de réponses
 
-```
- 
+```json
+{
+  "tag": "string",
+  "created_by": "string",
+  "created_at": "string",
+  "author": {
+           "id": "string",
+           "firstname": "string",
+           "lastname": "string",
+           "picture": "string"
+            },
+  "attachment": {
+            "id": "string",
+            "name": "string",
+            "url": "string",
+            "created_at": "date"
+              }
+}
 ```
 
 
@@ -2321,8 +2484,8 @@ Ajouter un fichier à un candidat.
 |id|integer|Identifiant|
 |created_by|integer|Créateur de la réponse|
 |created_at|timestamp|Date de création du fichier|
-|author|[Model_13](#schemamodel_13)||
-|attachment|[Model_14](#schemamodel_14)||
+|author|[Author](#schemamodel_13)||
+|attachment|[Attachment](#schemamodel_14)||
 
 
 
@@ -2424,8 +2587,8 @@ Effacer un fichier lié à candidat.
 
 > Exemples de réponses
 
-```
- 
+```json
+ {"message": "Media deleted"}
 ```
 
 <h3 id="deletecompanycompanyapplicantapplicantmediamedia-responses">Réponses</h3>
@@ -2537,8 +2700,21 @@ Obtenir tous les commentaires sur un candidat.
 
 > Exemples de réponses
 
-```
- 
+```json
+{
+    "author": {
+           "id": "string",
+           "firstname": "string",
+           "lastname": "string",
+           "picture": "string"
+            },
+    "created_at": "date",
+    "created_by": "date",
+    "id": "string",
+    "private": "boolean",
+    "ratings": "query",
+    "text": "string"
+} 
 ```
 
 
@@ -2546,7 +2722,7 @@ Obtenir tous les commentaires sur un candidat.
 
 |Libellé|Obligatoire|Description|
 |---|---|---|
-|author|[Model_13](#schemamodel_13)|Nom de l'auteur du commentaire|
+|author|[Author](#schemamodel_13)||
 |created_at|timestamp|Date de création du commentaire|
 |created_by|integer|Nom du créateur du commentaire|
 |id|integer|Identifiant|
@@ -2672,7 +2848,7 @@ Créer un commentaire à propos d'un candidat.
 |---|---|---|---|---|
 |company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
 |applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
-|body|body|[Model_4](#schemamodel_4)|||
+|body|body|[Body](#schemamodel_4)|||
 
 > Exemples de réponses
 
@@ -2786,8 +2962,8 @@ Effacer un commentaire de candidat.
 
 > Exemples de réponses
 
-```
- 
+```json
+ {"message": "Media deleted"} 
 ```
 
 
@@ -2899,7 +3075,26 @@ Get all messages from a candidate
 
 > Exemples de réponses
 
-```
+```json
+{
+  "id": "string",
+  "created_by": "string",
+  "mail": {
+          "subject": "string",
+          "text": "string",
+          "html": "string",
+          "status": ""
+          },
+  "delivered": "boolean",
+  "deliver_at": "date",
+  "author": {
+           "id": "string",
+           "firstname": "string",
+           "lastname": "string",
+           "picture": "string"
+            },
+  "picture": "string"
+}
  
 ```
 
@@ -2911,10 +3106,10 @@ Get all messages from a candidate
 |id|string|Identifiant|
 |created_by|string|Nom du créateur du message|
 |created_at|timestamp|Date de création du message|
-|mail|[Model_15](#schemamodel_15)||
+|mail|[Mail](#schemamodel_15)||
 |delivered|boolean|Message délivré|
-|deliver_at||Date à laquelle le message a été délivré|
-|author|[Model_13](#schemamodel_13)||
+|deliver_at|timestamp|Date à laquelle le message a été délivré|
+|author|[Author](#schemamodel_13)||
 |picture|string|url de l'image|
 
 
@@ -2922,7 +3117,7 @@ Get all messages from a candidate
 
 # Modèles
 
-<h2 id="tocSmodel_1">Model_1</h2>
+<h2 id="tocSmodel_1">Body</h2>
 
 <a id="schemamodel_1"></a>
 
@@ -2943,14 +3138,14 @@ Get all messages from a candidate
 |type|string|<i class="fas fa-check"></i> |aucune||
 |question|||aucune||
 
-<h2 id="tocSmodel_2">Model_2</h2>
+<h2 id="tocSmodel_2">Body</h2>
 
 <a id="schemamodel_2"></a>
 
 ```json
 {
-  "firstName": "string",
-  "lastName": "string",
+  "firstname": "string",
+  "lastname": "string",
   "email": "string",
   "phone": "string",
   "last_position": "string",
@@ -3002,7 +3197,7 @@ Get all messages from a candidate
 |api_key|string||aucune|Clé API|
 
 
-<h2 id="tocSmodel_3">Model_3</h2>
+<h2 id="tocSmodel_3">Body</h2>
 
 <a id="schemamodel_3"></a>
 
@@ -3027,7 +3222,7 @@ Get all messages from a candidate
 |value|||aucune|contenu|
 |email|boolean||aucune|Email|
 
-<h2 id="tocSmodel_4">Model_4</h2>
+<h2 id="tocSmodel_4">Body</h2>
 
 <a id="schemamodel_4"></a>
 
@@ -3050,7 +3245,7 @@ Get all messages from a candidate
 |mentions|string||aucune|?|
 |private|boolean||aucune|Caractère privé|
 
-<h2 id="tocSmodel_5">Model_5</h2>
+<h2 id="tocSmodel_5">Body</h2>
 
 <a id="schemamodel_5"></a>
 
@@ -3067,7 +3262,7 @@ Get all messages from a candidate
 |---|---|---|---|---|
 |file|string||aucune|Fichier|
 
-<h2 id="tocSmodel_6">Model_6</h2>
+<h2 id="tocSmodel_6">Body</h2>
 
 <a id="schemamodel_6"></a>
 
@@ -3086,7 +3281,7 @@ Get all messages from a candidate
 |tag|string|<i class="fas fa-check"></i> |aucune|Tag|
 |value|string||aucune|Contenu|
 
-<h2 id="tocSmodel_7">Model_7</h2>
+<h2 id="tocSmodel_7">Body</h2>
 
 <a id="schemamodel_7"></a>
 
@@ -3103,7 +3298,7 @@ Get all messages from a candidate
 |---|---|---|---|---|
 |done|boolean|<i class="fas fa-check"></i> |aucune|?|
 
-<h2 id="tocSmodel_8">Model_8</h2>
+<h2 id="tocSmodel_8">Body</h2>
 
 <a id="schemamodel_8"></a>
 
@@ -3112,8 +3307,8 @@ Get all messages from a candidate
   "vacancy_id": "string",
   "column_id": 0,
   "score": 0,
-  "firstName": "string",
-  "lastName": "string",
+  "firstname": "string",
+  "lastname": "string",
   "email": "string",
   "status": 1
 }
@@ -3127,8 +3322,8 @@ Get all messages from a candidate
 |vacancy_id|string||aucune|Identifiant annonce|
 |column_id|integer||aucune|Identifiant colonne|
 |score|integer||aucune|Score|
-|firstName|string||aucune|Prénom|
-|lastName|string||aucune|Nom|
+|firstname|string||aucune|Prénom|
+|lastname|string||aucune|Nom|
 |email|string||aucune|Email|
 |status|integer||aucune|Statut|
 
@@ -3175,15 +3370,14 @@ Get all messages from a candidate
 |activity|string||Domaine d'activité de l'entreprise|
 |channel|string||Secteur du métier|
 |metier|string||Métier|
-|address|[Model_10](#schemamodel_10)|||
+|address|[Address](#schemamodel_10)|||
 |addressFormated|string||?|
-|company|[Model_11](#schemamodel_11)|||
+|company|[Company](#schemamodel_11)|||
 
-<h2 id="tocSmodel_10">Model_10</h2>
+<h2 id="tocSmodel_10">Address</h2>
 
 <a id="schemamodel_10"></a>
 
-*Address*
 
 |Libellé|Type|Obligatoire|Description|
 |---|---|---|---|
@@ -3199,11 +3393,10 @@ Get all messages from a candidate
 |country|string|<i class="fas fa-check"></i> |Pays|
 
 
-<h2 id="tocSmodel_11">Model_11</h2>
+<h2 id="tocSmodel_11">Company</h2>
 
 <a id="schemamodel_11"></a>
 
-*Company*
 
 |Libellé|Type|Description|
 |---|---|---|---|
@@ -3225,11 +3418,10 @@ Get all messages from a candidate
 |created_at|timestamp|Date de création|
 
 
-<h2 id="tocSmodel_12">Model_12</h2>
+<h2 id="tocSmodel_12">Candidate</h2>
 
 <a id="schemamodel_12"></a>
 
-*Candidate*
 
 |Libellé|Type|Description|
 |---|---|---|---|
@@ -3240,11 +3432,9 @@ Get all messages from a candidate
 |cv|string|url|
 |aws|||
 
-<h2 id="tocSmodel_13">Model_13</h2>
+<h2 id="tocSmodel_13">Author</h2>
 
 <a id="schemamodel_13"></a>
-
-*Author*
 
 |Libellé|Type|Description|
 |---|---|---|---|
@@ -3253,11 +3443,10 @@ Get all messages from a candidate
 |lastname|string|Nom de l'auteur|
 |picture|string|url|
 
-<h2 id="tocSmodel_14">Model_14</h2>
+<h2 id="tocSmodel_14">Attachment</h2>
 
 <a id="schemamodel_14"></a>
 
-*Attachment*
 
 |Libellé|Type|Description|
 |---|---|---|---|
@@ -3267,11 +3456,10 @@ Get all messages from a candidate
 |created_at|timestamp||
 
 
-<h2 id="tocSmodel_15">Model_15</h2>
+<h2 id="tocSmodel_15">Mail</h2>
 
 <a id="schemamodel_15"></a>
 
-*Mail*
 
 |Libellé|Type|Description|
 |---|---|---|---|
