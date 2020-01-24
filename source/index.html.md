@@ -2,30 +2,27 @@
 title: Flatchr API Documentation
 language_tabs:
   - shell: Shell
-  - http: HTTP
   - javascript: JavaScript
   - javascript--nodejs: Node.JS
   - ruby: Ruby
   - python: Python
-  - java: Java
-  - go: Go
 toc_footers: []
 includes: []
 search: true
 highlight_theme: darkula
 headingLevel: 2
-
 ---
+
 
 <h1 id="flatchr-api-documentation">Flatchr API Documentation v1.8.2</h1>
 
-> Utiliser le menu de droite pour sélectionner ce qui vous intéresse et reportez-vous à cette section pour des exemples de codes (sélectionnez alors le langage que vous utilisez), des exemples de requêtes et de réponses.
+> Utiliser le menu de droite pour sélectionner le langage qui vous intéresse pour des exemples de code, des exemples de requêtes et de réponses.
 
 ### Généralités
 
 Le site flatchr.io met a disposition un système de récupération d’annonces par API. Les partenaires autorisés peuvent ainsi récupérer leurs annonces et les afficher ailleurs que sur le site <a href="https:flatchr.io/">flatchr.io</a>.
 
-Chaque publication d’annonce implique le décrément d’une unité du crédit (Libellébre d’emplacements libres) du contrat. La publication de l’annonce commence à la date de début de publication et ne s’arrête qu’avec le contrat. En cas de renouvellement du contrat, les annonces en ligne sont prolongées. Pour arrêter la publication d’une annonce, il faut explicitement supprimer (désactiver) la diffusion de cette annonce. Le crédit du contrat est alors re-crédité d’une
+Chaque publication d’annonce implique le décrément d’une unité du crédit (nombre d’emplacements libres) du contrat. La publication de l’annonce commence à la date de début de publication et ne s’arrête qu’avec le contrat. En cas de renouvellement du contrat, les annonces en ligne sont prolongées. Pour arrêter la publication d’une annonce, il faut explicitement supprimer (désactiver) la diffusion de cette annonce. Le crédit du contrat est alors re-crédité d’une
 unité.
 
 Les web services mis en place sont accessibles en REST retournent des réponses JSON ainsi que des statuts http reflétant l’état de l’exécution de la requête sur la plate-forme flatchr.io.
@@ -36,7 +33,7 @@ Les paramètres en entrée et en sortie sont encodés en UTF-8. Il est de la res
 
 ### Sécurité
 
-Un enregistrement sur l'adresse IP est fait. L'API est interrogeable uniquement en https. Avant de commencer...
+Un enregistrement sur l'adresse IP est fait. L'API est interrogeable uniquement en https.
 
 ### Ce que vous devez obtenir auprès de Flatchr
 
@@ -44,20 +41,40 @@ Afin de récupérer vos annonces, vous devez posséder :<br>
 • Un compte Flatchr avec un abonnement en cours valide.<br>
 • Une annonce publiée avec une diffusion sur le « site carrière » actif.
 
-Avant toute mise en place, veuillez valider l’adéquation de ce service et votre mode de fonctionnement avec votre interlocuteur privilégié chez Flatchr <a href="mailto:laura@flatchr.io">Laura</a>.
+Avant toute mise en place, veuillez valider l’adéquation de ce service et votre mode de fonctionnement avec votre interlocuteur Flatchr.
 
 <a href="https://flatchr.io/cgu">Terms of service</a><br>
 <a href="mailto:support@flatchr.io">Support flatchr</a><br>
 
-<h1 id="documentation-wordpress">Documentation WordPress</h1>
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<h1 id="authentification">Identification</h1>
 
-<h1 id="iframe">Iframe</h1>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+<h1 id="iframe">Iframe et WordPress</h1>
 
 Le code à intégrer à votre page varie selon que l'iframe est publique ou en intranet.
 
-## Mise en place Iframe
+## Mise en place iframe (WordPress)
+
+```
+<IFRAME SRC=“HTTPS://CAREERS.FLATCHR.IO/COMPANY/[SLUG]?IFRAME=true” WIDTH=[LARGEUR
+EN PIXELS] HEIGHT=[HAUTEUR EN PIXELS] FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=
+0></IFRAME>
+```
+
+Vous pouvez insérer au sein de votre page le code de votre iframe, bien renseigné (avec url, couleur des boutons, largeur de l'iframe, etc.).
+
+Une offre dans le flux json flatchr existe dans « items->vacancy » et se compose comme ceci : activity, address formatted_address, locality, postal_code, route, addressFormatted, apply_url, channel, company (informations sur l’entreprise), contract_type, created_at, description, driver_license, education_level, end_date, experience, id, mensualité, metier, mission, profile, reference, salary, slug, start_date, status, title, updated_at, vacancy_id.
+
+
+
+## Mise en place iframe
 
 ```
 <IFRAME SRC=“HTTPS://CAREERS.FLATCHR.IO/COMPANY/[SLUG]?IFRAME=true” WIDTH=[LARGEUR
@@ -73,29 +90,29 @@ entreprise. Elle se trouve dans l’URL de votre site carrière (exemple: dans "
 
 Le code iframe a insérer est indiqué ci-contre.
 
-### Paramètres Iframe liste d'annonces
+### Paramètres iframe liste d'annonces
 
 |Libellé|Type|Obligatoire|Description|
 |---|---|---|---|
-|btn_color|hex code|Non|Couleur des boutons|
-|background_color|hex code|Non|Couleur du fond|
-|submit_text|string|Non|Texte sur les boutons|
-|iframe|string|true|Suppression des styles|
+|btn_color|hex code||Couleur des boutons|
+|background_color|hex code||Couleur du fond|
+|submit_text|string||Texte sur les boutons|
+|iframe|string|<i class="fas fa-check"></i>|Suppression des styles|
 
-### Paramètres Iframe annonce
+### Paramètres iframe annonce
 
 |Libellé|Type|Obligatoire|Description|
 |---|---|---|---|
-|btn_color|hex code|Non|Couleur des boutons|
-|background_color|hex code|Non|Couleur du fond|
-|submit_text|string|Non|Texte sur les boutons|
-|disable_email|boolean|Non|Désactive l'email obligatoire|
-|career_redirect_url|url|Non|Url de redirection vers site carrière|
-|response_text|string|Non|Texte de remerciement|
-|iframe|boolean|Non|Suppression des styles|
-|ifram_redirect_url|boolean|Non|Ouverture dans l'iframe|
+|btn_color|hex code||Couleur des boutons|
+|background_color|hex code||Couleur du fond|
+|submit_text|string||Texte sur les boutons|
+|disable_email|boolean||Désactive l'email obligatoire|
+|career_redirect_url|url||Url de redirection vers site carrière|
+|response_text|string||Texte de remerciement|
+|iframe|boolean||Suppression des styles|
+|ifram_redirect_url|boolean||Ouverture dans l'iframe|
 
-## Mise en place Iframe Intranet
+## Mise en place iframe Intranet
 
 ```
 <IFRAME SRC=“[VOTRE URL]?IFRAME=true” WIDTH=[LARGEUR EN PIXELS] HEIGHT=[HAUTEUR
@@ -110,26 +127,32 @@ Le code à insérer indiqué ci-contre.
 
 |Libellé|Type|Obligatoire|Description|
 |---|---|---|---|
-|btn_color|hex code|Non|Couleur des boutons|
-|background_color|hex code|Non|Couleur du fond|
-|submit_text|string|Non|Texte sur les boutons|
-|iframe|string|Oui|Suppression des styles|
+|btn_color|hex code||Couleur des boutons|
+|background_color|hex code||Couleur du fond|
+|submit_text|string||Texte sur les boutons|
+|iframe|string|<i class="fas fa-check"></i> |Suppression des styles|
 
 
 ### Paramètres Iframe annonce
 
 |Libellé|Type|Obligatoire|Description|
 |---|---|---|---|
-|btn_color|hex code|Non|Couleur des boutons|
-|background_color|hex code|Non|Couleur du fond|
-|submit_text|string|Non|Texte sur les boutons|
-|disable_email|boolean|Non|Désactive l'email obligatoire|
-|career_redirect_url|url|Non|Url de redirection vers site carrière|
-|response_text|string|Non|Texte de remerciement|
-|iframe|boolean|Non|Suppression des styles|
-|ifram_redirect_url|boolean|Non|Ouverture dans l'iframe|
+|btn_color|hex code||Couleur des boutons|
+|background_color|hex code||Couleur du fond|
+|submit_text|string||Texte sur les boutons|
+|disable_email|boolean||Désactive l'email obligatoire|
+|career_redirect_url|url||Url de redirection vers site carrière|
+|response_text|string||Texte de remerciement|
+|iframe|boolean||Suppression des styles|
+|ifram_redirect_url|boolean||Ouverture dans l'iframe|
 
 <h1 id="formulaire-de-candidature">Formulaire de candidature</h1>
+
+> Modèle de code
+
+```
+
+```
 
 Le site flatchr.io met à disposition un système de candidature par API.
 
@@ -149,21 +172,21 @@ https://careers.flatchr.io/vacancy/candidate/test
 
 |Libellé|Type|Obligatoire|Description|
 |---|---|---|---|
-|vacancy|string|Oui|Identifiant unique de l’annonce|
-|firstLibellé|string|Oui|PréLibellé /[a-zA-Z]/|
-|lastLibellé|string|Oui|Libellé /[a-zA-Z]/|
-|api_key|string|Oui|Clé API. Elle est créée dans l’interface Flatchr|
-|email|email|Non|Email|
-|phone|integer|Non|Téléphone|
-|last_position|string|Non|Dernier poste|
-|type|string|Non|Permis obligatoire|
-|resume|base64 / hr-xml / url|Oui|Type de format pour le CV: document (si cv base64, default), json(si cv, format hr-xml)|
-|comment|string|Non|Commentaire du candidat|
-|offerer_id|integer|Non|Identifiant Flatchr a demander à l'équipe|
-|urls|object|Non|Lien réseaux sociaux {facebook: string, linkedin: string, twitter: string, other: string}|
-|legalNewsletterPartners|boolean|Non|Opt-in newsletter|
-|similarities|boolean|Non|Retourne offres similaires|
-|response_text|string|Non|Texte de retour|
+|vacancy|string|<i class="fas fa-check"></i> |Identifiant unique de l’annonce|
+|firstName|string|<i class="fas fa-check"></i> |PréLibellé /[a-zA-Z]/|
+|lastName|string|<i class="fas fa-check"></i> |Libellé /[a-zA-Z]/|
+|api_key|string|<i class="fas fa-check"></i> |Clé API. Elle est créée dans l’interface Flatchr|
+|email|email||Email|
+|phone|integer||Téléphone|
+|last_position|string||Dernier poste|
+|type|string||Permis obligatoire|
+|resume|base64 / hr-xml / url|<i class="fas fa-check"></i> |Type de format pour le CV: document (si cv base64, default), json(si cv, format hr-xml)|
+|comment|string||Commentaire du candidat|
+|offerer_id|integer||Identifiant Flatchr a demander à l'équipe|
+|urls|object||Lien réseaux sociaux {facebook: string, linkedin: string, twitter: string, other: string}|
+|legalNewsletterPartners|boolean||Opt-in newsletter|
+|similarities|boolean||Retourne offres similaires|
+|response_text|string||Texte de retour|
 
 <h1 id="recuperation-des-annonces">Récupération des annonces</h1>
 
@@ -176,32 +199,12 @@ Le flux JSON peut être récupéré via une requête http GET sur l’URL suivan
 
 ## Champs
 
-
-|Libellé|Type|Obligatoire|Description|
-|---|---|---|---|
-|id|string|Oui|Clé de la diffusion|
-|published|boolean|Oui|Publication active de l'annonce|
-|created_at|timestamp|Oui|Date de création de la diffusion|
-|vacancy|object|Oui|Détail de l'annonce|
-
-
-## Annonce (vacancy)
-
-<a id="opIdgetVacancyVacancy"></a>
-
 > Extraits de code
 
 ```shell
 # Vous pouvez également utiliser wget
-curl -X GET https://flatchr.io/vacancy/{vacancy} \
+curl -X GET https://flatchr.io/company/[slug].json \
   -H 'Accept: */*'
-
-```
-
-```http
-GET https://flatchr.io/vacancy/{vacancy} HTTP/1.1
-Host: flatchr.io
-Accept: */*
 
 ```
 
@@ -212,7 +215,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'https://flatchr.io/vacancy/{vacancy}',
+  url: 'https://flatchr.io/company/[slug].json',
   method: 'get',
 
   headers: headers,
@@ -231,7 +234,7 @@ const headers = {
 
 };
 
-fetch('https://flatchr.io/vacancy/{vacancy}',
+fetch('https://flatchr.io/company/[slug].json',
 {
   method: 'GET',
 
@@ -253,7 +256,7 @@ headers = {
   'Accept' => '*/*'
 }
 
-result = RestClient.get 'https://flatchr.io/vacancy/{vacancy}',
+result = RestClient.get 'https://flatchr.io/company/[slug].json',
   params: {
   }, headers: headers
 
@@ -267,7 +270,7 @@ headers = {
   'Accept': '*/*'
 }
 
-r = requests.get('https://flatchr.io/vacancy/{vacancy}', params={
+r = requests.get('https://flatchr.io/company/[slug].json', params={
 
 }, headers = headers)
 
@@ -275,277 +278,23 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/vacancy/{vacancy}");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "https://flatchr.io/vacancy/{vacancy}", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-`GET /vacancy/{vacancy}`
-
-
-Récupérer les détails d'une annonce.
-
-<h3 id="getvacancyvacancy-parameters">Paramètres</h3>
-
-|Libellé|In|Type|Obligatoire|Description|
-|---|---|---|---|---|
-|vacancy|path|string|Oui||
-|fields|query|string|Non||
-|similarity|query|boolean|Non||
-
 > Exemples de réponses
 
-> Réponse par défaut
+```
+ 
+```
 
-<h3 id="getvacancyvacancy-responses">Réponses</h3>
-
-|Libellé|Type|Description|
-|---|---|---|---|
-|id|string|Clé de l'annonce|
-|slug|string|Identifiant unique|
-|reference|string|Référence interne|
-|title|string|Titre|
-|description|text|Description du poste|
-|mission|text|Mission du poste|
-|profile|text|Profil du poste|
-|driver_license|boolean|Permis obligatoire|
-|experience|integer|Année d'experience|
-|contract_type|string|Contrat|
-|education_level|string|Niveau d'éducation|
-|activity|string|Activité du poste|
-
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
-
-## Adresse (address)
 
 |Libellé|Type|Obligatoire|Description|
 |---|---|---|---|
-|location_lat|decimal|Oui|Coordonnées GPS latitude|
-|location_lng|decimal|Oui|Coordonnées GPS longitude|
-|postal_code|integer|Oui|Code Postal|
-|route|string|Oui|Rue|
-|street_number|integer|Oui|Numéro de rue|
-|locality|string|Oui|Ville|
-|administrative_area_level_1|string|Oui|Département|
-|administrative_area_level_2|string|Oui|Région|
-|formatted_address|string|Oui|Adresse complète|
-|country|string|Oui|Pays|
+|id|string|<i class="fas fa-check"></i> |Clé de la diffusion|
+|offer_id|integer|<i class="fas fa-check"></i> |Identifiant offre jobboard |
+|created_at|timestamp|<i class="fas fa-check"></i> |Date de création de la diffusion|
+|vacancy|[Vacancy](#schemamodel_9)|<i class="fas fa-check"></i> |Détail de l'annonce|
+|vacancy_id|integer|<i class="fas fa-check"></i> |Identifiant de l'annonce|
 
 
-## Entreprise (company)
 
-<a id="opIdgetCompanyCompanyVacancyVacancy"></a>
-
-> Extraits de code
-
-```shell
-# Vous pouvez également utiliser wget
-curl -X GET https://flatchr.io/company/{company}/vacancy/{vacancy} \
-  -H 'Accept: */*'
-
-```
-
-```http
-GET https://flatchr.io/company/{company}/vacancy/{vacancy} HTTP/1.1
-Host: flatchr.io
-Accept: */*
-
-```
-
-```javascript
-var headers = {
-  'Accept':'*/*'
-
-};
-
-$.ajax({
-  url: 'https://flatchr.io/company/{company}/vacancy/{vacancy}',
-  method: 'get',
-
-  headers: headers,
-  success: function(data) {
-    console.log(JSON.stringify(data));
-  }
-})
-
-```
-
-```javascript--nodejs
-const fetch = require('node-fetch');
-
-const headers = {
-  'Accept':'*/*'
-
-};
-
-fetch('https://flatchr.io/company/{company}/vacancy/{vacancy}',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => '*/*'
-}
-
-result = RestClient.get 'https://flatchr.io/company/{company}/vacancy/{vacancy}',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
-
-```python
-import requests
-headers = {
-  'Accept': '*/*'
-}
-
-r = requests.get('https://flatchr.io/company/{company}/vacancy/{vacancy}', params={
-
-}, headers = headers)
-
-print r.json()
-
-```
-
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/vacancy/{vacancy}");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "https://flatchr.io/company/{company}/vacancy/{vacancy}", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-`GET /company/{company}/vacancy/{vacancy}`
-
-Récupérer des informations sur l'entreprise de l'annonce.
-
-<h3 id="getcompanycompanyvacancyvacancy-parameters">Paramètres</h3>
-
-|Libellé|In|Type|Obligatoire|Description|
-|---|---|---|---|---|
-|company|path|string|Oui||
-|vacancy|path|string|Oui||
-|fields|query|string|Non||
-
-> Exemples de réponses
-
-> Réponse par défaut
-
-<h3 id="getcompanycompanyvacancyvacancy-responses">Réponses</h3>
-
-|Libellé|Type|Description|
-|---|---|---|---|
-|id|string|Clé de l'entreprise|
-|Libellé|string|DéLibelléination|
-|description|string|Description de l'entreprise|
-|slug|string|Identifiant unique|
-|size|integer|Libellébre d'employés|
-|email|string|E-mail de contact|
-|web|string|Site web|
-|phone|string|Téléphone|
-|status|integer|Status|
-|siren|string|Code SIREN|
-|vat_number|string|Numéro de TVA|
-|activity|string|Activité|
-|logo|string|Logo|
-|retention_policy|string|Mentions légales pour postuler|
-|address|string|Adresse de l'entreprise|
-|created_at|timestamp|Date de création|
-
-
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
 
 <h1 id="flatchr-api-documentation-tasks">Tâches (tasks)</h1>
 
@@ -559,13 +308,6 @@ Cette opération ne requiert pas d'authentification
 # Vous pouvez également utiliser wget
 curl -X GET https://flatchr.io/company/{company}/tasks \
   -H 'Accept: */*'
-
-```
-
-```http
-GET https://flatchr.io/company/{company}/tasks HTTP/1.1
-Host: flatchr.io
-Accept: */*
 
 ```
 
@@ -639,66 +381,27 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/tasks");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
 
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "https://flatchr.io/company/{company}/tasks", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
 
 `GET /company/{company}/tasks`
 
 
-Obtenir toutes les tâches d'un utilisateur.
+Obtenir toutes les tâches d'une entreprise.
 
 <h3 id="getcompanycompanytasks-parameters">Paramètres</h3>
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|company|path|string|Oui||
-|fields|query|string|Non||
-|date|query|string(date)|Non||
-|delay|query|number|Non||
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|date|query|string(date)||Date à partir de laquelle obtenir les tâches|
+|delay|query|number||Sur quelle durée obtenir les tâches|
 
 > Exemples de réponses
 
-> Réponse par défaut
+```
+
+```
+
 
 <h3 id="getcompanycompanytasks-responses">Réponses</h3>
 
@@ -709,10 +412,6 @@ Obtenir toutes les tâches d'un utilisateur.
 |done|boolean|Indique si la tâche a été effectuée|
 |id|string|Identifiant unique de la tâche|
 |type|string|Type de tâche|
-
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
 
 ## POST
 
@@ -725,14 +424,6 @@ Cette opération ne requiert pas d'authentification
 curl -X POST https://flatchr.io/company/{company}/task/user/{user} \
   -H 'Content-Type: application/json' \
   -H 'Accept: */*'
-
-```
-
-```http
-POST https://flatchr.io/company/{company}/task/user/{user} HTTP/1.1
-Host: flatchr.io
-Content-Type: application/json
-Accept: */*
 
 ```
 
@@ -817,49 +508,6 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/task/user/{user}");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://flatchr.io/company/{company}/task/user/{user}", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
 
 `POST /company/{company}/task/user/{user}`
 
@@ -882,13 +530,16 @@ Créer une tâche d'utilisateur.
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|company|path|string|true||
-|user|path|string|true||
-|body|body|[Model_3](#schemamodel_3)|Non||
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|user|path|string|<i class="fas fa-check"></i> |Nom de l'utilisateur|
+|body|body|[Model_3](#schemamodel_3)|||
 
 > Exemples de réponses
 
-> Réponse par défaut
+```
+
+```
+
 
 <h3 id="postcompanycompanytaskuseruser-responses">Réponses</h3>
 
@@ -900,9 +551,7 @@ Créer une tâche d'utilisateur.
 |id|string|Identifiant unique de la tâche|
 |type|string|Type de tâche|
 
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
+
 
 ## DELETE
 
@@ -914,13 +563,6 @@ Cette opération ne requiert pas d'authentification
 # Vous pouvez également utiliser wget
 curl -X DELETE https://flatchr.io/company/{company}/task/{task} \
   -H 'Accept: */*'
-
-```
-
-```http
-DELETE https://flatchr.io/company/{company}/task/{task} HTTP/1.1
-Host: flatchr.io
-Accept: */*
 
 ```
 
@@ -994,48 +636,6 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/task/{task}");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("DELETE");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("DELETE", "https://flatchr.io/company/{company}/task/{task}", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
 
 `DELETE /company/{company}/task/{task}`
 
@@ -1045,12 +645,15 @@ Effacer une tâche d'utilisateur.
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|company|path|string|Oui||
-|task|path|string|Oui||
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|task|path|string|<i class="fas fa-check"></i> |Nom de la tâche|
 
 > Exemples de réponses
 
-> Réponse par défaut
+```
+ 
+```
+
 
 <h3 id="deletecompanycompanytasktask-responses">Réponses</h3>
 
@@ -1058,9 +661,7 @@ Effacer une tâche d'utilisateur.
 |---|---|---|---|
 |default|Default|Successful|string|
 
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
+
 
 ## PUT
 
@@ -1073,14 +674,6 @@ Cette opération ne requiert pas d'authentification
 curl -X PUT https://flatchr.io/company/{company}/task/{task} \
   -H 'Content-Type: application/json' \
   -H 'Accept: */*'
-
-```
-
-```http
-PUT https://flatchr.io/company/{company}/task/{task} HTTP/1.1
-Host: flatchr.io
-Content-Type: application/json
-Accept: */*
 
 ```
 
@@ -1160,49 +753,6 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/task/{task}");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("PUT");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("PUT", "https://flatchr.io/company/{company}/task/{task}", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
 
 `PUT /company/{company}/task/{task}`
 
@@ -1220,13 +770,17 @@ Mettre à jour ou modifier une tâche d'utilisateur.
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|company|path|string|Oui||
-|task|path|string|Oui||
-|body|body|[Model_7](#schemamodel_7)|Non||
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|task|path|string|<i class="fas fa-check"></i> |Nom de la tâche|
+|body|body|[Model_7](#schemamodel_7)|||
 
 > Exemples de réponses
 
-> Réponse par défaut
+```
+ 
+```
+
+
 
 <h3 id="putcompanycompanytasktask-responses">Réponses</h3>
 
@@ -1238,11 +792,9 @@ Mettre à jour ou modifier une tâche d'utilisateur.
 |id|string|Identifiant unique de la tâche|
 |type|string|Type de tâche|
 
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
 
-<h1 id="flatchr-api-documentation-members">Utilisateurs (members)</h1>
+
+<h1 id="flatchr-api-documentation-members">Calendriers (calendars)</h1>
 
 ## GET
 
@@ -1254,13 +806,6 @@ Cette opération ne requiert pas d'authentification
 # Vous pouvez également utiliser wget
 curl -X GET https://flatchr.io/company/{company}/calendars \
   -H 'Accept: */*'
-
-```
-
-```http
-GET https://flatchr.io/company/{company}/calendars HTTP/1.1
-Host: flatchr.io
-Accept: */*
 
 ```
 
@@ -1334,62 +879,25 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/calendars");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
 
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "https://flatchr.io/company/{company}/calendars", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
 
 `GET /company/{company}/calendars`
 
-Obtenir tous les évènements d'un calendrier d'un utilisateur.
+Obtenir tous les évènements d'un calendrier d'une entreprise.
 
 <h3 id="getcompanycompanycalendars-parameters">Paramètres</h3>
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|company|path|string|Oui||
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
 
 > Exemples de réponses
 
-> Réponse par défaut
+```
+ 
+```
+
+
 
 <h3 id="getcompanycompanycalendars-responses">Réponses</h3>
 
@@ -1397,9 +905,116 @@ Obtenir tous les évènements d'un calendrier d'un utilisateur.
 |---|---|---|---|
 |default|Default|Successful|string|
 
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
+
+## GET
+
+<a id="opIdgetCompanyCompanyApplicantApplicantCalendars"></a>
+
+> Extraits de code
+
+```shell
+# Vous pouvez également utiliser wget
+curl -X GET https://flatchr.io/company/{company}/applicant/{applicant}/calendars \
+  -H 'Accept: */*'
+
+```
+
+
+```javascript
+var headers = {
+  'Accept':'*/*'
+
+};
+
+$.ajax({
+  url: 'https://flatchr.io/company/{company}/applicant/{applicant}/calendars',
+  method: 'get',
+
+  headers: headers,
+  success: function(data) {
+    console.log(JSON.stringify(data));
+  }
+})
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'*/*'
+
+};
+
+fetch('https://flatchr.io/company/{company}/applicant/{applicant}/calendars',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => '*/*'
+}
+
+result = RestClient.get 'https://flatchr.io/company/{company}/applicant/{applicant}/calendars',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': '*/*'
+}
+
+r = requests.get('https://flatchr.io/company/{company}/applicant/{applicant}/calendars', params={
+
+}, headers = headers)
+
+print r.json()
+
+```
+
+
+`GET /company/{company}/applicant/{applicant}/calendars`
+
+Obtenir tous les évènements d'un calendrier d'un candidat.
+
+<h3 id="getcompanycompanyapplicantapplicantcalendars-parameters">Paramètres</h3>
+
+|Libellé|In|Type|Obligatoire|Description|
+|---|---|---|---|---|
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
+
+> Exemples de réponses
+
+```
+ 
+```
+
+
+<h3 id="getcompanycompanyapplicantapplicantcalendars-responses">Réponses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|default|Default|Successful|string|
+
 
 <h1 id="flatchr-api-documentation-applicants">Candidats CVthèque (applicants)</h1>
 
@@ -1413,13 +1028,6 @@ Cette opération ne requiert pas d'authentification
 # Vous pouvez également utiliser wget
 curl -X GET https://flatchr.io/company/{company}/search/applicants \
   -H 'Accept: */*'
-
-```
-
-```http
-GET https://flatchr.io/company/{company}/search/applicants HTTP/1.1
-Host: flatchr.io
-Accept: */*
 
 ```
 
@@ -1493,88 +1101,47 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/search/applicants");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "https://flatchr.io/company/{company}/search/applicants", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
 
 `GET /company/{company}/search/applicants`
 
-Chercher un candidat dans la CVthèque.
+Chercher un candidat dans la CVthèque ?
 
 <h3 id="getcompanycompanysearchapplicants-parameters">Paramètres</h3>
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|company|path|string|Oui||
-|term|query|string|Non||
-|email|query|string|Non||
-|vacancy|query|number|Non||
-|column|query|number|Non||
-|status|query|number|Non||
-|offerer|query|number|Non||
-|tag|query|string|Non||
-|start|query|string|Non||
-|end|query|string|Non||
-|p|query|number|Non||
-|limit|query|number|Non||
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|term|query|string||?|
+|email|query|string||E-mail du candidat|
+|vacancy|query|number||Annonce|
+|column|query|number||Nom de la colonne concernée|
+|status|query|number||Statut du candidat|
+|offerer|query|number||Numéro de l'offre|
+|tag|query|string||Nom du tag|
+|start|query|string||Date de début à partir de laquelle chercher|
+|end|query|string||Date de fin|
+|p|query|number||?|
+|limit|query|number||?|
 
 > Exemples de réponses
 
-> Réponse par défaut
+```
+ 
+```
+
 
 <h3 id="getcompanycompanysearchapplicants-responses">Réponses</h3>
 
 |Libellé|Type|Description|
 |---|---|---|---|
-|vacancy|string||
-|column|string||
-|firstname|string||
-|lastname|string||
-|created_at|timestamp||
-|source|string||
+|vacancy|string|Annonce|
+|column|string|Colonne concernée|
+|firstname|string|Prénom du candidat|
+|lastname|string|Nom du candidat|
+|created_at|timestamp|Date de la création du candidat|
+|source|string|Origine du candidat|
 
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
+
 
 ## GET
 
@@ -1589,12 +1156,6 @@ curl -X GET https://flatchr.io/company/{company}/applicant/{applicant} \
 
 ```
 
-```http
-GET https://flatchr.io/company/{company}/applicant/{applicant} HTTP/1.1
-Host: flatchr.io
-Accept: */*
-
-```
 
 ```javascript
 var headers = {
@@ -1666,48 +1227,7 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/applicant/{applicant}");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
 
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "https://flatchr.io/company/{company}/applicant/{applicant}", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
 
 `GET /company/{company}/applicant/{applicant}`
 
@@ -1717,11 +1237,14 @@ Obtenir des informations sur un candidat de la CVthèque.
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|company|path|string|Oui||
-|applicant|path|string|Oui||
-|fields|query|string|Non||
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
 
 > Exemples de réponses
+
+```
+ 
+```
 
 > Réponse par défaut
 
@@ -1729,27 +1252,22 @@ Obtenir des informations sur un candidat de la CVthèque.
 
 |Libellé|Type|Description|
 |---|---|---|
-|id|string||
-|vacancy_id|string||
-|column_id|integer||
-|score|integer||
-|comment|string||
-|created_at|integer||
-|status|integer||
-|seen|boolean||
-|candidate/email|string||
-|canidate/firstname|string||
-|candidate/phone|||
-|candidate/cv|string|url|
-|foreigner|boolean||
-|count_message|integer||
-|count_message_new|boolean||
-|count_comment|integer||
-|count_comment_new|boolean||
+|id|string|Identifiant|
+|vacancy_id|string|Identifiant de l'annonce|
+|column_id|integer|Identifiant de la colonne|
+|score|integer|Score du candidat|
+|comment|string|Commentaire sur le candidat|
+|created_at|integer|Date de création|
+|status|integer|Statut du candidat|
+|seen|boolean|?|
+|candidate|[Model_12](#schemamodel_12)|Détails candidats|
+|foreigner|boolean|Candidat de nationalité étrangère|
+|count_message|integer|?|
+|count_message_new|boolean|?|
+|count_comment|integer|?|
+|count_comment_new|boolean|?|
 
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
+
 
 ## POST
 
@@ -1765,13 +1283,6 @@ curl -X POST https://flatchr.io/vacancy/{vacancy}/candidate \
 
 ```
 
-```http
-POST https://flatchr.io/vacancy/{vacancy}/candidate HTTP/1.1
-Host: flatchr.io
-Content-Type: application/json
-Accept: */*
-
-```
 
 ```javascript
 var headers = {
@@ -1795,8 +1306,8 @@ $.ajax({
 ```javascript--nodejs
 const fetch = require('node-fetch');
 const inputBody = '{
-  "firstLibellé": "string",
-  "lastLibellé": "string",
+  "firstName": "string",
+  "lastName": "string",
   "email": "string",
   "phone": "string",
   "last_position": "string",
@@ -1872,49 +1383,6 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/vacancy/{vacancy}/candidate");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://flatchr.io/vacancy/{vacancy}/candidate", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
 
 `POST /vacancy/{vacancy}/candidate`
 
@@ -1924,8 +1392,8 @@ Créer un nouveau candidat dans la CVthèque.
 
 ```json
 {
-  "firstLibellé": "string",
-  "lastLibellé": "string",
+  "firstName": "string",
+  "lastName": "string",
   "email": "string",
   "phone": "string",
   "last_position": "string",
@@ -1955,12 +1423,15 @@ Créer un nouveau candidat dans la CVthèque.
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|vacancy|path|string|Oui||
-|body|body|[Model_2](#schemamodel_2)|Non||
+|vacancy|path|string|<i class="fas fa-check"></i> |Annonce|
+|body|body|[Model_2](#schemamodel_2)|||
 
 > Exemples de réponses
 
-> Réponse par défaut
+```
+ 
+```
+
 
 <h3 id="postvacancyvacancycandidate-responses">Réponses</h3>
 
@@ -1970,9 +1441,7 @@ Créer un nouveau candidat dans la CVthèque.
 |status|integer||
 |anonym|boolean||
 
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
+
 
 ## DELETE
 
@@ -1984,13 +1453,6 @@ Cette opération ne requiert pas d'authentification
 # Vous pouvez également utiliser wget
 curl -X DELETE https://flatchr.io/company/{company}/vacancy/{vacancy}/applicant/{applicant} \
   -H 'Accept: */*'
-
-```
-
-```http
-DELETE https://flatchr.io/company/{company}/vacancy/{vacancy}/applicant/{applicant} HTTP/1.1
-Host: flatchr.io
-Accept: */*
 
 ```
 
@@ -2064,48 +1526,6 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/vacancy/{vacancy}/applicant/{applicant}");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("DELETE");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("DELETE", "https://flatchr.io/company/{company}/vacancy/{vacancy}/applicant/{applicant}", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
 
 `DELETE /company/{company}/vacancy/{vacancy}/applicant/{applicant}`
 
@@ -2115,14 +1535,17 @@ Effacer un candidat de la CVthèque.
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|company|path|string|Oui||
-|vacancy|path|string|Oui||
-|applicant|path|string|Oui||
-|disable_mail|query|boolean|Non||
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|vacancy|path|string|<i class="fas fa-check"></i> |Annonce|
+|applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
+|disable_mail|query|boolean||Désactiver l'e-mail obligatoire|
 
 > Exemples de réponses
 
-> Réponse par défaut
+```
+ 
+```
+
 
 <h3 id="deletecompanycompanyvacancyvacancyapplicantapplicant-responses">Réponses</h3>
 
@@ -2130,9 +1553,7 @@ Effacer un candidat de la CVthèque.
 |---|---|---|---|
 |default|Default|Successful|string|
 
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
+
 
 ## PUT
 
@@ -2145,14 +1566,6 @@ Cette opération ne requiert pas d'authentification
 curl -X PUT https://flatchr.io/company/{company}/vacancy/{vacancy}/applicant/{applicant} \
   -H 'Content-Type: application/json' \
   -H 'Accept: */*'
-
-```
-
-```http
-PUT https://flatchr.io/company/{company}/vacancy/{vacancy}/applicant/{applicant} HTTP/1.1
-Host: flatchr.io
-Content-Type: application/json
-Accept: */*
 
 ```
 
@@ -2181,8 +1594,8 @@ const inputBody = '{
   "vacancy_id": "string",
   "column_id": 0,
   "score": 0,
-  "firstLibellé": "string",
-  "lastLibellé": "string",
+  "firstName": "string",
+  "lastName": "string",
   "email": "string",
   "status": 1
 }';
@@ -2238,49 +1651,6 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/vacancy/{vacancy}/applicant/{applicant}");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("PUT");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("PUT", "https://flatchr.io/company/{company}/vacancy/{vacancy}/applicant/{applicant}", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
 
 `PUT /company/{company}/vacancy/{vacancy}/applicant/{applicant}`
 
@@ -2293,8 +1663,8 @@ Modifier les informations d'un candidat de la CVthèque.
   "vacancy_id": "string",
   "column_id": 0,
   "score": 0,
-  "firstLibellé": "string",
-  "lastLibellé": "string",
+  "firstName": "string",
+  "lastName": "string",
   "email": "string",
   "status": 1
 }
@@ -2304,15 +1674,19 @@ Modifier les informations d'un candidat de la CVthèque.
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|company|path|string|Oui||
-|vacancy|path|string|Oui||
-|applicant|path|string|Oui||
-|disable_mail|query|boolean|Non||
-|body|body|[Model_8](#schemamodel_8)|Non||
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|vacancy|path|string|<i class="fas fa-check"></i> |Annonce|
+|applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
+|disable_mail|query|boolean||Désactiver l'e-mail obligatoire|
+|body|body|[Model_8](#schemamodel_8)|||
 
 > Exemples de réponses
 
-> Réponse par défaut
+```
+ 
+```
+
+
 
 <h3 id="putcompanycompanyvacancyvacancyapplicantapplicant-responses">Réponses</h3>
 
@@ -2320,169 +1694,11 @@ Modifier les informations d'un candidat de la CVthèque.
 |---|---|---|---|
 |default|Default|Successful|string|
 
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
 
-<h1 id="flatchr-api-documentation-traits">Traits</h1>
 
-## GET
+<h1 id="flatchr-api-documentation-ratings">Evaluation</h1>
 
-<a id="opIdgetCompanyCompanyApplicantApplicantCalendars"></a>
 
-> Extraits de code
-
-```shell
-# Vous pouvez également utiliser wget
-curl -X GET https://flatchr.io/company/{company}/applicant/{applicant}/calendars \
-  -H 'Accept: */*'
-
-```
-
-```http
-GET https://flatchr.io/company/{company}/applicant/{applicant}/calendars HTTP/1.1
-Host: flatchr.io
-Accept: */*
-
-```
-
-```javascript
-var headers = {
-  'Accept':'*/*'
-
-};
-
-$.ajax({
-  url: 'https://flatchr.io/company/{company}/applicant/{applicant}/calendars',
-  method: 'get',
-
-  headers: headers,
-  success: function(data) {
-    console.log(JSON.stringify(data));
-  }
-})
-
-```
-
-```javascript--nodejs
-const fetch = require('node-fetch');
-
-const headers = {
-  'Accept':'*/*'
-
-};
-
-fetch('https://flatchr.io/company/{company}/applicant/{applicant}/calendars',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => '*/*'
-}
-
-result = RestClient.get 'https://flatchr.io/company/{company}/applicant/{applicant}/calendars',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
-
-```python
-import requests
-headers = {
-  'Accept': '*/*'
-}
-
-r = requests.get('https://flatchr.io/company/{company}/applicant/{applicant}/calendars', params={
-
-}, headers = headers)
-
-print r.json()
-
-```
-
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/applicant/{applicant}/calendars");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "https://flatchr.io/company/{company}/applicant/{applicant}/calendars", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-`GET /company/{company}/applicant/{applicant}/calendars`
-
-Obtenir tous les évènements d'un calendrier d'un candidat.
-
-<h3 id="getcompanycompanyapplicantapplicantcalendars-parameters">Paramètres</h3>
-
-|Libellé|In|Type|Obligatoire|Description|
-|---|---|---|---|---|
-|company|path|string|Oui||
-|applicant|path|string|Oui||
-
-> Exemples de réponses
-
-> Réponse par défaut
-
-<h3 id="getcompanycompanyapplicantapplicantcalendars-responses">Réponses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|default|Default|Successful|string|
-
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
 
 ## GET
 
@@ -2494,13 +1710,6 @@ Cette opération ne requiert pas d'authentification
 # Vous pouvez également utiliser wget
 curl -X GET https://flatchr.io/company/{company}/applicant/{applicant}/ratings \
   -H 'Accept: */*'
-
-```
-
-```http
-GET https://flatchr.io/company/{company}/applicant/{applicant}/ratings HTTP/1.1
-Host: flatchr.io
-Accept: */*
 
 ```
 
@@ -2574,48 +1783,6 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/applicant/{applicant}/ratings");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "https://flatchr.io/company/{company}/applicant/{applicant}/ratings", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
 
 `GET /company/{company}/applicant/{applicant}/ratings`
 
@@ -2626,13 +1793,15 @@ Obtenir les évaluations d'un candidat.
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|company|path|string|Oui||
-|applicant|path|string|Oui||
-|fields|query|string|Non||
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
 
 > Exemples de réponses
 
-> Réponse par défaut
+```
+ 
+```
+
 
 <h3 id="getcompanycompanyapplicantapplicantratings-responses">Réponses</h3>
 
@@ -2640,9 +1809,8 @@ Obtenir les évaluations d'un candidat.
 |---|---|---|---|
 |default|Default|Successful|string|
 
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
+
+<h1 id="flatchr-api-documentation-response">Réponse</h1>
 
 ## POST
 
@@ -2658,13 +1826,6 @@ curl -X POST https://flatchr.io/applicant/{applicant}/answer \
 
 ```
 
-```http
-POST https://flatchr.io/applicant/{applicant}/answer HTTP/1.1
-Host: flatchr.io
-Content-Type: application/json
-Accept: */*
-
-```
 
 ```javascript
 var headers = {
@@ -2744,49 +1905,6 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/applicant/{applicant}/answer");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://flatchr.io/applicant/{applicant}/answer", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
 
 `POST /applicant/{applicant}/answer`
 
@@ -2806,10 +1924,14 @@ Créer une réponse à une question.
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|applicant|path|string|Oui||
-|body|body|[Model_1](#schemamodel_1)|Non||
+|applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
+|body|body|[Model_1](#schemamodel_1)|||
 
 > Exemples de réponses
+
+```
+ 
+```
 
 > Réponse par défaut
 
@@ -2819,9 +1941,7 @@ Créer une réponse à une question.
 |---|---|---|---|
 |default|Default|Successful|string|
 
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
+<h1 id="flatchr-api-documentation-tag">Tag</h1>
 
 ## POST
 
@@ -2922,49 +2042,6 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/applicant/{applicant}/trait");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://flatchr.io/company/{company}/applicant/{applicant}/trait", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
 
 `POST /company/{company}/applicant/{applicant}/trait`
 
@@ -2983,26 +2060,23 @@ Créer un tag candidat.
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|company|path|string|Oui||
-|applicant|path|string|Oui||
-|body|body|[Model_6](#schemamodel_6)|Non||
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
+|body|body|[Model_6](#schemamodel_6)|||
 
 > Exemples de réponses
 
-> Réponse par défaut
+
 
 <h3 id="postcompanycompanyapplicantapplicanttrait-responses">Réponses</h3>
 
 |Libellé|Type|Description|
 |---|---|---|
-|id|string||
-|tag_id|string||
-|value|string||
+|id|string|Identifiant|
+|tag_id|string|Identifiant du tag|
+|value|string|Contenu|
 
 
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
 
 <h1 id="flatchr-api-documentation-medias">Fichiers (medias)</h1>
 
@@ -3016,13 +2090,6 @@ Cette opération ne requiert pas d'authentification
 # Vous pouvez également utiliser wget
 curl -X GET https://flatchr.io/company/{company}/applicant/{applicant}/medias \
   -H 'Accept: */*'
-
-```
-
-```http
-GET https://flatchr.io/company/{company}/applicant/{applicant}/medias HTTP/1.1
-Host: flatchr.io
-Accept: */*
 
 ```
 
@@ -3096,48 +2163,7 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/applicant/{applicant}/medias");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
 
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "https://flatchr.io/company/{company}/applicant/{applicant}/medias", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
 
 `GET /company/{company}/applicant/{applicant}/medias`
 
@@ -3147,33 +2173,27 @@ Obtenir les fichiers liés à un candidat. Pour les commentaires/notes, mails ou
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|company|path|string|Oui||
-|applicant|path|string|Oui||
-|fields|query|string|Non||
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
 
 > Exemples de réponses
 
-> Réponse par défaut
+```
+ 
+```
+
 
 <h3 id="getcompanycompanyapplicantapplicantmedias-responses">Réponses</h3>
 
 |Libellé|Type|Description|
 |---|---|---|
-|id|integer||
-|created_by|integer||
-|created_at|timestamp||
-|author/id|string||
-|author/firstname|string||
-|author/lastname|string||
-|author/picture|string|url|
-|attachment/id|string||
-|attachment/name|string||
-|attachment/url|string||
-|attachment/created_at|timestamp||
+|id|integer|Identifiant|
+|created_by|integer|Créateur de la réponse|
+|created_at|timestamp|Date de création du fichier|
+|author|[Model_13](#schemamodel_13)||
+|attachment|[Model_14](#schemamodel_14)||
 
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
+
 
 ## POST
 
@@ -3186,14 +2206,6 @@ Cette opération ne requiert pas d'authentification
 curl -X POST https://flatchr.io/company/{company}/applicant/{applicant}/media \
   -H 'Content-Type: application/json' \
   -H 'Accept: */*'
-
-```
-
-```http
-POST https://flatchr.io/company/{company}/applicant/{applicant}/media HTTP/1.1
-Host: flatchr.io
-Content-Type: application/json
-Accept: */*
 
 ```
 
@@ -3273,49 +2285,6 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/applicant/{applicant}/media");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://flatchr.io/company/{company}/applicant/{applicant}/media", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
 
 `POST /company/{company}/applicant/{applicant}/media`
 
@@ -3333,33 +2302,29 @@ Ajouter un fichier à un candidat.
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|company|path|string|Oui||
-|applicant|path|string|Oui||
-|body|body|[Model_5](#schemamodel_5)|Non||
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
+|body|body|[Model_5](#schemamodel_5)|||
 
 > Exemples de réponses
 
-> Réponse par défaut
+```
+ 
+```
+
+
 
 <h3 id="postcompanycompanyapplicantapplicantmedia-responses">Réponses</h3>
 
 |Libellé|Type|Description|
 |---|---|---|
-|id|integer||
-|created_by|integer||
-|created_at|timestamp||
-|author/id|string||
-|author/firstname|string||
-|author/lastname|string||
-|author/picture|string|url|
-|attachment/id|string||
-|attachment/name|string||
-|attachment/url|string||
-|attachment/created_at|timestamp||
+|id|integer|Identifiant|
+|created_by|integer|Créateur de la réponse|
+|created_at|timestamp|Date de création du fichier|
+|author|[Model_13](#schemamodel_13)||
+|attachment|[Model_14](#schemamodel_14)||
 
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
+
 
 ## DELETE
 
@@ -3371,13 +2336,6 @@ Cette opération ne requiert pas d'authentification
 # Vous pouvez également utiliser wget
 curl -X DELETE https://flatchr.io/company/{company}/applicant/{applicant}/media/{media} \
   -H 'Accept: */*'
-
-```
-
-```http
-DELETE https://flatchr.io/company/{company}/applicant/{applicant}/media/{media} HTTP/1.1
-Host: flatchr.io
-Accept: */*
 
 ```
 
@@ -3451,64 +2409,24 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/applicant/{applicant}/media/{media}");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("DELETE");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("DELETE", "https://flatchr.io/company/{company}/applicant/{applicant}/media/{media}", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
 
 `DELETE /company/{company}/applicant/{applicant}/media/{media}`
 
-Efface un fichier lié à candidat.
+Effacer un fichier lié à candidat.
 
 <h3 id="deletecompanycompanyapplicantapplicantmediamedia-parameters">Paramètres</h3>
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|company|path|string|Oui||
-|applicant|path|string|Oui||
-|media|path|integer|Oui||
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
+|media|path|integer|<i class="fas fa-check"></i> |Fichier|
 
 > Exemples de réponses
 
-> Réponse par défaut
+```
+ 
+```
 
 <h3 id="deletecompanycompanyapplicantapplicantmediamedia-responses">Réponses</h3>
 
@@ -3516,9 +2434,7 @@ Efface un fichier lié à candidat.
 |---|---|---|---|
 |default|Default|Successful|string|
 
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
+
 
 <h1 id="flatchr-api-documentation-comments">Notes (comments)</h1>
 
@@ -3535,12 +2451,6 @@ curl -X GET https://flatchr.io/company/{company}/applicant/{applicant}/comments 
 
 ```
 
-```http
-GET https://flatchr.io/company/{company}/applicant/{applicant}/comments HTTP/1.1
-Host: flatchr.io
-Accept: */*
-
-```
 
 ```javascript
 var headers = {
@@ -3612,48 +2522,7 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/applicant/{applicant}/comments");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
 
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "https://flatchr.io/company/{company}/applicant/{applicant}/comments", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
 
 `GET /company/{company}/applicant/{applicant}/comments`
 
@@ -3663,32 +2532,29 @@ Obtenir tous les commentaires sur un candidat.
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|company|path|string|Oui||
-|applicant|path|string|Oui||
-|fields|query|string|Non||
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
 
 > Exemples de réponses
 
-> Réponse par défaut
+```
+ 
+```
+
 
 <h3 id="getcompanycompanyapplicantapplicantcomments-responses">Réponses</h3>
 
 |Libellé|Obligatoire|Description|
 |---|---|---|
-|author/id|string||
-|author/firstname|string||
-|author/lastname|string||
-|author/picture|string|url|
-|created_at|timestamp||
-|created_by|integer||
-|id|integer||
-|private|boolean||
-|ratings|query||
-|text|string||
+|author|[Model_13](#schemamodel_13)|Nom de l'auteur du commentaire|
+|created_at|timestamp|Date de création du commentaire|
+|created_by|integer|Nom du créateur du commentaire|
+|id|integer|Identifiant|
+|private|boolean|Commentaire privé|
+|ratings|query|Score|
+|text|string|Contenu du commentaire|
 
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
+
 
 ## POST
 
@@ -3701,14 +2567,6 @@ Cette opération ne requiert pas d'authentification
 curl -X POST https://flatchr.io/company/{company}/applicant/{applicant}/comment \
   -H 'Content-Type: application/json' \
   -H 'Accept: */*'
-
-```
-
-```http
-POST https://flatchr.io/company/{company}/applicant/{applicant}/comment HTTP/1.1
-Host: flatchr.io
-Content-Type: application/json
-Accept: */*
 
 ```
 
@@ -3791,51 +2649,9 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/applicant/{applicant}/comment");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
 
-```
 
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "https://flatchr.io/company/{company}/applicant/{applicant}/comment", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-`POST /company/{company}/applicant/{applicant}/comment`
+`POST /company/applicant/comment`
 
 Créer un commentaire à propos d'un candidat.
 
@@ -3854,13 +2670,16 @@ Créer un commentaire à propos d'un candidat.
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|company|path|string|Oui||
-|applicant|path|string|Oui||
-|body|body|[Model_4](#schemamodel_4)|Non||
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
+|body|body|[Model_4](#schemamodel_4)|||
 
 > Exemples de réponses
 
-> Réponse par défaut
+```
+ 
+```
+
 
 <h3 id="postcompanycompanyapplicantapplicantcomment-responses">Réponses</h3>
 
@@ -3868,9 +2687,6 @@ Créer un commentaire à propos d'un candidat.
 |---|---|---|---|
 |default|Default|Successful|string|
 
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
 
 ## DELETE
 
@@ -3882,13 +2698,6 @@ Cette opération ne requiert pas d'authentification
 # Vous pouvez également utiliser wget
 curl -X DELETE https://flatchr.io/company/{company}/applicant/{applicant}/comment/{comment} \
   -H 'Accept: */*'
-
-```
-
-```http
-DELETE https://flatchr.io/company/{company}/applicant/{applicant}/comment/{comment} HTTP/1.1
-Host: flatchr.io
-Accept: */*
 
 ```
 
@@ -3962,64 +2771,25 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/applicant/{applicant}/comment/{comment}");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("DELETE");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("DELETE", "https://flatchr.io/company/{company}/applicant/{applicant}/comment/{comment}", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
 
 `DELETE /company/{company}/applicant/{applicant}/comment/{comment}`
 
-Effacer un commentaire de candidat???
+Effacer un commentaire de candidat.
 
 <h3 id="deletecompanycompanyapplicantapplicantcommentcomment-parameters">Paramètres</h3>
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|company|path|string|true||
-|applicant|path|string|true||
-|comment|path|integer|true||
+|company|path|string|<i class="fas fa-check"></i>|Nom de l'entreprise|
+|applicant|path|string|<i class="fas fa-check"></i>|Nom du candidat|
+|comment|path|integer|<i class="fas fa-check"></i>|Contenu du commentaire|
 
 > Exemples de réponses
 
-> Réponse par défaut
+```
+ 
+```
+
 
 <h3 id="deletecompanycompanyapplicantapplicantcommentcomment-responses">Réponses</h3>
 
@@ -4027,9 +2797,7 @@ Effacer un commentaire de candidat???
 |---|---|---|---|
 |default|Default|Successful|string|
 
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
+
 
 <h1 id="flatchr-api-documentation-messages">Messages</h1>
 
@@ -4043,13 +2811,6 @@ Cette opération ne requiert pas d'authentification
 # Vous pouvez également utiliser wget
 curl -X GET https://flatchr.io/company/{company}/applicant/{applicant}/messages \
   -H 'Accept: */*'
-
-```
-
-```http
-GET https://flatchr.io/company/{company}/applicant/{applicant}/messages HTTP/1.1
-Host: flatchr.io
-Accept: */*
 
 ```
 
@@ -4123,48 +2884,7 @@ print r.json()
 
 ```
 
-```java
-URL obj = new URL("https://flatchr.io/company/{company}/applicant/{applicant}/messages");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
 
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"*/*"},
-
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "https://flatchr.io/company/{company}/applicant/{applicant}/messages", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
 
 `GET /company/{company}/applicant/{applicant}/messages`
 
@@ -4174,72 +2894,33 @@ Get all messages from a candidate
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|company|path|string|Oui|aucune|
-|applicant|path|string|Oui|aucune|
-|fields|query|string|Non|aucune|
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
 
 > Exemples de réponses
 
-> Réponse par défaut
+```
+ 
+```
+
 
 <h3 id="getcompanycompanyapplicantapplicantmessages-responses">Réponses</h3>
 
 |Libellé|Type|Description|
 |---|---|---|
-|id|string||
-|created_by|string||
-|created_at|timestamp||
-|mail/subject|string||
-|mail/text|string||
-|mail/html|string||
-|mail/status|||
-|delivered|boolean||
-|deliver_at|||
-|author/firstname|string||
-|author/lastname|string||
-|picture|string|url|
+|id|string|Identifiant|
+|created_by|string|Nom du créateur du message|
+|created_at|timestamp|Date de création du message|
+|mail|[Model_15](#schemamodel_15)||
+|delivered|boolean|Message délivré|
+|deliver_at||Date à laquelle le message a été délivré|
+|author|[Model_13](#schemamodel_13)||
+|picture|string|url de l'image|
 
 
-<aside class="success">
-Cette opération ne requiert pas d'authentification
-</aside>
-
-# Schemas
 
 
-<h2 id="tocSresume">resume</h2>
-
-<a id="schemaresume"></a>
-
-```json
-{
-  "path": "string",
-  "key": "string"
-}
-
-```
-
-### Properties
-
-|Libellé|Type|Obligatoire|Restrictions|Description|
-|---|---|---|---|---|
-|path|string|Oui|aucune|aucune|
-|key|string|Oui|aucune|aucune|
-
-<h2 id="tocSanswers">answers</h2>
-
-<a id="schemaanswers"></a>
-
-```json
-[
-  "string"
-]
-
-```
-
-### Properties
-
-*aucune*
+# Modèles
 
 <h2 id="tocSmodel_1">Model_1</h2>
 
@@ -4258,9 +2939,9 @@ Cette opération ne requiert pas d'authentification
 
 |Libellé|Type|Obligatoire|Restrictions|Description|
 |---|---|---|---|---|
-|value|string|Oui|aucune||
-|type|string|Oui|aucune||
-|question|[question](#schemaquestion)|Non|aucune||
+|value|string|<i class="fas fa-check"></i> |aucune||
+|type|string|<i class="fas fa-check"></i> |aucune||
+|question|||aucune||
 
 <h2 id="tocSmodel_2">Model_2</h2>
 
@@ -4268,8 +2949,8 @@ Cette opération ne requiert pas d'authentification
 
 ```json
 {
-  "firstLibellé": "string",
-  "lastLibellé": "string",
+  "firstName": "string",
+  "lastName": "string",
   "email": "string",
   "phone": "string",
   "last_position": "string",
@@ -4300,32 +2981,26 @@ Cette opération ne requiert pas d'authentification
 
 |Libellé|Type|Obligatoire|Restrictions|Description|
 |---|---|---|---|---|
-|firstLibellé|string|Oui|aucune||
-|lastLibellé|string|Oui|aucune||
-|email|string|Non|Oui||
-|phone|string|Non|Oui||
-|last_position|string|Non|aucune||
-|type|string|Non|aucune|aucune|
-|resume|[resume](#schemaresume)|Non|aucune||
-|comment|string|Non|aucune||
-|note|string|Non|aucune||
-|urls|string|Non|aucune||
-|offerer_id|integer|Non|aucune||
-|user_id|string|Non|aucune||
-|creator|string|Non|aucune||
-|hash|string|Non|aucune||
-|import|boolean|Non|aucune||
-|external_id|string|Non|aucune||
-|disable_mail|boolean|Non|aucune||
-|answers|[answers](#schemaanswers)|Non|aucune||
-|api_key|string|Non|aucune||
+|firstname|string|<i class="fas fa-check"></i> |aucune|Prénom|
+|lastname|string|<i class="fas fa-check"></i> |aucune|Nom|
+|email|string||oui |Email|
+|phone|string||oui|Téléphone|
+|last_position|string||aucune|Dernière position|
+|type|string||aucune|Type|
+|resume|base64 / hr-xml||aucune|CV|
+|comment|string||aucune|Commentaire|
+|note|string||aucune|Note|
+|urls|string||aucune|Urls|
+|offerer_id|integer||aucune|Identifiant jobboard|
+|user_id|string||aucune|Identifiant utilisateur|
+|creator|string||aucune|Créateur|
+|hash|string||aucune|Chaîne cryptée|
+|import|boolean||aucune|Importé|
+|external_id|string||aucune|Identifiant externe|
+|disable_mail|boolean||aucune|Désactiver l'email obligatoire|
+|answers|string||aucune|Réponse|
+|api_key|string||aucune|Clé API|
 
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|type|json|
-|type|document|
 
 <h2 id="tocSmodel_3">Model_3</h2>
 
@@ -4347,10 +3022,10 @@ Cette opération ne requiert pas d'authentification
 
 |Libellé|Type|Obligatoire|Restrictions|Description|
 |---|---|---|---|---|
-|description|string|Oui|aucune|aucune|
-|date|string(date)|Oui|aucune|aucune|
-|value|[answers](#schemaanswers)|Non|aucune|aucune|
-|email|boolean|Non|aucune|aucune|
+|description|string|<i class="fas fa-check"></i> |aucune|Description|
+|date|string(date)|<i class="fas fa-check"></i> |aucune|Date|
+|value|||aucune|contenu|
+|email|boolean||aucune|Email|
 
 <h2 id="tocSmodel_4">Model_4</h2>
 
@@ -4370,10 +3045,10 @@ Cette opération ne requiert pas d'authentification
 
 |Libellé|Type|Obligatoire|Restrictions|Description|
 |---|---|---|---|---|
-|text|string|Oui|aucune|aucune|
-|file|string|Non|aucune|aucune|
-|mentions|string|Non|aucune|aucune|
-|private|boolean|Non|aucune|aucune|
+|text|string|<i class="fas fa-check"></i> |aucune|Texte|
+|file|string||aucune|Fichier|
+|mentions|string||aucune|?|
+|private|boolean||aucune|Caractère privé|
 
 <h2 id="tocSmodel_5">Model_5</h2>
 
@@ -4390,7 +3065,7 @@ Cette opération ne requiert pas d'authentification
 
 |Libellé|Type|Obligatoire|Restrictions|Description|
 |---|---|---|---|---|
-|file|string|Non|aucune|aucune|
+|file|string||aucune|Fichier|
 
 <h2 id="tocSmodel_6">Model_6</h2>
 
@@ -4408,8 +3083,8 @@ Cette opération ne requiert pas d'authentification
 
 |Libellé|Type|Obligatoire|Restrictions|Description|
 |---|---|---|---|---|
-|tag|string|Oui|aucune|aucune|
-|value|string|Non|aucune|aucune|
+|tag|string|<i class="fas fa-check"></i> |aucune|Tag|
+|value|string||aucune|Contenu|
 
 <h2 id="tocSmodel_7">Model_7</h2>
 
@@ -4426,7 +3101,7 @@ Cette opération ne requiert pas d'authentification
 
 |Libellé|Type|Obligatoire|Restrictions|Description|
 |---|---|---|---|---|
-|done|boolean|Oui|aucune|aucune|
+|done|boolean|<i class="fas fa-check"></i> |aucune|?|
 
 <h2 id="tocSmodel_8">Model_8</h2>
 
@@ -4437,8 +3112,8 @@ Cette opération ne requiert pas d'authentification
   "vacancy_id": "string",
   "column_id": 0,
   "score": 0,
-  "firstLibellé": "string",
-  "lastLibellé": "string",
+  "firstName": "string",
+  "lastName": "string",
   "email": "string",
   "status": 1
 }
@@ -4449,48 +3124,158 @@ Cette opération ne requiert pas d'authentification
 
 |Libellé|Type|Obligatoire|Restrictions|Description|
 |---|---|---|---|---|
-|vacancy_id|string|Non|aucune|aucune|
-|column_id|integer|Non|aucune|aucune|
-|score|integer|Non|aucune|aucune|
-|firstLibellé|string|Non|aucune|aucune|
-|lastLibellé|string|Non|aucune|aucune|
-|email|string|Non|aucune|aucune|
-|status|integer|Non|aucune|aucune|
+|vacancy_id|string||aucune|Identifiant annonce|
+|column_id|integer||aucune|Identifiant colonne|
+|score|integer||aucune|Score|
+|firstName|string||aucune|Prénom|
+|lastName|string||aucune|Nom|
+|email|string||aucune|Email|
+|status|integer||aucune|Statut|
 
-#### Enumerated Values
 
-|Property|Value|
-|---|---|
-|status|1|
+<h2 id="tocSmodel_9">Vacancy</h2>
 
-<h2 id="tocSschema1">schema1</h2>
+<a id="schemamodel_9"></a>
 
-<a id="schemaschema1"></a>
 
-```json
-{
-  "path": "string",
-  "key": "string"
-}
+|Libellé|Type|Obligatoire|Description|
+|---|---|---|---|
+|id|string||Identifiant|
+|vacancy_id|||Identifiant de l'annonce|
+|slug|string||référence unique entreprise|
+|reference|string||Référence|
+|title|string||Titre de l'annonce|
+|description|string||Description|
+|experience|integer||Nombre d'années d'expérience requis|
+|mission|string||Description des missions du poste|
+|profile|string||Description du profil recherché|
+|salary|integer||Salaire annuel|
+|status|integer||Statut|
+|language|string||Compétences linguistiques|
+|contract_type_id|integer||Identifiant du type de contrat|
+|education_level_id|integer||Niveau de formation|
+|activity_id|integer||Identifiant du domaine de l'activité de l'entreprise|
+|channel_id|integer||Idenitfiant du secteur du poste|
+|metier_id|integer||Identifiant du métier|
+|company_id|integer||Identifiant de l'entreprise|
+|mensuality|string||Salaire mensuel|
+|apply_url|string||Url du formulaire de candidature à remplir par le candidat|
+|created_at|timestamp||Date de la création de l'annonce|
+|updated_at|timestamp||Date de la mise à jour de l'annonce|
+|start_date|timestamp||Date de début du contrat|
+|end_day|timestamp||Date de fin du contrat|
+|semantic|boolean||Sémantique|
+|driver_license|boolean||Détention du permis de conduire requise|
+|meta_title|string||?|
+|meta_description|string||?|
+|meta_tags|string||?|
+|options|string||?|
+|contract_type|string||Type de contrat|
+|education_level|string||Niveau de diplôme|
+|activity|string||Domaine d'activité de l'entreprise|
+|channel|string||Secteur du métier|
+|metier|string||Métier|
+|address|[Model_10](#schemamodel_10)|||
+|addressFormated|string||?|
+|company|[Model_11](#schemamodel_11)|||
 
-```
+<h2 id="tocSmodel_10">Model_10</h2>
 
-### Properties
+<a id="schemamodel_10"></a>
 
-|Libellé|Type|Obligatoire|Restrictions|Description|
-|---|---|---|---|---|
-|path|string|Oui|aucune|aucune|
-|key|string|Oui|aucune|aucune|
+*Address*
 
-<h2 id="tocSschema2">schema2</h2>
+|Libellé|Type|Obligatoire|Description|
+|---|---|---|---|
+|location_lat|decimal|<i class="fas fa-check"></i> |Coordonnées GPS latitude|
+|location_lng|decimal|<i class="fas fa-check"></i> |Coordonnées GPS longitude|
+|postal_code|integer|<i class="fas fa-check"></i> |Code Postal|
+|route|string|<i class="fas fa-check"></i> |Rue|
+|street_number|integer|<i class="fas fa-check"></i> |Numéro de rue|
+|locality|string|<i class="fas fa-check"></i> |Ville|
+|administrative_area_level_1|string|<i class="fas fa-check"></i> |Département|
+|administrative_area_level_2|string|<i class="fas fa-check"></i> |Région|
+|formatted_address|string|<i class="fas fa-check"></i> |Adresse complète|
+|country|string|<i class="fas fa-check"></i> |Pays|
 
-<a id="schemaschema2"></a>
 
-```json
-{}
+<h2 id="tocSmodel_11">Model_11</h2>
 
-```
+<a id="schemamodel_11"></a>
 
-### Properties
+*Company*
 
-*aucune*
+|Libellé|Type|Description|
+|---|---|---|---|
+|id|string|Clé de l'entreprise|
+|name|string|Dénomination|
+|description|string|Description de l'entreprise|
+|slug|string|Identifiant unique|
+|size|integer|Nombre d'employés|
+|email|string|E-mail de contact|
+|web|string|Site web|
+|phone|string|Téléphone|
+|status|integer|Status|
+|siren|string|Code SIREN|
+|vat_number|string|Numéro de TVA|
+|activity|string|Activité|
+|logo|string|Logo|
+|retention_policy|string|Mentions légales pour postuler|
+|address|string|Adresse de l'entreprise|
+|created_at|timestamp|Date de création|
+
+
+<h2 id="tocSmodel_12">Model_12</h2>
+
+<a id="schemamodel_12"></a>
+
+*Candidate*
+
+|Libellé|Type|Description|
+|---|---|---|---|
+|email|string|Email|
+|firstname|string|Prénom|
+|lastname|string|Nom|
+|phone||Téléphone|
+|cv|string|url|
+|aws|||
+
+<h2 id="tocSmodel_13">Model_13</h2>
+
+<a id="schemamodel_13"></a>
+
+*Author*
+
+|Libellé|Type|Description|
+|---|---|---|---|
+|id|string|Identifiant de l'auteur|
+|firstname|string|Prénom de l'auteur|
+|lastname|string|Nom de l'auteur|
+|picture|string|url|
+
+<h2 id="tocSmodel_14">Model_14</h2>
+
+<a id="schemamodel_14"></a>
+
+*Attachment*
+
+|Libellé|Type|Description|
+|---|---|---|---|
+|id|string|Identifiant|
+|name|string|Nom|
+|url|string|Url|
+|created_at|timestamp||
+
+
+<h2 id="tocSmodel_15">Model_15</h2>
+
+<a id="schemamodel_15"></a>
+
+*Mail*
+
+|Libellé|Type|Description|
+|---|---|---|---|
+|subject|string|Objet du mail|
+|text|string|Contenu du mail|
+|html|string||
+|status|||

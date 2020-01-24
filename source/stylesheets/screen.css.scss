@@ -36,6 +36,10 @@ html, body {
   -webkit-text-size-adjust: none; /* Never autoresize text */
 }
 
+i {
+  color: red;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // TABLE OF CONTENTS
 ////////////////////////////////////////////////////////////////////////////////
@@ -400,9 +404,11 @@ html, body {
     margin-bottom: 1em;
     overflow: auto;
     th,td {
+      border-bottom: 1px solid #00AEC8;
       text-align: left;
       vertical-align: top;
       line-height: 1.6;
+      background-color: #00AEC8;
       code {
         white-space: nowrap;
       }
@@ -410,17 +416,22 @@ html, body {
 
     th {
       padding: 5px 10px;
-      border-bottom: 1px solid #ccc;
       vertical-align: bottom;
+      color: white;
+      text-align: center;
     }
 
     td {
       padding: 10px;
+      text-align: center;
     }
 
-    tr:last-child {
-      border-bottom: 1px solid #ccc;
+    tr {
+    border-right: 1px solid #00AEC8;
+    border-left: 1px solid #00AEC8;
     }
+
+    
 
     tr:nth-child(odd)>td {
       background-color: lighten($main-bg,4.2%);
