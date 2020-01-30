@@ -944,9 +944,14 @@ Obtenir tous les évènements d'un calendrier d'une entreprise.
 
 <h3 id="getcompanycompanycalendars-responses">Réponses</h3>
 
-|Status|Meaning|Description|Schema|
+|Libellé|Type|Description|
 |---|---|---|---|
-|default|Default|Successful|string|
+|date|string|date|
+|description|string|description|
+|done|boolean|Evènement passé|
+|id|string|identifiant|
+|type|string|type : "calendar"|
+|value|url|adresse url|
 
 
 ## GET
@@ -1054,10 +1059,14 @@ Obtenir tous les évènements d'un calendrier d'un candidat.
 
 <h3 id="getcompanycompanyapplicantapplicantcalendars-responses">Réponses</h3>
 
-|Status|Meaning|Description|Schema|
+|Libellé|Type|Description|
 |---|---|---|---|
-|default|Default|Successful|string|
-
+|date|string|date|
+|description|string|description|
+|done|boolean|Evènement passé|
+|id|string|identifiant|
+|type|string|type : "calendar"|
+|value|url|adresse url|
 
 <h1 id="flatchr-api-documentation-applicants">Candidats CVthèque (applicants)</h1>
 
@@ -1154,7 +1163,7 @@ Chercher un candidat dans la CVthèque ?
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
 |company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
-|term|query|string||?|
+|term|query|string|||
 |email|query|string||E-mail du candidat|
 |vacancy|query|number||Annonce|
 |column|query|number||Nom de la colonne concernée|
@@ -1163,8 +1172,8 @@ Chercher un candidat dans la CVthèque ?
 |tag|query|string||Nom du tag|
 |start|query|string||Date de début à partir de laquelle chercher|
 |end|query|string||Date de fin|
-|p|query|number||?|
-|limit|query|number||?|
+|p|query|number|||
+|limit|query|number||nombre maximal de résultats|
 
 > Exemples de réponses
 
@@ -1334,10 +1343,10 @@ Obtenir des informations sur un candidat de la CVthèque.
 |seen|boolean|?|
 |candidate|[Candidate](#schemamodel_12)|Détails candidats|
 |foreigner|boolean|Candidat de nationalité étrangère|
-|count_message|integer|?|
-|count_message_new|boolean|?|
-|count_comment|integer|?|
-|count_comment_new|boolean|?|
+|count_message|integer|nombre de messages|
+|count_message_new|boolean||
+|count_comment|integer|nombre de commentaires|
+|count_comment_new|boolean||
 
 
 
@@ -1801,10 +1810,10 @@ Modifier les informations d'un candidat de la CVthèque.
 |seen|boolean|?|
 |candidate|[Candidate](#schemamodel_12)|Détails candidats|
 |foreigner|boolean|Candidat de nationalité étrangère|
-|count_message|integer|?|
-|count_message_new|boolean|?|
-|count_comment|integer|?|
-|count_comment_new|boolean|?|
+|count_message|integer|nombre de messages|
+|count_message_new|boolean||
+|count_comment|integer|nombre de commentaires|
+|count_comment_new|boolean||
 
 
 
@@ -1930,8 +1939,9 @@ Obtenir les évaluations d'un candidat.
 |value|string|Valeur|
 |created_at|timestamp|Date de création|
 |updated_at|timestamp|Date de dernière modification|
-|score|string|?|
-|score_tag|string|?|
+|score|string||
+|score_tag|string||
+|author|
 
 
 <h1 id="flatchr-api-documentation-response">Réponse</h1>
@@ -2060,9 +2070,12 @@ Créer une réponse à une question.
 
 <h3 id="postapplicantapplicantanswer-responses">Réponses</h3>
 
-|Status|Meaning|Description|Schema|
+|Libellé|Type|Description|
 |---|---|---|---|
-|default|Default|Successful|string|
+|id|string|identifiant|
+|question|string|intitulé de la question|
+|type|string|type, exemple: "text"|
+|value|string|contenu de la réponse|
 
 <h1 id="flatchr-api-documentation-tag">Tag</h1>
 
@@ -2827,7 +2840,7 @@ print r.json()
 
 
 
-`POST /company/applicant/comment`
+`POST /company/{company}/applicant/{applicant}/comment/{comment}`
 
 Créer un commentaire à propos d'un candidat.
 
@@ -2859,9 +2872,15 @@ Créer un commentaire à propos d'un candidat.
 
 <h3 id="postcompanycompanyapplicantapplicantcomment-responses">Réponses</h3>
 
-|Status|Meaning|Description|Schema|
+|Libellé|Type|Description
 |---|---|---|---|
-|default|Default|Successful|string|
+|author|[Author](#schemamodel_13)||
+|created_at|timestamp|créé à (date)|
+|created_by|string|créé par (utilisateur)|
+|id|string|identifiant|
+|private|boolean|privé|
+|ratings|string|note (évaluation)|
+|text|string|texte|
 
 
 ## DELETE
@@ -3242,7 +3261,7 @@ Get all messages from a candidate
 |---|---|---|---|---|
 |text|string|<i class="fas fa-check"></i> |aucune|Texte|
 |file|string||aucune|Fichier|
-|mentions|string||aucune|?|
+|mentions|string||aucune||
 |private|boolean||aucune|Caractère privé|
 
 <h2 id="tocSmodel_5">Body</h2>
@@ -3296,7 +3315,7 @@ Get all messages from a candidate
 
 |Libellé|Type|Obligatoire|Restrictions|Description|
 |---|---|---|---|---|
-|done|boolean|<i class="fas fa-check"></i> |aucune|?|
+|done|boolean|<i class="fas fa-check"></i> |aucune||
 
 <h2 id="tocSmodel_8">Body</h2>
 
@@ -3361,10 +3380,10 @@ Get all messages from a candidate
 |end_day|timestamp||Date de fin du contrat|
 |semantic|boolean||Sémantique|
 |driver_license|boolean||Détention du permis de conduire requise|
-|meta_title|string||?|
-|meta_description|string||?|
-|meta_tags|string||?|
-|options|string||?|
+|meta_title|string|||
+|meta_description|string|||
+|meta_tags|string|||
+|options|string|||
 |contract_type|string||Type de contrat|
 |education_level|string||Niveau de diplôme|
 |activity|string||Domaine d'activité de l'entreprise|
