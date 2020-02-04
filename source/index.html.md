@@ -36,15 +36,17 @@ Les paramètres en entrée et en sortie sont encodés en UTF-8. Il est de la res
 Un enregistrement sur l'adresse IP est fait. L'API est interrogeable uniquement en https.
 
 ### Ce que vous devez obtenir auprès de Flatchr
-
+<aside class="notice">
 Afin de récupérer vos annonces, vous devez posséder :<br>
 • Un compte Flatchr avec un abonnement en cours valide.<br>
 • Une annonce publiée avec une diffusion sur le « site carrière » actif.
+</aside>
 
-Avant toute mise en place, veuillez valider l’adéquation de ce service et votre mode de fonctionnement avec votre interlocuteur Flatchr.
-
+<aside class="success">
+Avant toute mise en place, veuillez valider l’adéquation de ce service et votre mode de fonctionnement avec votre interlocuteur Flatchr.<br>
 <a href="https://flatchr.io/cgu">Terms of service</a><br>
 <a href="mailto:support@flatchr.io">Support flatchr</a><br>
+</aside>
 
 
 <h1 id="authentification">Identification</h1>
@@ -70,7 +72,7 @@ EN PIXELS] HEIGHT=[HAUTEUR EN PIXELS] FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=
 
 Vous pouvez insérer au sein de votre page le code de votre iframe, bien renseigné (avec url, couleur des boutons, largeur de l'iframe, etc.).
 
-Une offre dans le flux json flatchr existe dans « items->vacancy » et se compose comme ceci : activity, address formatted_address, locality, postal_code, route, addressFormatted, apply_url, channel, company (informations sur l’entreprise), contract_type, created_at, description, driver_license, education_level, end_date, experience, id, mensualité, metier, mission, profile, reference, salary, slug, start_date, status, title, updated_at, vacancy_id.
+Une offre dans le flux json flatchr existe dans « items->vacancy » et se compose comme ceci : activity, address formatted_address, locality, postal_code, route, addressFormated, apply_url, channel, company (informations sur l’entreprise), contract_type, created_at, description, driver_license, education_level, end_date, experience, id, mensualité, metier, mission, profile, reference, salary, slug, start_date, status, title, updated_at, vacancy_id.
 
 
 
@@ -167,8 +169,8 @@ Le code à insérer indiqué ci-contre.
   "comment": "string",
   "offerer_id": "integer",
   "urls": "object",
-  "legalNewsletterPartners": "boolean",
-  "smilarities": "boolean",
+  "legalNewsletterPartners": true,
+  "smilarities": false,
   "response_text": "string",
   } 
 ```
@@ -192,8 +194,8 @@ https://careers.flatchr.io/vacancy/candidate/test
 |Libellé|Type|Obligatoire|Description|
 |---|---|---|---|
 |vacancy|string|<i class="fas fa-check"></i> |Identifiant unique de l’annonce|
-|firstname|string|<i class="fas fa-check"></i> |PréLibellé /[a-zA-Z]/|
-|lastname|string|<i class="fas fa-check"></i> |Libellé /[a-zA-Z]/|
+|firstname|string|<i class="fas fa-check"></i> |Prénom /[a-zA-Z]/|
+|lastname|string|<i class="fas fa-check"></i> |Nom /[a-zA-Z]/|
 |api_key|string|<i class="fas fa-check"></i> |Clé API. Elle est créée dans l’interface Flatchr|
 |email|email||Email|
 |phone|integer||Téléphone|
@@ -303,7 +305,7 @@ print r.json()
 {
   "id": "string",
   "offer_id": "string",
-  "created_at": "date",
+  "created_at": "2019-10-24T09:42:10.024Z",
   "vacancy": "string",
   "vacancy_id": "string"
   } 
@@ -425,9 +427,9 @@ Obtenir toutes les tâches d'une entreprise.
 
 ```json
 {
-  "date": "date",
+  "date": "2019-10-24T09:42:10.024Z",
   "description": "string",
-  "done": "boolean",
+  "done": true,
   "id": "string",
   "type": "string"
   } 
@@ -569,9 +571,9 @@ Créer une tâche d'utilisateur.
 
 ```json
 { 
-  "date": "date",
+  "date": "2019-10-24T09:42:10.024Z",
   "description": "integer",
-  "done": "boolean",
+  "done": true,
   "id": "string",
   "type": "string"
   }  
@@ -815,9 +817,9 @@ Mettre à jour ou modifier une tâche d'utilisateur.
 
 ```json
 { 
-  "date": "date",
+  "date": "2019-10-24T09:42:10.024Z",
   "description": "integer",
-  "done": "boolean",
+  "done": false,
   "id": "string",
   "type": "string"
   }  
@@ -936,8 +938,15 @@ Obtenir tous les évènements d'un calendrier d'une entreprise.
 
 > Exemples de réponses
 
-```
- 
+```json
+ {
+  "date": "string",
+  "description": "string",
+  "done": true,
+  "id": "string",
+  "type": "string",
+  "value": "url"
+  } 
 ```
 
 
@@ -946,12 +955,12 @@ Obtenir tous les évènements d'un calendrier d'une entreprise.
 
 |Libellé|Type|Description|
 |---|---|---|---|
-|date|string|date|
-|description|string|description|
+|date|string|Date|
+|description|string|Description|
 |done|boolean|Evènement passé|
-|id|string|identifiant|
-|type|string|type : "calendar"|
-|value|url|adresse url|
+|id|string|Identifiant|
+|type|string|Exemple: "calendar"|
+|value|url|Adresse url|
 
 
 ## GET
@@ -1052,8 +1061,15 @@ Obtenir tous les évènements d'un calendrier d'un candidat.
 
 > Exemples de réponses
 
-```
- 
+```json
+ {
+  "date": "string",
+  "description": "string",
+  "done": false,
+  "id": "string",
+  "type": "string",
+  "value": "url"
+  } 
 ```
 
 
@@ -1061,12 +1077,12 @@ Obtenir tous les évènements d'un calendrier d'un candidat.
 
 |Libellé|Type|Description|
 |---|---|---|---|
-|date|string|date|
-|description|string|description|
+|date|string|Date|
+|description|string|Description|
 |done|boolean|Evènement passé|
-|id|string|identifiant|
-|type|string|type : "calendar"|
-|value|url|adresse url|
+|id|string|Identifiant|
+|type|string|Exemple: "calendar"|
+|value|url|Adresse url|
 
 <h1 id="flatchr-api-documentation-applicants">Candidats CVthèque (applicants)</h1>
 
@@ -1173,7 +1189,7 @@ Chercher un candidat dans la CVthèque ?
 |start|query|string||Date de début à partir de laquelle chercher|
 |end|query|string||Date de fin|
 |p|query|number|||
-|limit|query|number||nombre maximal de résultats|
+|limit|query|number||Nombre maximal de résultats|
 
 > Exemples de réponses
 
@@ -1181,7 +1197,7 @@ Chercher un candidat dans la CVthèque ?
 {
   "vacancy": "string",
   "column": "string",
-  "firstname": "date",
+  "firstname": "string",
   "lastname": "string",
   "created_at": "string",
   "source": "string"
@@ -1310,7 +1326,7 @@ Obtenir des informations sur un candidat de la CVthèque.
   "comment": "string",
   "created_at": "integer",
   "status": "integer",
-  "seen": "boolean",
+  "seen": true,
   "candidate": {
                 "email": "email",
                 "firstname": "string",
@@ -1321,9 +1337,9 @@ Obtenir des informations sur un candidat de la CVthèque.
                },
   "foreigner": "string",
   "count_message": "string",
-  "count_message_new": "boolean",
+  "count_message_new": true,
   "count_comment": "string",
-  "count_comment_new": "boolean"
+  "count_comment_new": true
   } 
 ```
 
@@ -1340,13 +1356,13 @@ Obtenir des informations sur un candidat de la CVthèque.
 |comment|string|Commentaire sur le candidat|
 |created_at|integer|Date de création|
 |status|integer|Statut du candidat|
-|seen|boolean|?|
+|seen|boolean|Vu|
 |candidate|[Candidate](#schemamodel_12)|Détails candidats|
 |foreigner|boolean|Candidat de nationalité étrangère|
-|count_message|integer|nombre de messages|
-|count_message_new|boolean||
-|count_comment|integer|nombre de commentaires|
-|count_comment_new|boolean||
+|count_message|integer|Nombre de messages|
+|count_message_new|boolean|Présence de nouveaux messages|
+|count_comment|integer|Nombre de commentaires|
+|count_comment_new|boolean|Présence de nouveaux commentaires|
 
 
 
@@ -1513,7 +1529,7 @@ Créer un nouveau candidat dans la CVthèque.
 {
   "action": "string",
   "status": "integer",
-  "anonym": "boolean"
+  "anonym": true
   },
  
 ```
@@ -1523,9 +1539,9 @@ Créer un nouveau candidat dans la CVthèque.
 
 |Libellé|Type|Description|
 |---|---|---|
-|action|string||
-|status|integer||
-|anonym|boolean||
+|action|string|Action|
+|status|integer|Statut du candidat|
+|anonym|boolean|Statut anonyme|
 
 
 
@@ -1628,8 +1644,8 @@ Effacer un candidat de la CVthèque.
 
 > Exemples de réponses
 
-```
- 
+```json
+ {"message": "Applicant deleted"}
 ```
 
 
@@ -1777,7 +1793,7 @@ Modifier les informations d'un candidat de la CVthèque.
   "comment": "string",
   "created_at": "integer",
   "status": "integer",
-  "seen": "boolean",
+  "seen": false,
   "candidate": {
                 "email": "email",
                 "firstname": "string",
@@ -1788,9 +1804,9 @@ Modifier les informations d'un candidat de la CVthèque.
                },
   "foreigner": "string",
   "count_message": "string",
-  "count_message_new": "boolean",
+  "count_message_new": true,
   "count_comment": "string",
-  "count_comment_new": "boolean"
+  "count_comment_new": true
   }  
 ```
 
@@ -1807,17 +1823,17 @@ Modifier les informations d'un candidat de la CVthèque.
 |comment|string|Commentaire sur le candidat|
 |created_at|integer|Date de création|
 |status|integer|Statut du candidat|
-|seen|boolean|?|
+|seen|boolean||
 |candidate|[Candidate](#schemamodel_12)|Détails candidats|
 |foreigner|boolean|Candidat de nationalité étrangère|
-|count_message|integer|nombre de messages|
-|count_message_new|boolean||
-|count_comment|integer|nombre de commentaires|
-|count_comment_new|boolean||
+|count_message|integer|Nombre de messages|
+|count_message_new|boolean|Présence de nouveaux messages|
+|count_comment|integer|Nombre de commentaires|
+|count_comment_new|boolean|Présence de nouveaux messages|
 
 
 
-<h1 id="flatchr-api-documentation-ratings">Evaluation</h1>
+<h1 id="flatchr-api-documentation-ratings">Evaluation (ratings)</h1>
 
 
 
@@ -1923,8 +1939,8 @@ Obtenir les évaluations d'un candidat.
 {
   "id": "string",
   "value": "integer",
-  "created_at": "date",
-  "updated_at": "date",
+  "created_at": "2019-09-24T09:42:10.024Z",
+  "updated_at": "2019-10-24T09:42:10.024Z",
   "score": "string",
   "score_tag": "string"
 } 
@@ -1939,12 +1955,12 @@ Obtenir les évaluations d'un candidat.
 |value|string|Valeur|
 |created_at|timestamp|Date de création|
 |updated_at|timestamp|Date de dernière modification|
-|score|string||
-|score_tag|string||
-|author|
+|score|string|Score du candidat|
+|score_tag|string|Tag de score|
+|author|[Author](#schemamodel_16)||
 
 
-<h1 id="flatchr-api-documentation-response">Réponse</h1>
+<h1 id="flatchr-api-documentation-response">Réponse (answer)</h1>
 
 ## POST
 
@@ -2063,8 +2079,13 @@ Créer une réponse à une question.
 
 > Exemples de réponses
 
-```
- 
+```json
+{
+  "id":"string",
+  "question":"string",
+  "type":"string",
+  "value":"string"
+} 
 ```
 
 
@@ -2072,10 +2093,10 @@ Créer une réponse à une question.
 
 |Libellé|Type|Description|
 |---|---|---|---|
-|id|string|identifiant|
-|question|string|intitulé de la question|
-|type|string|type, exemple: "text"|
-|value|string|contenu de la réponse|
+|id|string|Identifiant|
+|question|string|Intitulé de la question|
+|type|string|Exemple: "text"|
+|value|string|Contenu de la réponse|
 
 <h1 id="flatchr-api-documentation-tag">Tag</h1>
 
@@ -2337,7 +2358,7 @@ Obtenir les fichiers liés à un candidat. Pour les commentaires/notes, mails ou
             "id": "string",
             "name": "string",
             "url": "string",
-            "created_at": "date"
+            "created_at": "2019-10-24T09:42:10.024Z"
               }
 }
 ```
@@ -2483,7 +2504,7 @@ Ajouter un fichier à un candidat.
             "id": "string",
             "name": "string",
             "url": "string",
-            "created_at": "date"
+            "created_at": "2019-10-24T09:42:10.024Z"
               }
 }
 ```
@@ -2721,10 +2742,10 @@ Obtenir tous les commentaires sur un candidat.
            "lastname": "string",
            "picture": "string"
             },
-    "created_at": "date",
-    "created_by": "date",
+    "created_at": "2019-10-24T09:42:10.024Z",
+    "created_by": "2019-10-24T09:42:10.024Z",
     "id": "string",
-    "private": "boolean",
+    "private": true,
     "ratings": "query",
     "text": "string"
 } 
@@ -2865,8 +2886,15 @@ Créer un commentaire à propos d'un candidat.
 
 > Exemples de réponses
 
-```
- 
+```json
+{
+  "created_at": "2019-10-24T09:42:10.024Z",
+  "created_by":"string",
+  "id":"string",
+  "private":true,
+  "ratings":"string",
+  "text":"string" 
+}
 ```
 
 
@@ -3104,8 +3132,8 @@ Get all messages from a candidate
           "html": "string",
           "status": ""
           },
-  "delivered": "boolean",
-  "deliver_at": "date",
+  "delivered": true,
+  "deliver_at": "2019-10-24T09:42:10.024Z",
   "author": {
            "id": "string",
            "firstname": "string",
@@ -3153,8 +3181,8 @@ Get all messages from a candidate
 
 |Libellé|Type|Obligatoire|Restrictions|Description|
 |---|---|---|---|---|
-|value|string|<i class="fas fa-check"></i> |aucune||
-|type|string|<i class="fas fa-check"></i> |aucune||
+|value|string|<i class="fas fa-check"></i> |aucune|Valeur|
+|type|string|<i class="fas fa-check"></i> |aucune|Type|
 |question|||aucune||
 
 <h2 id="tocSmodel_2">Body</h2>
@@ -3261,7 +3289,7 @@ Get all messages from a candidate
 |---|---|---|---|---|
 |text|string|<i class="fas fa-check"></i> |aucune|Texte|
 |file|string||aucune|Fichier|
-|mentions|string||aucune||
+|mentions|string||aucune|Mentions|
 |private|boolean||aucune|Caractère privé|
 
 <h2 id="tocSmodel_5">Body</h2>
@@ -3315,7 +3343,7 @@ Get all messages from a candidate
 
 |Libellé|Type|Obligatoire|Restrictions|Description|
 |---|---|---|---|---|
-|done|boolean|<i class="fas fa-check"></i> |aucune||
+|done|boolean|<i class="fas fa-check"></i> |aucune|Effectué|
 
 <h2 id="tocSmodel_8">Body</h2>
 
@@ -3351,11 +3379,82 @@ Get all messages from a candidate
 
 <a id="schemamodel_9"></a>
 
+```json
+{
+  "id": "string",
+  "vacancy_id": "string",
+  "slug": "string",
+  "reference": "string",
+  "title": "string",
+  "description": "string",
+  "experience": 1,
+  "mission":"string",
+  "profile":"string",
+  "salary":20000,
+  "status": 2,
+  "language":"string",
+  "contract_type_id": 3,
+  "education_level_id": 5,
+  "activity_id": 21,
+  "channel_id": 11,
+  "metier_id": 15,
+  "company_id": 103,
+  "mensuality": 1800,
+  "apply_url":"string",
+  "created_at":"2019-10-24T09:42:10.024Z",
+  "updated_at":"2019-11-24T09:42:10.024Z",
+  "start_date":"timestamp",
+  "end_day":"timestamp",
+  "semantic":"boolean",
+  "driver_license":"boolean",
+  "meta_title":"string",
+  "meta_description":"string",
+  "meta_tags": "string",
+  "options":"string",
+  "contract_type":"string",
+  "education_level":"string",
+  "activity":"string",
+  "channel":"string",
+  "metier":"string",
+  "address":{
+              "location_lat": 47.889,
+              "location_lng": 15.43,
+              "postal_code": 75016,
+              "route":"string",
+              "street_number": 10,
+              "locality":"string",
+              "administrative_area_level_1":"string",
+              "administrative_area_level_2":"string",
+              "formated_address":"string",
+              "country":"string"
+            },
+  "company":{
+              "id":"string",
+              "name": "string",
+              "description":"string",
+              "slug":"string",
+              "size": 30,
+              "email":"string",
+              "web":"sting",
+              "phone":"string",
+              "status":"integer",
+              "siren":"string",
+              "vat_number":"string",
+              "activity":"string",
+              "logo": "string",
+              "retention":"string",
+              "address":"string",
+              "created_at":"2019-10-24T09:42:10.024Z"
+            }
+}
+
+```
+
 
 |Libellé|Type|Obligatoire|Description|
 |---|---|---|---|
 |id|string||Identifiant|
-|vacancy_id|||Identifiant de l'annonce|
+|vacancy_id|string||Identifiant de l'annonce|
 |slug|string||référence unique entreprise|
 |reference|string||Référence|
 |title|string||Titre de l'annonce|
@@ -3367,9 +3466,9 @@ Get all messages from a candidate
 |status|integer||Statut|
 |language|string||Compétences linguistiques|
 |contract_type_id|integer||Identifiant du type de contrat|
-|education_level_id|integer||Niveau de formation|
+|education_level_id|integer||Identifiant du niveau de formation|
 |activity_id|integer||Identifiant du domaine de l'activité de l'entreprise|
-|channel_id|integer||Idenitfiant du secteur du poste|
+|channel_id|integer||Identifiant du secteur du poste|
 |metier_id|integer||Identifiant du métier|
 |company_id|integer||Identifiant de l'entreprise|
 |mensuality|string||Salaire mensuel|
@@ -3380,23 +3479,37 @@ Get all messages from a candidate
 |end_day|timestamp||Date de fin du contrat|
 |semantic|boolean||Sémantique|
 |driver_license|boolean||Détention du permis de conduire requise|
-|meta_title|string|||
-|meta_description|string|||
-|meta_tags|string|||
-|options|string|||
+|meta_title|string||Titre|
+|meta_description|string||Description|
+|meta_tags|string||Tags|
+|options|string||Options|
 |contract_type|string||Type de contrat|
 |education_level|string||Niveau de diplôme|
 |activity|string||Domaine d'activité de l'entreprise|
 |channel|string||Secteur du métier|
 |metier|string||Métier|
 |address|[Address](#schemamodel_10)|||
-|addressFormated|string||?|
+|addressFormated|string||Adresse|
 |company|[Company](#schemamodel_11)|||
 
 <h2 id="tocSmodel_10">Address</h2>
 
 <a id="schemamodel_10"></a>
 
+```json
+{
+  "location_lat": 47.889,
+  "location_lng": 15.43,
+  "postal_code": 75016,
+  "route":"string",
+  "street_number": 10,
+  "locality":"string",
+  "administrative_area_level_1":"string",
+  "administrative_area_level_2":"string",
+  "formated_address":"string",
+  "country":"string"
+}
+```
 
 |Libellé|Type|Obligatoire|Description|
 |---|---|---|---|
@@ -3408,7 +3521,7 @@ Get all messages from a candidate
 |locality|string|<i class="fas fa-check"></i> |Ville|
 |administrative_area_level_1|string|<i class="fas fa-check"></i> |Département|
 |administrative_area_level_2|string|<i class="fas fa-check"></i> |Région|
-|formatted_address|string|<i class="fas fa-check"></i> |Adresse complète|
+|formated_address|string|<i class="fas fa-check"></i> |Adresse complète|
 |country|string|<i class="fas fa-check"></i> |Pays|
 
 
@@ -3416,6 +3529,26 @@ Get all messages from a candidate
 
 <a id="schemamodel_11"></a>
 
+```json
+{
+  "id":"string",
+  "name": "string",
+  "description":"string",
+  "slug":"string",
+  "size": 30,
+  "email":"string",
+  "web":"sting",
+  "phone":"string",
+  "status":"integer",
+  "siren":"string",
+  "vat_number":"string",
+  "activity":"string",
+  "logo": "string",
+  "retention":"string",
+  "address":"string",
+  "created_at":"2019-10-24T09:42:10.024Z"
+}
+```
 
 |Libellé|Type|Description|
 |---|---|---|---|
@@ -3441,6 +3574,16 @@ Get all messages from a candidate
 
 <a id="schemamodel_12"></a>
 
+```json
+{
+  "email":"string",
+  "firstname":"string",
+  "lastname":"string",
+  "phone":"string",
+  "cv":"",
+  "aws":""
+}
+```
 
 |Libellé|Type|Description|
 |---|---|---|---|
@@ -3455,6 +3598,15 @@ Get all messages from a candidate
 
 <a id="schemamodel_13"></a>
 
+```json
+{
+  "id":"string",
+  "firstname":"string",
+  "lastname":"string",
+  "picture":"string"
+}
+```
+
 |Libellé|Type|Description|
 |---|---|---|---|
 |id|string|Identifiant de l'auteur|
@@ -3466,6 +3618,15 @@ Get all messages from a candidate
 
 <a id="schemamodel_14"></a>
 
+```json
+{
+  "id":"string",
+  "name":"string",
+  "url":"string",
+  "phone":"string",
+  "created_at":"2019-10-24T09:42:10.024Z"
+}
+```
 
 |Libellé|Type|Description|
 |---|---|---|---|
@@ -3479,10 +3640,38 @@ Get all messages from a candidate
 
 <a id="schemamodel_15"></a>
 
+```json
+{
+  "subject":"string",
+  "text":"string",
+  "html":"string",
+  "status":"string"
+}
+```
 
 |Libellé|Type|Description|
 |---|---|---|---|
 |subject|string|Objet du mail|
 |text|string|Contenu du mail|
 |html|string||
-|status|||
+|status|string|Statut|
+
+<h2 id="tocSmodel_16">Author</h2>
+
+<a id="schemamodel_16"></a>
+
+```json
+{
+  "id":"string",
+  "firstname":"string",
+  "lastname":"string",
+  "email":"string"
+}
+```
+
+|Libellé|Type|Description|
+|---|---|---|---|
+|id|string|Identifiant de l'auteur|
+|firstname|string|Prénom de l'auteur|
+|lastname|string|Nom de l'auteur|
+|email|string|Adresse mail|
