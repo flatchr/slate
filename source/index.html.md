@@ -4,7 +4,6 @@ language_tabs:
   - shell: Shell
   - javascript: JavaScript
   - javascript--nodejs: Node.JS
-  - ruby: Ruby
   - python: Python
 toc_footers: []
 includes: []
@@ -49,7 +48,7 @@ Avant toute mise en place, veuillez valider l’adéquation de ce service et vot
 </aside>
 
 
-<h1 id="authentification">Identification</h1>
+<h1 id="authentification">- Identification</h1>
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -58,7 +57,7 @@ consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-<h1 id="iframe">Iframe et WordPress</h1>
+<h1 id="iframe">- Iframe et WordPress</h1>
 
 Le code à intégrer à votre page varie selon que l'iframe est publique ou en intranet.
 
@@ -148,9 +147,137 @@ Le code à insérer indiqué ci-contre.
 |iframe|boolean||Suppression des styles|
 |ifram_redirect_url|boolean||Ouverture dans l'iframe|
 
-<h1 id="formulaire-de-candidature">Formulaire de candidature</h1>
+<h1 id="formulaire-de-candidature">- Formulaire de candidature</h1>
 
-> Body parameter
+> Extraits de code
+
+```shell
+# Vous pouvez également utiliser wget
+curl -X POST https://careers.flatchr.io/vacancy/candidate/json \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: */*'
+
+```
+
+
+```javascript
+var headers = {
+  'Content-Type':'application/json',
+  'Accept':'*/*'
+
+};
+
+$.ajax({
+  url: 'https://careers.flatchr.io/vacancy/candidate/json',
+  method: 'post',
+  body: {
+  "vacancy": "string",
+  "firstname": "string",
+  "lastname": "string",
+  "api_key": "string",
+  "email": "email",
+  "phone": "integer",
+  "lastposition": "string",
+  "type": "string",
+  "resume": {
+            "fileName": "test.pdf",
+            "data": "base64 data file"
+            },
+  "comment": "string",
+  "offerer_id": "integer",
+  "urls": "object",
+  "legalNewsletterPartners": true,
+  "smilarities": false,
+  "response_text": "string",
+  },
+  headers: headers,
+  success: function(data) {
+    console.log(JSON.stringify(data));
+  }
+})
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "vacancy": "string",
+  "firstname": "string",
+  "lastname": "string",
+  "api_key": "string",
+  "email": "email",
+  "phone": "integer",
+  "lastposition": "string",
+  "type": "string",
+  "resume": {
+            "fileName": "test.pdf",
+            "data": "base64 data file"
+            },
+  "comment": "string",
+  "offerer_id": "integer",
+  "urls": "object",
+  "legalNewsletterPartners": true,
+  "smilarities": false,
+  "response_text": "string" 
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'*/*'
+
+};
+
+fetch('https://careers.flatchr.io/vacancy/candidate/json',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': '*/*'
+}
+
+body = {
+  "vacancy": "string",
+  "firstname": "string",
+  "lastname": "string",
+  "api_key": "string",
+  "email": "email",
+  "phone": "integer",
+  "lastposition": "string",
+  "type": "string",
+  "resume": {
+            "fileName": "test.pdf",
+            "data": "base64 data file"
+            },
+  "comment": "string",
+  "offerer_id": "integer",
+  "urls": "object",
+  "legalNewsletterPartners": true,
+  "smilarities": false,
+  "response_text": "string",
+}
+
+r = requests.post('https://careers.flatchr.io/vacancy/candidate/json', params={
+
+}, headers = headers)
+
+print r.json()
+
+```
+
+<!-- > Body parameter
 
 ```json
 {
@@ -173,7 +300,7 @@ Le code à insérer indiqué ci-contre.
   "smilarities": false,
   "response_text": "string",
   } 
-```
+``` -->
 
 Le site flatchr.io met à disposition un système de candidature par API.
 
@@ -209,7 +336,7 @@ https://careers.flatchr.io/vacancy/candidate/test
 |similarities|boolean||Retourne offres similaires|
 |response_text|string||Texte de retour|
 
-<h1 id="recuperation-des-annonces">Récupération des annonces</h1>
+<h1 id="recuperation-des-annonces">- Récupération des annonces</h1>
 
 Afin de récupérer vos annonces, il faut que vous récupérer votre « slug », c’est la référence unique de votre entreprise. Celui-ci se trouve dans l’URL de votre site carrière.
 
@@ -236,12 +363,19 @@ var headers = {
 };
 
 $.ajax({
-  url: 'https://flatchr.io/company/[slug].json',
+  url: 'https://careers.flatchr.io/company/[slug].json',
   method: 'get',
-
   headers: headers,
+  data: '',
+  dataType: 'json',
   success: function(data) {
     console.log(JSON.stringify(data));
+  },
+  error: function() {
+
+  },
+  complete: function(){
+
   }
 })
 
@@ -255,7 +389,7 @@ const headers = {
 
 };
 
-fetch('https://flatchr.io/company/[slug].json',
+fetch('https://careers.flatchr.io/company/[slug].json',
 {
   method: 'GET',
 
@@ -269,29 +403,13 @@ fetch('https://flatchr.io/company/[slug].json',
 
 ```
 
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => '*/*'
-}
-
-result = RestClient.get 'https://flatchr.io/company/[slug].json',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
-
 ```python
 import requests
 headers = {
   'Accept': '*/*'
 }
 
-r = requests.get('https://flatchr.io/company/[slug].json', params={
+r = requests.get('https://careers.flatchr.io/company/[slug].json', params={
 
 }, headers = headers)
 
@@ -321,525 +439,7 @@ print r.json()
 |vacancy_id|integer|<i class="fas fa-check"></i> |Identifiant de l'annonce|
 
 
-
-
-<h1 id="flatchr-api-documentation-tasks">Tâches (tasks)</h1>
-
-## GET
-
-<a id="opIdgetCompanyCompanyTasks"></a>
-
-> Extraits de code
-
-```shell
-# Vous pouvez également utiliser wget
-curl -X GET https://flatchr.io/company/{company}/tasks \
-  -H 'Accept: */*'
-
-```
-
-```javascript
-var headers = {
-  'Accept':'*/*'
-
-};
-
-$.ajax({
-  url: 'https://flatchr.io/company/{company}/tasks',
-  method: 'get',
-
-  headers: headers,
-  success: function(data) {
-    console.log(JSON.stringify(data));
-  }
-})
-
-```
-
-```javascript--nodejs
-const fetch = require('node-fetch');
-
-const headers = {
-  'Accept':'*/*'
-
-};
-
-fetch('https://flatchr.io/company/{company}/tasks',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => '*/*'
-}
-
-result = RestClient.get 'https://flatchr.io/company/{company}/tasks',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
-
-```python
-import requests
-headers = {
-  'Accept': '*/*'
-}
-
-r = requests.get('https://flatchr.io/company/{company}/tasks', params={
-
-}, headers = headers)
-
-print r.json()
-
-```
-
-
-
-`GET /company/{company}/tasks`
-
-
-Obtenir toutes les tâches d'une entreprise.
-
-<h3 id="getcompanycompanytasks-parameters">Paramètres</h3>
-
-|Libellé|In|Type|Obligatoire|Description|
-|---|---|---|---|---|
-|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
-|date|query|string(date)||Date à partir de laquelle obtenir les tâches|
-|delay|query|number||Sur quelle durée obtenir les tâches|
-
-> Exemples de réponses
-
-```json
-{
-  "date": "2019-10-24T09:42:10.024Z",
-  "description": "string",
-  "done": true,
-  "id": "string",
-  "type": "string"
-  } 
-```
-
-
-<h3 id="getcompanycompanytasks-responses">Réponses</h3>
-
-|Libellé|Type|Description|
-|---|---|---|---|
-|date|timestamp|Date|
-|description|string|Description|
-|done|boolean|Indique si la tâche a été effectuée|
-|id|string|Identifiant unique de la tâche|
-|type|string|Type de tâche|
-
-## POST
-
-<a id="opIdpostCompanyCompanyTaskUserUser"></a>
-
-> Extraits de code
-
-```shell
-# Vous pouvez également utiliser wget
-curl -X POST https://flatchr.io/company/{company}/task/user/{user} \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: */*'
-
-```
-
-```javascript
-var headers = {
-  'Content-Type':'application/json',
-  'Accept':'*/*'
-
-};
-
-$.ajax({
-  url: 'https://flatchr.io/company/{company}/task/user/{user}',
-  method: 'post',
-
-  headers: headers,
-  success: function(data) {
-    console.log(JSON.stringify(data));
-  }
-})
-
-```
-
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
-  "description": "string",
-  "date": "2020-01-16",
-  "value": [
-    "string"
-  ],
-  "email": true
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Accept':'*/*'
-
-};
-
-fetch('https://flatchr.io/company/{company}/task/user/{user}',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Content-Type' => 'application/json',
-  'Accept' => '*/*'
-}
-
-result = RestClient.post 'https://flatchr.io/company/{company}/task/user/{user}',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
-
-```python
-import requests
-headers = {
-  'Content-Type': 'application/json',
-  'Accept': '*/*'
-}
-
-r = requests.post('https://flatchr.io/company/{company}/task/user/{user}', params={
-
-}, headers = headers)
-
-print r.json()
-
-```
-
-
-`POST /company/{company}/task/user/{user}`
-
-Créer une tâche d'utilisateur.
-
-> Body parameter
-
-```json
-{
-  "description": "string",
-  "date": "2020-01-16",
-  "value": [
-    "string"
-  ],
-  "email": true
-}
-```
-
-<h3 id="postcompanycompanytaskuseruser-parameters">Paramètres</h3>
-
-|Libellé|In|Type|Obligatoire|Description|
-|---|---|---|---|---|
-|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
-|user|path|string|<i class="fas fa-check"></i> |Nom de l'utilisateur|
-|body|body|[Body](#schemamodel_3)|||
-
-> Exemples de réponses
-
-```json
-{ 
-  "date": "2019-10-24T09:42:10.024Z",
-  "description": "integer",
-  "done": true,
-  "id": "string",
-  "type": "string"
-  }  
-```
-
-
-<h3 id="postcompanycompanytaskuseruser-responses">Réponses</h3>
-
-|Libellé|Type|Description|
-|---|---|---|---|
-|date|timestamp|Date|
-|description|string|Description|
-|done|boolean|Indique si la tâche a été effectuée|
-|id|string|Identifiant unique de la tâche|
-|type|string|Type de tâche|
-
-
-
-## DELETE
-
-<a id="opIddeleteCompanyCompanyTaskTask"></a>
-
-> Extraits de code
-
-```shell
-# Vous pouvez également utiliser wget
-curl -X DELETE https://flatchr.io/company/{company}/task/{task} \
-  -H 'Accept: */*'
-
-```
-
-```javascript
-var headers = {
-  'Accept':'*/*'
-
-};
-
-$.ajax({
-  url: 'https://flatchr.io/company/{company}/task/{task}',
-  method: 'delete',
-
-  headers: headers,
-  success: function(data) {
-    console.log(JSON.stringify(data));
-  }
-})
-
-```
-
-```javascript--nodejs
-const fetch = require('node-fetch');
-
-const headers = {
-  'Accept':'*/*'
-
-};
-
-fetch('https://flatchr.io/company/{company}/task/{task}',
-{
-  method: 'DELETE',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => '*/*'
-}
-
-result = RestClient.delete 'https://flatchr.io/company/{company}/task/{task}',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
-
-```python
-import requests
-headers = {
-  'Accept': '*/*'
-}
-
-r = requests.delete('https://flatchr.io/company/{company}/task/{task}', params={
-
-}, headers = headers)
-
-print r.json()
-
-```
-
-
-`DELETE /company/{company}/task/{task}`
-
-Effacer une tâche d'utilisateur.
-
-<h3 id="deletecompanycompanytasktask-parameters">Paramètres</h3>
-
-|Libellé|In|Type|Obligatoire|Description|
-|---|---|---|---|---|
-|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
-|task|path|string|<i class="fas fa-check"></i> |Nom de la tâche|
-
-> Exemples de réponses
-
-```json
- {"message": "Task deleted"}
-```
-
-
-<h3 id="deletecompanycompanytasktask-responses">Réponses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|default|Default|Successful|string|
-
-
-
-## PUT
-
-<a id="opIdputCompanyCompanyTaskTask"></a>
-
-> Extraits de code
-
-```shell
-# Vous pouvez également utiliser wget
-curl -X PUT https://flatchr.io/company/{company}/task/{task} \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: */*'
-
-```
-
-```javascript
-var headers = {
-  'Content-Type':'application/json',
-  'Accept':'*/*'
-
-};
-
-$.ajax({
-  url: 'https://flatchr.io/company/{company}/task/{task}',
-  method: 'put',
-
-  headers: headers,
-  success: function(data) {
-    console.log(JSON.stringify(data));
-  }
-})
-
-```
-
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
-  "done": true
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Accept':'*/*'
-
-};
-
-fetch('https://flatchr.io/company/{company}/task/{task}',
-{
-  method: 'PUT',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Content-Type' => 'application/json',
-  'Accept' => '*/*'
-}
-
-result = RestClient.put 'https://flatchr.io/company/{company}/task/{task}',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
-
-```python
-import requests
-headers = {
-  'Content-Type': 'application/json',
-  'Accept': '*/*'
-}
-
-r = requests.put('https://flatchr.io/company/{company}/task/{task}', params={
-
-}, headers = headers)
-
-print r.json()
-
-```
-
-
-`PUT /company/{company}/task/{task}`
-
-Mettre à jour ou modifier une tâche d'utilisateur.
-
-> Body parameter
-
-```json
-{
-  "done": true
-}
-```
-
-<h3 id="putcompanycompanytasktask-parameters">Paramètres</h3>
-
-|Libellé|In|Type|Obligatoire|Description|
-|---|---|---|---|---|
-|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
-|task|path|string|<i class="fas fa-check"></i> |Nom de la tâche|
-|body|body|[Body](#schemamodel_7)|||
-
-> Exemples de réponses
-
-```json
-{ 
-  "date": "2019-10-24T09:42:10.024Z",
-  "description": "integer",
-  "done": false,
-  "id": "string",
-  "type": "string"
-  }  
-```
-
-
-
-<h3 id="putcompanycompanytasktask-responses">Réponses</h3>
-
-|Libellé|Type|Description|
-|---|---|---|---|
-|date|timestamp|Date|
-|description|string|Description|
-|done|boolean|Indique si la tâche a été effectuée|
-|id|string|Identifiant unique de la tâche|
-|type|string|Type de tâche|
-
-
-
-<h1 id="flatchr-api-documentation-members">Calendriers (calendars)</h1>
+<h1 id="flatchr-api-documentation-calendars">Calendrier entreprise (calendars)</h1>
 
 ## GET
 
@@ -891,22 +491,6 @@ fetch('https://flatchr.io/company/{company}/calendars',
 }).then(function(body) {
     console.log(body);
 });
-
-```
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => '*/*'
-}
-
-result = RestClient.get 'https://flatchr.io/company/{company}/calendars',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
 
 ```
 
@@ -962,6 +546,7 @@ Obtenir tous les évènements d'un calendrier d'une entreprise.
 |type|string|Exemple: "calendar"|
 |value|url|Adresse url|
 
+<h1 id="flatchr-api-documentation-members">Calendrier candidat (calendars)</h1>
 
 ## GET
 
@@ -1017,21 +602,6 @@ fetch('https://flatchr.io/company/{company}/applicant/{applicant}/calendars',
 
 ```
 
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => '*/*'
-}
-
-result = RestClient.get 'https://flatchr.io/company/{company}/applicant/{applicant}/calendars',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
 
 ```python
 import requests
@@ -1084,138 +654,8 @@ Obtenir tous les évènements d'un calendrier d'un candidat.
 |type|string|Exemple: "calendar"|
 |value|url|Adresse url|
 
+
 <h1 id="flatchr-api-documentation-applicants">Candidats CVthèque (applicants)</h1>
-
-## GET
-
-<a id="opIdgetCompanyCompanySearchApplicants"></a>
-
-> Extraits de code
-
-```shell
-# Vous pouvez également utiliser wget
-curl -X GET https://flatchr.io/company/{company}/search/applicants \
-  -H 'Accept: */*'
-
-```
-
-```javascript
-var headers = {
-  'Accept':'*/*'
-
-};
-
-$.ajax({
-  url: 'https://flatchr.io/company/{company}/search/applicants',
-  method: 'get',
-
-  headers: headers,
-  success: function(data) {
-    console.log(JSON.stringify(data));
-  }
-})
-
-```
-
-```javascript--nodejs
-const fetch = require('node-fetch');
-
-const headers = {
-  'Accept':'*/*'
-
-};
-
-fetch('https://flatchr.io/company/{company}/search/applicants',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => '*/*'
-}
-
-result = RestClient.get 'https://flatchr.io/company/{company}/search/applicants',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
-
-```python
-import requests
-headers = {
-  'Accept': '*/*'
-}
-
-r = requests.get('https://flatchr.io/company/{company}/search/applicants', params={
-
-}, headers = headers)
-
-print r.json()
-
-```
-
-
-`GET /company/{company}/search/applicants`
-
-Chercher un candidat dans la CVthèque ?
-
-<h3 id="getcompanycompanysearchapplicants-parameters">Paramètres</h3>
-
-|Libellé|In|Type|Obligatoire|Description|
-|---|---|---|---|---|
-|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
-|term|query|string|||
-|email|query|string||E-mail du candidat|
-|vacancy|query|number||Annonce|
-|column|query|number||Nom de la colonne concernée|
-|status|query|number||Statut du candidat|
-|offerer|query|number||Numéro de l'offre|
-|tag|query|string||Nom du tag|
-|start|query|string||Date de début à partir de laquelle chercher|
-|end|query|string||Date de fin|
-|p|query|number|||
-|limit|query|number||Nombre maximal de résultats|
-
-> Exemples de réponses
-
-```json
-{
-  "vacancy": "string",
-  "column": "string",
-  "firstname": "string",
-  "lastname": "string",
-  "created_at": "string",
-  "source": "string"
-  } 
-```
-
-
-<h3 id="getcompanycompanysearchapplicants-responses">Réponses</h3>
-
-|Libellé|Type|Description|
-|---|---|---|---|
-|vacancy|string|Annonce|
-|column|string|Colonne concernée|
-|firstname|string|Prénom du candidat|
-|lastname|string|Nom du candidat|
-|created_at|timestamp|Date de la création du candidat|
-|source|string|Origine du candidat|
-
 
 
 ## GET
@@ -1269,22 +709,6 @@ fetch('https://flatchr.io/company/{company}/applicant/{applicant}',
 }).then(function(body) {
     console.log(body);
 });
-
-```
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => '*/*'
-}
-
-result = RestClient.get 'https://flatchr.io/company/{company}/applicant/{applicant}',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
 
 ```
 
@@ -1391,7 +815,32 @@ var headers = {
 $.ajax({
   url: 'https://flatchr.io/vacancy/{vacancy}/candidate',
   method: 'post',
-
+  body: {
+  "firstname": "string",
+  "lastname": "string",
+  "email": "string",
+  "phone": "string",
+  "last_position": "string",
+  "type": "json",
+  "resume": {
+    "path": "string",
+    "key": "string"
+    },
+  "comment": "string",
+  "note": "string",
+  "urls": "string",
+  "offerer_id": 0,
+  "user_id": "string",
+  "creator": "string",
+  "hash": "stringstringst",
+  "import": true,
+  "external_id": "string",
+  "disable_mail": true,
+  "answers": [
+    "string"
+    ],
+  "api_key": "string"
+  },
   headers: headers,
   success: function(data) {
     console.log(JSON.stringify(data));
@@ -1448,28 +897,39 @@ fetch('https://flatchr.io/vacancy/{vacancy}/candidate',
 
 ```
 
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Content-Type' => 'application/json',
-  'Accept' => '*/*'
-}
-
-result = RestClient.post 'https://flatchr.io/vacancy/{vacancy}/candidate',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
 
 ```python
 import requests
 headers = {
   'Content-Type': 'application/json',
   'Accept': '*/*'
+}
+
+body = {
+  "firstname": "string",
+  "lastname": "string",
+  "email": "string",
+  "phone": "string",
+  "last_position": "string",
+  "type": "json",
+  "resume": {
+    "path": "string",
+    "key": "string"
+  },
+  "comment": "string",
+  "note": "string",
+  "urls": "string",
+  "offerer_id": 0,
+  "user_id": "string",
+  "creator": "string",
+  "hash": "stringstringst",
+  "import": True,
+  "external_id": "string",
+  "disable_mail": True,
+  "answers": [
+    "string"
+  ],
+  "api_key": "string"
 }
 
 r = requests.post('https://flatchr.io/vacancy/{vacancy}/candidate', params={
@@ -1485,7 +945,7 @@ print r.json()
 
 Créer un nouveau candidat dans la CVthèque.
 
-> Body parameter
+<!-- > Body parameter
 
 ```json
 {
@@ -1514,14 +974,32 @@ Créer un nouveau candidat dans la CVthèque.
   ],
   "api_key": "string"
 }
-```
+``` -->
 
 <h3 id="postvacancyvacancycandidate-parameters">Paramètres</h3>
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
 |vacancy|path|string|<i class="fas fa-check"></i> |Annonce|
-|body|body|[Body](#schemamodel_2)|||
+|firstname||string|<i class="fas fa-check"></i> |Prénom|
+|lastname||string|<i class="fas fa-check"></i> |Nom|
+|email||string||Email|
+|phone||string||Téléphone|
+|last_position||string||Dernière position|
+|type||string||Type|
+|resume||base64 / hr-xml||CV|
+|comment||string||Commentaire|
+|note||string||Note|
+|urls||string||Urls|
+|offerer_id||integer||Identifiant jobboard|
+|user_id||string||Identifiant utilisateur|
+|creator||string||Créateur|
+|hash||string||Chaîne cryptée|
+|import||boolean||Importé|
+|external_id||string||Identifiant externe|
+|disable_mail||boolean||Désactiver l'email obligatoire|
+|answers||string||Réponse|
+|api_key||string||Clé API|
 
 > Exemples de réponses
 
@@ -1595,22 +1073,6 @@ fetch('https://flatchr.io/company/{company}/vacancy/{vacancy}/applicant/{applica
 }).then(function(body) {
     console.log(body);
 });
-
-```
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => '*/*'
-}
-
-result = RestClient.delete 'https://flatchr.io/company/{company}/vacancy/{vacancy}/applicant/{applicant}',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
 
 ```
 
@@ -1721,23 +1183,6 @@ fetch('https://flatchr.io/company/{company}/vacancy/{vacancy}/applicant/{applica
 
 ```
 
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Content-Type' => 'application/json',
-  'Accept' => '*/*'
-}
-
-result = RestClient.put 'https://flatchr.io/company/{company}/vacancy/{vacancy}/applicant/{applicant}',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
-
 ```python
 import requests
 headers = {
@@ -1780,7 +1225,13 @@ Modifier les informations d'un candidat de la CVthèque.
 |vacancy|path|string|<i class="fas fa-check"></i> |Annonce|
 |applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
 |disable_mail|query|boolean||Désactiver l'e-mail obligatoire|
-|body|body|[Body](#schemamodel_8)|||
+|vacancy_id||string||Identifiant annonce|
+|column_id||integer||Identifiant colonne|
+|score||integer||Score|
+|firstname||string||Prénom|
+|lastname||string||Nom|
+|email||string||Email|
+|status||integer||Statut|
 
 > Exemples de réponses
 
@@ -1890,21 +1341,6 @@ fetch('https://flatchr.io/company/{company}/applicant/{applicant}/ratings',
 
 ```
 
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => '*/*'
-}
-
-result = RestClient.get 'https://flatchr.io/company/{company}/applicant/{applicant}/ratings',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
 
 ```python
 import requests
@@ -1958,288 +1394,6 @@ Obtenir les évaluations d'un candidat.
 |score|string|Score du candidat|
 |score_tag|string|Tag de score|
 |author|[Author](#schemamodel_16)||
-
-
-<h1 id="flatchr-api-documentation-response">Réponse (answer)</h1>
-
-## POST
-
-<a id="opIdpostApplicantApplicantAnswer"></a>
-
-> Extraits de code
-
-```shell
-# Vous pouvez également utiliser wget
-curl -X POST https://flatchr.io/applicant/{applicant}/answer \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: */*'
-
-```
-
-
-```javascript
-var headers = {
-  'Content-Type':'application/json',
-  'Accept':'*/*'
-
-};
-
-$.ajax({
-  url: 'https://flatchr.io/applicant/{applicant}/answer',
-  method: 'post',
-
-  headers: headers,
-  success: function(data) {
-    console.log(JSON.stringify(data));
-  }
-})
-
-```
-
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
-  "value": "string",
-  "type": "string",
-  "question": {}
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Accept':'*/*'
-
-};
-
-fetch('https://flatchr.io/applicant/{applicant}/answer',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Content-Type' => 'application/json',
-  'Accept' => '*/*'
-}
-
-result = RestClient.post 'https://flatchr.io/applicant/{applicant}/answer',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
-
-```python
-import requests
-headers = {
-  'Content-Type': 'application/json',
-  'Accept': '*/*'
-}
-
-r = requests.post('https://flatchr.io/applicant/{applicant}/answer', params={
-
-}, headers = headers)
-
-print r.json()
-
-```
-
-
-`POST /applicant/{applicant}/answer`
-
-Créer une réponse à une question.
-
-> Body parameter
-
-```json
-{
-  "value": "string",
-  "type": "string",
-  "question": {}
-}
-```
-
-<h3 id="postapplicantapplicantanswer-parameters">Paramètres</h3>
-
-|Libellé|In|Type|Obligatoire|Description|
-|---|---|---|---|---|
-|applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
-|body|body|[Body](#schemamodel_1)|||
-
-> Exemples de réponses
-
-```json
-{
-  "id":"string",
-  "question":"string",
-  "type":"string",
-  "value":"string"
-} 
-```
-
-
-<h3 id="postapplicantapplicantanswer-responses">Réponses</h3>
-
-|Libellé|Type|Description|
-|---|---|---|---|
-|id|string|Identifiant|
-|question|string|Intitulé de la question|
-|type|string|Exemple: "text"|
-|value|string|Contenu de la réponse|
-
-<h1 id="flatchr-api-documentation-tag">Tag</h1>
-
-## POST
-
-<a id="opIdpostCompanyCompanyApplicantApplicantTrait"></a>
-
-> Extraits de code
-
-```shell
-# Vous pouvez également utiliser wget
-curl -X POST https://flatchr.io/company/{company}/applicant/{applicant}/trait \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: */*'
-
-```
-
-```http
-POST https://flatchr.io/company/{company}/applicant/{applicant}/trait HTTP/1.1
-Host: flatchr.io
-Content-Type: application/json
-Accept: */*
-
-```
-
-```javascript
-var headers = {
-  'Content-Type':'application/json',
-  'Accept':'*/*'
-
-};
-
-$.ajax({
-  url: 'https://flatchr.io/company/{company}/applicant/{applicant}/trait',
-  method: 'post',
-
-  headers: headers,
-  success: function(data) {
-    console.log(JSON.stringify(data));
-  }
-})
-
-```
-
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
-  "tag": "string",
-  "value": "string"
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Accept':'*/*'
-
-};
-
-fetch('https://flatchr.io/company/{company}/applicant/{applicant}/trait',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Content-Type' => 'application/json',
-  'Accept' => '*/*'
-}
-
-result = RestClient.post 'https://flatchr.io/company/{company}/applicant/{applicant}/trait',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
-
-```python
-import requests
-headers = {
-  'Content-Type': 'application/json',
-  'Accept': '*/*'
-}
-
-r = requests.post('https://flatchr.io/company/{company}/applicant/{applicant}/trait', params={
-
-}, headers = headers)
-
-print r.json()
-
-```
-
-
-`POST /company/{company}/applicant/{applicant}/trait`
-
-Créer un tag candidat.
-
-> Body parameter
-
-```json
-{
-  "tag": "string",
-  "value": "string"
-}
-```
-
-<h3 id="postcompanycompanyapplicantapplicanttrait-parameters">Paramètres</h3>
-
-|Libellé|In|Type|Obligatoire|Description|
-|---|---|---|---|---|
-|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
-|applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
-|body|body|[Body](#schemamodel_6)|||
-
-> Exemples de réponses
-
-
-```json
-{
-  "id": "string",
-  "tag_id": "string",
-  "value": "string"
-}
-```
-
-<h3 id="postcompanycompanyapplicantapplicanttrait-responses">Réponses</h3>
-
-|Libellé|Type|Description|
-|---|---|---|
-|id|string|Identifiant|
-|tag_id|string|Identifiant du tag|
-|value|string|Contenu|
-
 
 
 <h1 id="flatchr-api-documentation-medias">Fichiers (medias)</h1>
@@ -2297,21 +1451,6 @@ fetch('https://flatchr.io/company/{company}/applicant/{applicant}/medias',
 
 ```
 
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => '*/*'
-}
-
-result = RestClient.get 'https://flatchr.io/company/{company}/applicant/{applicant}/medias',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
 
 ```python
 import requests
@@ -2400,7 +1539,11 @@ var headers = {
 $.ajax({
   url: 'https://flatchr.io/company/{company}/applicant/{applicant}/media',
   method: 'post',
-
+  body: {
+  "company": "string",
+  "applicant": "string",
+  "file": "fichier"
+  }
   headers: headers,
   success: function(data) {
     console.log(JSON.stringify(data));
@@ -2412,8 +1555,10 @@ $.ajax({
 ```javascript--nodejs
 const fetch = require('node-fetch');
 const inputBody = '{
-  "file": "string"
-}';
+  "company": "string",
+  "applicant": "string",
+  "file": "fichier"
+  }';
 const headers = {
   'Content-Type':'application/json',
   'Accept':'*/*'
@@ -2434,28 +1579,17 @@ fetch('https://flatchr.io/company/{company}/applicant/{applicant}/media',
 
 ```
 
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Content-Type' => 'application/json',
-  'Accept' => '*/*'
-}
-
-result = RestClient.post 'https://flatchr.io/company/{company}/applicant/{applicant}/media',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
-
 ```python
 import requests
 headers = {
   'Content-Type': 'application/json',
   'Accept': '*/*'
+}
+
+body = {
+  "company": "string",
+  "applicant": "string",
+  "file": "fichier"
 }
 
 r = requests.post('https://flatchr.io/company/{company}/applicant/{applicant}/media', params={
@@ -2471,21 +1605,21 @@ print r.json()
 
 Ajouter un fichier à un candidat.
 
-> Body parameter
+<!-- > Body parameter
 
 ```json
 {
   "file": "string"
 }
 ```
-
+ -->
 <h3 id="postcompanycompanyapplicantapplicantmedia-parameters">Paramètres</h3>
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
 |company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
 |applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
-|body|body|[Body](#schemamodel_5)|||
+|file||string||Fichier|
 
 > Exemples de réponses
 
@@ -2576,22 +1710,6 @@ fetch('https://flatchr.io/company/{company}/applicant/{applicant}/media/{media}'
 
 ```
 
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => '*/*'
-}
-
-result = RestClient.delete 'https://flatchr.io/company/{company}/applicant/{applicant}/media/{media}',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
-
 ```python
 import requests
 headers = {
@@ -2632,6 +1750,127 @@ Effacer un fichier lié à candidat.
 |default|Default|Successful|string|
 
 
+<h1 id="flatchr-api-documentation-messages">Messages (messages)</h1>
+
+## GET
+
+<a id="opIdgetCompanyCompanyApplicantApplicantMessages"></a>
+
+> Extraits de code
+
+```shell
+# Vous pouvez également utiliser wget
+curl -X GET https://flatchr.io/company/{company}/applicant/{applicant}/messages \
+  -H 'Accept: */*'
+
+```
+
+```javascript
+var headers = {
+  'Accept':'*/*'
+
+};
+
+$.ajax({
+  url: 'https://flatchr.io/company/{company}/applicant/{applicant}/messages',
+  method: 'get',
+
+  headers: headers,
+  success: function(data) {
+    console.log(JSON.stringify(data));
+  }
+})
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'*/*'
+
+};
+
+fetch('https://flatchr.io/company/{company}/applicant/{applicant}/messages',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+
+```python
+import requests
+headers = {
+  'Accept': '*/*'
+}
+
+r = requests.get('https://flatchr.io/company/{company}/applicant/{applicant}/messages', params={
+
+}, headers = headers)
+
+print r.json()
+
+```
+
+
+
+`GET /company/{company}/applicant/{applicant}/messages`
+
+Obtenir tous les messages d'un candidat.
+
+<h3 id="getcompanycompanyapplicantapplicantmessages-parameters">Paramètres</h3>
+
+|Libellé|In|Type|Obligatoire|Description|
+|---|---|---|---|---|
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
+
+> Exemples de réponses
+
+```json
+{
+  "id": "string",
+  "created_by": "string",
+  "mail": {
+          "subject": "string",
+          "text": "string",
+          "html": "string",
+          "status": ""
+          },
+  "delivered": true,
+  "deliver_at": "2019-10-24T09:42:10.024Z",
+  "author": {
+           "id": "string",
+           "firstname": "string",
+           "lastname": "string",
+           "picture": "string"
+            },
+  "picture": "string"
+}
+ 
+```
+
+
+<h3 id="getcompanycompanyapplicantapplicantmessages-responses">Réponses</h3>
+
+|Libellé|Type|Description|
+|---|---|---|
+|id|string|Identifiant|
+|created_by|string|Nom du créateur du message|
+|created_at|timestamp|Date de création du message|
+|mail|[Mail](#schemamodel_15)||
+|delivered|boolean|Message délivré|
+|deliver_at|timestamp|Date à laquelle le message a été délivré|
+|author|[Author](#schemamodel_13)||
+|picture|string|url de l'image|
 
 <h1 id="flatchr-api-documentation-comments">Notes (comments)</h1>
 
@@ -2686,22 +1925,6 @@ fetch('https://flatchr.io/company/{company}/applicant/{applicant}/comments',
 }).then(function(body) {
     console.log(body);
 });
-
-```
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => '*/*'
-}
-
-result = RestClient.get 'https://flatchr.io/company/{company}/applicant/{applicant}/comments',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
 
 ```
 
@@ -2790,7 +2013,14 @@ var headers = {
 $.ajax({
   url: 'https://flatchr.io/company/{company}/applicant/{applicant}/comment',
   method: 'post',
-
+  body: {
+  "applicant": "string",
+  "company": "string",
+  "text": "string",
+  "file": "string",
+  "mentions": "string",
+  "private": true
+  },
   headers: headers,
   success: function(data) {
     console.log(JSON.stringify(data));
@@ -2802,6 +2032,8 @@ $.ajax({
 ```javascript--nodejs
 const fetch = require('node-fetch');
 const inputBody = '{
+  "applicant": "string",
+  "company": "string",
   "text": "string",
   "file": "string",
   "mentions": "string",
@@ -2827,28 +2059,20 @@ fetch('https://flatchr.io/company/{company}/applicant/{applicant}/comment',
 
 ```
 
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Content-Type' => 'application/json',
-  'Accept' => '*/*'
-}
-
-result = RestClient.post 'https://flatchr.io/company/{company}/applicant/{applicant}/comment',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
-
 ```python
 import requests
 headers = {
   'Content-Type': 'application/json',
   'Accept': '*/*'
+}
+
+body = {
+  "applicant": "string",
+  "company": "string",
+  "text": "string",
+  "file": "string",
+  "mentions": "string",
+  "private": True
 }
 
 r = requests.post('https://flatchr.io/company/{company}/applicant/{applicant}/comment', params={
@@ -2865,7 +2089,7 @@ print r.json()
 
 Créer un commentaire à propos d'un candidat.
 
-> Body parameter
+<!-- > Body parameter
 
 ```json
 {
@@ -2874,7 +2098,7 @@ Créer un commentaire à propos d'un candidat.
   "mentions": "string",
   "private": true
 }
-```
+``` -->
 
 <h3 id="postcompanycompanyapplicantapplicantcomment-parameters">Paramètres</h3>
 
@@ -2882,7 +2106,10 @@ Créer un commentaire à propos d'un candidat.
 |---|---|---|---|---|
 |company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
 |applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
-|body|body|[Body](#schemamodel_4)|||
+|text||string|<i class="fas fa-check"></i> |Texte|
+|file||string||Fichier|
+|mentions||string||Mentions|
+|private||boolean||Caractère privé|
 
 > Exemples de réponses
 
@@ -2964,22 +2191,6 @@ fetch('https://flatchr.io/company/{company}/applicant/{applicant}/comment/{comme
 
 ```
 
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => '*/*'
-}
-
-result = RestClient.delete 'https://flatchr.io/company/{company}/applicant/{applicant}/comment/{comment}',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
-
 ```python
 import requests
 headers = {
@@ -3022,17 +2233,17 @@ Effacer un commentaire de candidat.
 
 
 
-<h1 id="flatchr-api-documentation-messages">Messages</h1>
+<h1 id="flatchr-api-documentation-recherche-cvthèque">Recherche CVthèque (search)</h1>
 
 ## GET
 
-<a id="opIdgetCompanyCompanyApplicantApplicantMessages"></a>
+<a id="opIdgetCompanyCompanySearchApplicants"></a>
 
 > Extraits de code
 
 ```shell
 # Vous pouvez également utiliser wget
-curl -X GET https://flatchr.io/company/{company}/applicant/{applicant}/messages \
+curl -X GET https://flatchr.io/company/{company}/search/applicants \
   -H 'Accept: */*'
 
 ```
@@ -3044,7 +2255,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'https://flatchr.io/company/{company}/applicant/{applicant}/messages',
+  url: 'https://flatchr.io/company/{company}/search/applicants',
   method: 'get',
 
   headers: headers,
@@ -3063,7 +2274,7 @@ const headers = {
 
 };
 
-fetch('https://flatchr.io/company/{company}/applicant/{applicant}/messages',
+fetch('https://flatchr.io/company/{company}/search/applicants',
 {
   method: 'GET',
 
@@ -3077,19 +2288,256 @@ fetch('https://flatchr.io/company/{company}/applicant/{applicant}/messages',
 
 ```
 
-```ruby
-require 'rest-client'
-require 'json'
-
+```python
+import requests
 headers = {
-  'Accept' => '*/*'
+  'Accept': '*/*'
 }
 
-result = RestClient.get 'https://flatchr.io/company/{company}/applicant/{applicant}/messages',
-  params: {
-  }, headers: headers
+r = requests.get('https://flatchr.io/company/{company}/search/applicants', params={
 
-p JSON.parse(result)
+}, headers = headers)
+
+print r.json()
+
+```
+
+
+`GET /company/{company}/search/applicants`
+
+Chercher un candidat dans la CVthèque.
+
+<h3 id="getcompanycompanysearchapplicants-parameters">Paramètres</h3>
+
+|Libellé|In|Type|Obligatoire|Description|
+|---|---|---|---|---|
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|term|query|string|||
+|email|query|string||E-mail du candidat|
+|vacancy|query|number||Annonce|
+|column|query|number||Nom de la colonne concernée|
+|status|query|number||Statut du candidat|
+|offerer|query|number||Numéro de l'offre|
+|tag|query|string||Nom du tag|
+|start|query|string||Date de début à partir de laquelle chercher|
+|end|query|string||Date de fin|
+|p|query|number|||
+|limit|query|number||Nombre maximal de résultats|
+
+> Exemples de réponses
+
+```json
+{
+  "vacancy": "string",
+  "column": "string",
+  "firstname": "string",
+  "lastname": "string",
+  "created_at": "string",
+  "source": "string"
+  } 
+```
+
+
+<h3 id="getcompanycompanysearchapplicants-responses">Réponses</h3>
+
+|Libellé|Type|Description|
+|---|---|---|---|
+|vacancy|string|Annonce|
+|column|string|Colonne concernée|
+|firstname|string|Prénom du candidat|
+|lastname|string|Nom du candidat|
+|created_at|timestamp|Date de la création du candidat|
+|source|string|Origine du candidat|
+
+<h1 id="flatchr-api-documentation-response">Réponse (answer)</h1>
+
+## POST
+
+<a id="opIdpostApplicantApplicantAnswer"></a>
+
+> Extraits de code
+
+```shell
+# Vous pouvez également utiliser wget
+curl -X POST https://flatchr.io/applicant/{applicant}/answer \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: */*'
+
+```
+
+
+```javascript
+var headers = {
+  'Content-Type':'application/json',
+  'Accept':'*/*'
+
+};
+
+$.ajax({
+  url: 'https://flatchr.io/applicant/{applicant}/answer',
+  method: 'post',
+  body: {
+  "applicant": "string",
+  "value": "string",
+  "type": "string",
+  "question": {}
+  },
+  headers: headers,
+  success: function(data) {
+    console.log(JSON.stringify(data));
+  }
+})
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "applicant": "string",
+  "value": "string",
+  "type": "string",
+  "question": {}
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'*/*'
+
+};
+
+fetch('https://flatchr.io/applicant/{applicant}/answer',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': '*/*'
+}
+
+body = {
+  "applicant": "string",
+  "value": "string",
+  "type": "string",
+  "question": {}
+}
+
+r = requests.post('https://flatchr.io/applicant/{applicant}/answer', params={
+
+}, headers = headers)
+
+print r.json()
+
+```
+
+
+`POST /applicant/{applicant}/answer`
+
+Créer une réponse à une question.
+
+<!-- > Body parameter
+
+```json
+{
+  "applicant": "string",
+  "value": "string",
+  "type": "string",
+  "question": {}
+}
+``` -->
+
+<h3 id="postapplicantapplicantanswer-parameters">Paramètres</h3>
+
+|Libellé|In|Type|Obligatoire|Description|
+|---|---|---|---|---|
+|applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
+|value||string|<i class="fas fa-check"></i> |Valeur|
+|type||string|<i class="fas fa-check"></i> |Type|
+|question|||||
+
+> Exemples de réponses
+
+```json
+{
+  "id":"string",
+  "question":"string",
+  "type":"string",
+  "value":"string"
+} 
+```
+
+
+<h3 id="postapplicantapplicantanswer-responses">Réponses</h3>
+
+|Libellé|Type|Description|
+|---|---|---|---|
+|id|string|Identifiant|
+|question|string|Intitulé de la question|
+|type|string|Exemple: "text"|
+|value|string|Contenu de la réponse|
+
+<h1 id="flatchr-api-documentation-tasks">Tâches (tasks)</h1>
+
+## GET
+
+<a id="opIdgetCompanyCompanyTasks"></a>
+
+> Extraits de code
+
+```shell
+# Vous pouvez également utiliser wget
+curl -X GET https://flatchr.io/company/{company}/tasks \
+  -H 'Accept: */*'
+
+```
+
+```javascript
+var headers = {
+  'Accept':'*/*'
+
+};
+
+$.ajax({
+  url: 'https://flatchr.io/company/{company}/tasks',
+  method: 'get',
+
+  headers: headers,
+  success: function(data) {
+    console.log(JSON.stringify(data));
+  }
+})
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'*/*'
+
+};
+
+fetch('https://flatchr.io/company/{company}/tasks',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
 
 ```
 
@@ -3099,7 +2547,7 @@ headers = {
   'Accept': '*/*'
 }
 
-r = requests.get('https://flatchr.io/company/{company}/applicant/{applicant}/messages', params={
+r = requests.get('https://flatchr.io/company/{company}/tasks', params={
 
 }, headers = headers)
 
@@ -3109,147 +2557,126 @@ print r.json()
 
 
 
-`GET /company/{company}/applicant/{applicant}/messages`
+`GET /company/{company}/tasks`
 
-Get all messages from a candidate
 
-<h3 id="getcompanycompanyapplicantapplicantmessages-parameters">Paramètres</h3>
+Obtenir toutes les tâches d'une entreprise.
+
+<h3 id="getcompanycompanytasks-parameters">Paramètres</h3>
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
 |company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
-|applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
+|date|query|string(date)||Date à partir de laquelle obtenir les tâches|
+|delay|query|number||Sur quelle durée obtenir les tâches|
 
 > Exemples de réponses
 
 ```json
 {
+  "date": "2019-10-24T09:42:10.024Z",
+  "description": "string",
+  "done": true,
   "id": "string",
-  "created_by": "string",
-  "mail": {
-          "subject": "string",
-          "text": "string",
-          "html": "string",
-          "status": ""
-          },
-  "delivered": true,
-  "deliver_at": "2019-10-24T09:42:10.024Z",
-  "author": {
-           "id": "string",
-           "firstname": "string",
-           "lastname": "string",
-           "picture": "string"
-            },
-  "picture": "string"
-}
- 
+  "type": "string"
+  } 
 ```
 
 
-<h3 id="getcompanycompanyapplicantapplicantmessages-responses">Réponses</h3>
+<h3 id="getcompanycompanytasks-responses">Réponses</h3>
 
 |Libellé|Type|Description|
-|---|---|---|
-|id|string|Identifiant|
-|created_by|string|Nom du créateur du message|
-|created_at|timestamp|Date de création du message|
-|mail|[Mail](#schemamodel_15)||
-|delivered|boolean|Message délivré|
-|deliver_at|timestamp|Date à laquelle le message a été délivré|
-|author|[Author](#schemamodel_13)||
-|picture|string|url de l'image|
+|---|---|---|---|
+|date|timestamp|Date|
+|description|string|Description|
+|done|boolean|Indique si la tâche a été effectuée|
+|id|string|Identifiant unique de la tâche|
+|type|string|Type de tâche|
 
+## POST
 
+<a id="opIdpostCompanyCompanyTaskUserUser"></a>
 
+> Extraits de code
 
-# Modèles
-
-<h2 id="tocSmodel_1">Body</h2>
-
-<a id="schemamodel_1"></a>
-
-```json
-{
-  "value": "string",
-  "type": "string",
-  "question": {}
-}
+```shell
+# Vous pouvez également utiliser wget
+curl -X POST https://flatchr.io/company/{company}/task/user/{user} \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: */*'
 
 ```
 
-### Properties
+```javascript
+var headers = {
+  'Content-Type':'application/json',
+  'Accept':'*/*'
 
-|Libellé|Type|Obligatoire|Restrictions|Description|
-|---|---|---|---|---|
-|value|string|<i class="fas fa-check"></i> |aucune|Valeur|
-|type|string|<i class="fas fa-check"></i> |aucune|Type|
-|question|||aucune||
+};
 
-<h2 id="tocSmodel_2">Body</h2>
-
-<a id="schemamodel_2"></a>
-
-```json
-{
-  "firstname": "string",
-  "lastname": "string",
-  "email": "string",
-  "phone": "string",
-  "last_position": "string",
-  "type": "json",
-  "resume": {
-    "path": "string",
-    "key": "string"
-  },
-  "comment": "string",
-  "note": "string",
-  "urls": "string",
-  "offerer_id": 0,
-  "user_id": "string",
-  "creator": "string",
-  "hash": "stringstringst",
-  "import": true,
-  "external_id": "string",
-  "disable_mail": true,
-  "answers": [
+$.ajax({
+  url: 'https://flatchr.io/company/{company}/task/user/{user}',
+  method: 'post',
+  body: {
+  "company": "string",
+  "user": "string",
+  "description": "string",
+  "date": "2020-01-16",
+  "value": [
     "string"
   ],
-  "api_key": "string"
-}
+  "email": true
+  }
+  headers: headers,
+  success: function(data) {
+    console.log(JSON.stringify(data));
+  }
+})
 
 ```
 
-### Properties
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "company": "string",
+  "user": "string",
+  "description": "string",
+  "date": "2020-01-16",
+  "value": [
+    "string"
+  ],
+  "email": true
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'*/*'
 
-|Libellé|Type|Obligatoire|Restrictions|Description|
-|---|---|---|---|---|
-|firstname|string|<i class="fas fa-check"></i> |aucune|Prénom|
-|lastname|string|<i class="fas fa-check"></i> |aucune|Nom|
-|email|string||oui |Email|
-|phone|string||oui|Téléphone|
-|last_position|string||aucune|Dernière position|
-|type|string||aucune|Type|
-|resume|base64 / hr-xml||aucune|CV|
-|comment|string||aucune|Commentaire|
-|note|string||aucune|Note|
-|urls|string||aucune|Urls|
-|offerer_id|integer||aucune|Identifiant jobboard|
-|user_id|string||aucune|Identifiant utilisateur|
-|creator|string||aucune|Créateur|
-|hash|string||aucune|Chaîne cryptée|
-|import|boolean||aucune|Importé|
-|external_id|string||aucune|Identifiant externe|
-|disable_mail|boolean||aucune|Désactiver l'email obligatoire|
-|answers|string||aucune|Réponse|
-|api_key|string||aucune|Clé API|
+};
 
-
-<h2 id="tocSmodel_3">Body</h2>
-
-<a id="schemamodel_3"></a>
-
-```json
+fetch('https://flatchr.io/company/{company}/task/user/{user}',
 {
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': '*/*'
+}
+
+body = {
+  "company": "string",
+  "user": "string",
   "description": "string",
   "date": "2020-01-16",
   "value": [
@@ -3258,121 +2685,429 @@ Get all messages from a candidate
   "email": true
 }
 
+r = requests.post('https://flatchr.io/company/{company}/task/user/{user}', params={
+
+}, headers = headers)
+
+print r.json()
+
 ```
 
-### Properties
 
-|Libellé|Type|Obligatoire|Restrictions|Description|
-|---|---|---|---|---|
-|description|string|<i class="fas fa-check"></i> |aucune|Description|
-|date|string(date)|<i class="fas fa-check"></i> |aucune|Date|
-|value|||aucune|contenu|
-|email|boolean||aucune|Email|
+`POST /company/{company}/task/user/{user}`
 
-<h2 id="tocSmodel_4">Body</h2>
+Créer une tâche d'utilisateur.
 
-<a id="schemamodel_4"></a>
+<!-- > Body parameter
 
 ```json
 {
-  "text": "string",
-  "file": "string",
-  "mentions": "string",
-  "private": true
+  "company": "string",
+  "user": "string",
+  "description": "string",
+  "date": "2020-01-16",
+  "value": [
+    "string"
+  ],
+  "email": true
 }
+``` -->
 
-```
+<h3 id="postcompanycompanytaskuseruser-parameters">Paramètres</h3>
 
-### Properties
-
-|Libellé|Type|Obligatoire|Restrictions|Description|
+|Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|text|string|<i class="fas fa-check"></i> |aucune|Texte|
-|file|string||aucune|Fichier|
-|mentions|string||aucune|Mentions|
-|private|boolean||aucune|Caractère privé|
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|user|path|string|<i class="fas fa-check"></i> |Nom de l'utilisateur|
+|description||string|<i class="fas fa-check"></i>|Description|
+|date||string(date)|<i class="fas fa-check"></i>|Date|
+|value||string||Contenu|
+|email||boolean||Email|
 
-<h2 id="tocSmodel_5">Body</h2>
-
-<a id="schemamodel_5"></a>
+> Exemples de réponses
 
 ```json
-{
-  "file": "string"
-}
+{ 
+  "date": "2019-10-24T09:42:10.024Z",
+  "description": "integer",
+  "done": true,
+  "id": "string",
+  "type": "string"
+  }  
+```
+
+
+<h3 id="postcompanycompanytaskuseruser-responses">Réponses</h3>
+
+|Libellé|Type|Description|
+|---|---|---|---|
+|date|timestamp|Date|
+|description|string|Description|
+|done|boolean|Indique si la tâche a été effectuée|
+|id|string|Identifiant unique de la tâche|
+|type|string|Type de tâche|
+
+
+
+## DELETE
+
+<a id="opIddeleteCompanyCompanyTaskTask"></a>
+
+> Extraits de code
+
+```shell
+# Vous pouvez également utiliser wget
+curl -X DELETE https://flatchr.io/company/{company}/task/{task} \
+  -H 'Accept: */*'
 
 ```
 
-### Properties
+```javascript
+var headers = {
+  'Accept':'*/*'
 
-|Libellé|Type|Obligatoire|Restrictions|Description|
+};
+
+$.ajax({
+  url: 'https://flatchr.io/company/{company}/task/{task}',
+  method: 'delete',
+
+  headers: headers,
+  success: function(data) {
+    console.log(JSON.stringify(data));
+  }
+})
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'*/*'
+
+};
+
+fetch('https://flatchr.io/company/{company}/task/{task}',
+{
+  method: 'DELETE',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+
+```python
+import requests
+headers = {
+  'Accept': '*/*'
+}
+
+r = requests.delete('https://flatchr.io/company/{company}/task/{task}', params={
+
+}, headers = headers)
+
+print r.json()
+
+```
+
+
+`DELETE /company/{company}/task/{task}`
+
+Effacer une tâche d'utilisateur.
+
+<h3 id="deletecompanycompanytasktask-parameters">Paramètres</h3>
+
+|Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|file|string||aucune|Fichier|
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|task|path|string|<i class="fas fa-check"></i> |Nom de la tâche|
 
-<h2 id="tocSmodel_6">Body</h2>
-
-<a id="schemamodel_6"></a>
+> Exemples de réponses
 
 ```json
-{
-  "tag": "string",
-  "value": "string"
-}
+ {"message": "Task deleted"}
+```
+
+
+<h3 id="deletecompanycompanytasktask-responses">Réponses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|default|Default|Successful|string|
+
+
+
+## PUT
+
+<a id="opIdputCompanyCompanyTaskTask"></a>
+
+> Extraits de code
+
+```shell
+# Vous pouvez également utiliser wget
+curl -X PUT https://flatchr.io/company/{company}/task/{task} \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: */*'
 
 ```
 
-### Properties
+```javascript
+var headers = {
+  'Content-Type':'application/json',
+  'Accept':'*/*'
 
-|Libellé|Type|Obligatoire|Restrictions|Description|
-|---|---|---|---|---|
-|tag|string|<i class="fas fa-check"></i> |aucune|Tag|
-|value|string||aucune|Contenu|
+};
 
-<h2 id="tocSmodel_7">Body</h2>
+$.ajax({
+  url: 'https://flatchr.io/company/{company}/task/{task}',
+  method: 'put',
 
-<a id="schemamodel_7"></a>
+  headers: headers,
+  success: function(data) {
+    console.log(JSON.stringify(data));
+  }
+})
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "done": true
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'*/*'
+
+};
+
+fetch('https://flatchr.io/company/{company}/task/{task}',
+{
+  method: 'PUT',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': '*/*'
+}
+
+r = requests.put('https://flatchr.io/company/{company}/task/{task}', params={
+
+}, headers = headers)
+
+print r.json()
+
+```
+
+
+`PUT /company/{company}/task/{task}`
+
+Mettre à jour ou modifier une tâche d'utilisateur.
+
+> Body parameter
 
 ```json
 {
   "done": true
 }
+```
+
+<h3 id="putcompanycompanytasktask-parameters">Paramètres</h3>
+
+|Libellé|In|Type|Obligatoire|Description|
+|---|---|---|---|---|
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|task|path|string|<i class="fas fa-check"></i> |Nom de la tâche|
+|done||boolean|<i class="fas fa-check"></i> |aucune|Effectué|
+
+> Exemples de réponses
+
+```json
+{ 
+  "date": "2019-10-24T09:42:10.024Z",
+  "description": "integer",
+  "done": false,
+  "id": "string",
+  "type": "string"
+  }  
+```
+
+
+<h3 id="putcompanycompanytasktask-responses">Réponses</h3>
+
+|Libellé|Type|Description|
+|---|---|---|---|
+|date|timestamp|Date|
+|description|string|Description|
+|done|boolean|Indique si la tâche a été effectuée|
+|id|string|Identifiant unique de la tâche|
+|type|string|Type de tâche|
+
+<h1 id="flatchr-api-documentation-tag">Tag</h1>
+
+## POST
+
+<a id="opIdpostCompanyCompanyApplicantApplicantTrait"></a>
+
+> Extraits de code
+
+```shell
+# Vous pouvez également utiliser wget
+curl -X POST https://flatchr.io/company/{company}/applicant/{applicant}/trait \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: */*'
 
 ```
 
-### Properties
+```http
+POST https://flatchr.io/company/{company}/applicant/{applicant}/trait HTTP/1.1
+Host: flatchr.io
+Content-Type: application/json
+Accept: */*
 
-|Libellé|Type|Obligatoire|Restrictions|Description|
-|---|---|---|---|---|
-|done|boolean|<i class="fas fa-check"></i> |aucune|Effectué|
+```
 
-<h2 id="tocSmodel_8">Body</h2>
+```javascript
+var headers = {
+  'Content-Type':'application/json',
+  'Accept':'*/*'
 
-<a id="schemamodel_8"></a>
+};
+
+$.ajax({
+  url: 'https://flatchr.io/company/{company}/applicant/{applicant}/trait',
+  method: 'post',
+  body: {
+  "company": "string",
+  "applicant": "string",
+  "tag": "string",
+  "value": "string"
+  }
+  headers: headers,
+  success: function(data) {
+    console.log(JSON.stringify(data));
+  }
+})
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+const inputBody = '{
+  "company": "string",
+  "applicant": "string",
+  "tag": "string",
+  "value": "string"
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'*/*'
+
+};
+
+fetch('https://flatchr.io/company/{company}/applicant/{applicant}/trait',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': '*/*'
+}
+
+body = {
+  "company": "string",
+  "applicant": "string",
+  "tag": "string",
+  "value": "string"
+}
+
+r = requests.post('https://flatchr.io/company/{company}/applicant/{applicant}/trait', params={
+
+}, headers = headers)
+
+print r.json()
+
+```
+
+
+`POST /company/{company}/applicant/{applicant}/trait`
+
+Créer un tag candidat.
+
+<!-- > Body parameter
 
 ```json
 {
-  "vacancy_id": "string",
-  "column_id": 0,
-  "score": 0,
-  "firstname": "string",
-  "lastname": "string",
-  "email": "string",
-  "status": 1
+  "company": "string",
+  "applicant": "string",
+  "tag": "string",
+  "value": "string"
 }
+``` -->
 
+<h3 id="postcompanycompanyapplicantapplicanttrait-parameters">Paramètres</h3>
+
+|Libellé|In|Type|Obligatoire|Description|
+|---|---|---|---|---|
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
+|tag||string|<i class="fas fa-check"></i> |Tag|
+|value||string||Contenu|
+
+> Exemples de réponses
+
+
+```json
+{
+  "id": "string",
+  "tag_id": "string",
+  "value": "string"
+}
 ```
 
-### Properties
+<h3 id="postcompanycompanyapplicantapplicanttrait-responses">Réponses</h3>
 
-|Libellé|Type|Obligatoire|Restrictions|Description|
-|---|---|---|---|---|
-|vacancy_id|string||aucune|Identifiant annonce|
-|column_id|integer||aucune|Identifiant colonne|
-|score|integer||aucune|Score|
-|firstname|string||aucune|Prénom|
-|lastname|string||aucune|Nom|
-|email|string||aucune|Email|
-|status|integer||aucune|Statut|
+|Libellé|Type|Description|
+|---|---|---|
+|id|string|Identifiant|
+|tag_id|string|Identifiant du tag|
+|value|string|Contenu|
+
+
+
+
+# Modèles
 
 
 <h2 id="tocSmodel_9">Vacancy</h2>
