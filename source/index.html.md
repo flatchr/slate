@@ -1143,7 +1143,15 @@ var headers = {
 $.ajax({
   url: 'https://flatchr.io/company/{company}/vacancy/{vacancy}/applicant/{applicant}',
   method: 'put',
-
+  body: {
+  "vacancy_id": "string",
+  "column_id": 0,
+  "score": 0,
+  "firstname": "string",
+  "lastname": "string",
+  "email": "string",
+  "status": 1
+  }
   headers: headers,
   success: function(data) {
     console.log(JSON.stringify(data));
@@ -1190,6 +1198,16 @@ headers = {
   'Accept': '*/*'
 }
 
+body = {
+  "vacancy_id": "string",
+  "column_id": 0,
+  "score": 0,
+  "firstname": "string",
+  "lastname": "string",
+  "email": "string",
+  "status": 1
+}
+
 r = requests.put('https://flatchr.io/company/{company}/vacancy/{vacancy}/applicant/{applicant}', params={
 
 }, headers = headers)
@@ -1203,7 +1221,7 @@ print r.json()
 
 Modifier les informations d'un candidat de la CVthèque.
 
-> Body parameter
+<!-- > Body parameter
 
 ```json
 {
@@ -1215,7 +1233,7 @@ Modifier les informations d'un candidat de la CVthèque.
   "email": "string",
   "status": 1
 }
-```
+``` -->
 
 <h3 id="putcompanycompanyvacancyvacancyapplicantapplicant-parameters">Paramètres</h3>
 
@@ -2868,7 +2886,11 @@ var headers = {
 $.ajax({
   url: 'https://flatchr.io/company/{company}/task/{task}',
   method: 'put',
-
+  body: {
+  "company": "string",
+  "tasks": "string,"
+  "done": true
+  },
   headers: headers,
   success: function(data) {
     console.log(JSON.stringify(data));
@@ -2880,6 +2902,8 @@ $.ajax({
 ```javascript--nodejs
 const fetch = require('node-fetch');
 const inputBody = '{
+  "company": "string",
+  "tasks": "string,"
   "done": true
 }';
 const headers = {
@@ -2910,6 +2934,12 @@ headers = {
   'Accept': '*/*'
 }
 
+body = {
+  "company": "string",
+  "tasks": "string,"
+  "done": True
+}
+
 r = requests.put('https://flatchr.io/company/{company}/task/{task}', params={
 
 }, headers = headers)
@@ -2923,13 +2953,13 @@ print r.json()
 
 Mettre à jour ou modifier une tâche d'utilisateur.
 
-> Body parameter
+<!-- > Body parameter
 
 ```json
 {
   "done": true
 }
-```
+``` -->
 
 <h3 id="putcompanycompanytasktask-parameters">Paramètres</h3>
 
