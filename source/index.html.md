@@ -47,7 +47,7 @@ Avant toute mise en place, veuillez valider l’adéquation de ce service et vot
 </aside>
 
 
-<h1 id="authentification">- Identification</h1>
+<h1 id="authentification">Identification</h1>
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -56,7 +56,7 @@ consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-<h1 id="iframe">- Iframe et WordPress</h1>
+<h1 id="iframe">Iframe et WordPress</h1>
 
 Le code à intégrer à votre page varie selon que l'iframe est publique ou en intranet.
 
@@ -412,9 +412,9 @@ print r.json()
 |vacancy_id|integer|<i class="fas fa-check"></i> |Identifiant de l'annonce|
 
 
-<h1 id="flatchr-api-documentation-calendars">Calendrier entreprise (calendars)</h1>
+<h1 id="flatchr-api-documentation-calendars">Calendriers</h1>
 
-## GET
+## Entreprise
 
 <a id="opIdgetCompanyCompanyCalendars"></a>
 
@@ -519,9 +519,8 @@ Obtenir tous les évènements d'un calendrier d'une entreprise.
 |type|string|Exemple: "calendar"|
 |value|url|Adresse url|
 
-<h1 id="flatchr-api-documentation-members">Calendrier candidat (calendars)</h1>
 
-## GET
+## Candidat
 
 <a id="opIdgetCompanyCompanyApplicantApplicantCalendars"></a>
 
@@ -628,10 +627,10 @@ Obtenir tous les évènements d'un calendrier d'un candidat.
 |value|url|Adresse url|
 
 
-<h1 id="flatchr-api-documentation-applicants">Candidats CVthèque (applicants)</h1>
+<h1 id="flatchr-api-documentation-applicants">CVthèque</h1>
 
 
-## GET
+## Informations candidat
 
 <a id="opIdgetCompanyCompanyApplicantApplicant"></a>
 
@@ -748,7 +747,7 @@ Obtenir des informations sur un candidat de la CVthèque.
 |seen|boolean|Vu|
 |candidate|[Candidate](#schemamodel_12)|Détails candidats|
 
-## POST
+## Créer un profil candidat
 
 <a id="opIdpostVacancyVacancyCandidate"></a>
 
@@ -932,7 +931,7 @@ Créer un nouveau candidat dans la CVthèque.
 |anonym|boolean|Statut anonyme|
 
 
-## DELETE
+## Effacer un profil candidat
 
 <a id="opIddeleteCompanyCompanyVacancyVacancyApplicantApplicant"></a>
 
@@ -1027,7 +1026,7 @@ Effacer un candidat de la CVthèque.
 |---|---|---|---|
 |default|Default|Successful|string|
 
-## PUT
+## Modifier un profil candidat
 
 <a id="opIdputCompanyCompanyVacancyVacancyApplicantApplicant"></a>
 
@@ -1190,12 +1189,124 @@ Modifier les informations d'un candidat de la CVthèque.
 |count_comment_new|boolean|Présence de nouveaux messages|
 
 
+## Trouver un candidat
 
-<h1 id="flatchr-api-documentation-ratings">Evaluation (ratings)</h1>
+<a id="opIdgetCompanyCompanySearchApplicants"></a>
+
+> Extraits de code
+
+```shell
+# Vous pouvez également utiliser wget
+curl -X GET https://flatchr.io/company/{company}/search/applicants \
+  -H 'Accept: */*'
+
+```
+
+```javascript
+var headers = {
+  'Accept':'*/*'
+
+};
+
+$.ajax({
+  url: 'https://flatchr.io/company/{company}/search/applicants',
+  method: 'get',
+
+  headers: headers,
+  success: function(data) {
+    console.log(JSON.stringify(data));
+  }
+})
+
+```
+
+```javascript--nodejs
+const fetch = require('node-fetch');
+
+const headers = {
+  'Accept':'*/*'
+
+};
+
+fetch('https://flatchr.io/company/{company}/search/applicants',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': '*/*'
+}
+
+r = requests.get('https://flatchr.io/company/{company}/search/applicants', params={
+
+}, headers = headers)
+
+print r.json()
+
+```
+
+
+`GET /company/{company}/search/applicants`
+
+Chercher un candidat dans la CVthèque.
+
+<h3 id="getcompanycompanysearchapplicants-parameters">Paramètres</h3>
+
+|Libellé|In|Type|Obligatoire|Description|
+|---|---|---|---|---|
+|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|term|query|string|||
+|email|query|string||E-mail du candidat|
+|vacancy|query|number||Annonce|
+|column|query|number||Nom de la colonne concernée|
+|status|query|number||Statut du candidat|
+|offerer|query|number||Nom de la source|
+|tag|query|string||Nom du tag|
+|start|query|string||Date de début à partir de laquelle chercher|
+|end|query|string||Date de fin|
+
+> Exemples de réponses
+
+```json
+{
+  "vacancy": "string",
+  "column": "string",
+  "firstname": "string",
+  "lastname": "string",
+  "created_at": "string",
+  "source": "string"
+}
+```
+
+
+<h3 id="getcompanycompanysearchapplicants-responses">Réponses</h3>
+
+|Libellé|Type|Description|
+|---|---|---|---|
+|vacancy|string|Annonce|
+|column|string|Colonne concernée|
+|firstname|string|Prénom du candidat|
+|lastname|string|Nom du candidat|
+|created_at|timestamp|Date de la création du candidat|
+|source|string|Origine du candidat|
+
+
+<h1 id="flatchr-api-documentation-ratings">Evaluations</h1>
 
 
 
-## GET
+## Score candidat
 
 <a id="opIdgetCompanyCompanyApplicantApplicantRatings"></a>
 
@@ -1303,9 +1414,9 @@ Obtenir les évaluations d'un candidat.
 |author|[Author](#schemamodel_16)||
 
 
-<h1 id="flatchr-api-documentation-medias">Fichiers (medias)</h1>
+<h1 id="flatchr-api-documentation-medias">Fichiers</h1>
 
-## GET
+## Récupérer des PJ
 
 <a id="opIdgetCompanyCompanyApplicantApplicantMedias"></a>
 
@@ -1377,7 +1488,7 @@ print r.json()
 
 `GET /company/{company}/applicant/{applicant}/medias`
 
-Obtenir les fichiers liés à un candidat. Pour les commentaires/notes, mails ou sms, reportez-vous aux sections adéquates.
+Obtenir les fichiers liés à un candidat. 
 
 <h3 id="getcompanycompanyapplicantapplicantmedias-parameters">Paramètres</h3>
 
@@ -1422,7 +1533,7 @@ Obtenir les fichiers liés à un candidat. Pour les commentaires/notes, mails ou
 
 
 
-## POST
+## Ajouter une PJ
 
 <a id="opIdpostCompanyCompanyApplicantApplicantMedia"></a>
 
@@ -1564,7 +1675,7 @@ Ajouter un fichier à un candidat.
 
 
 
-## DELETE
+## Effacer une PJ
 
 <a id="opIddeleteCompanyCompanyApplicantApplicantMediaMedia"></a>
 
@@ -1657,9 +1768,9 @@ Effacer un fichier lié à candidat.
 |default|Default|Successful|string|
 
 
-<h1 id="flatchr-api-documentation-messages">Messages (messages)</h1>
+<h1 id="flatchr-api-documentation-messages">Messages</h1>
 
-## GET
+## Messages candidat
 
 <a id="opIdgetCompanyCompanyApplicantApplicantMessages"></a>
 
@@ -1779,9 +1890,9 @@ Obtenir tous les messages d'un candidat.
 |author|[Author](#schemamodel_13)||
 |picture|string|url de l'image|
 
-<h1 id="flatchr-api-documentation-comments">Notes (comments)</h1>
+<h1 id="flatchr-api-documentation-comments">Commentaires</h1>
 
-## GET
+## Obtenir des commentaires
 
 <a id="opIdgetCompanyCompanyApplicantApplicantComments"></a>
 
@@ -1896,7 +2007,7 @@ Obtenir tous les commentaires sur un candidat.
 
 
 
-## POST
+## Créer des commentaires
 
 <a id="opIdpostCompanyCompanyApplicantApplicantComment"></a>
 
@@ -2045,7 +2156,7 @@ Créer un commentaire à propos d'un candidat.
 |text|string|texte|
 
 
-## DELETE
+## Effacer des commentaires
 
 <a id="opIddeleteCompanyCompanyApplicantApplicantCommentComment"></a>
 
@@ -2139,124 +2250,9 @@ Effacer un commentaire de candidat.
 |default|Default|Successful|string|
 
 
+<h1 id="flatchr-api-documentation-response">Réponse</h1>
 
-<h1 id="flatchr-api-documentation-recherche-cvtheque">Recherche CVthèque (search)</h1>
-
-## GET
-
-<a id="opIdgetCompanyCompanySearchApplicants"></a>
-
-> Extraits de code
-
-```shell
-# Vous pouvez également utiliser wget
-curl -X GET https://flatchr.io/company/{company}/search/applicants \
-  -H 'Accept: */*'
-
-```
-
-```javascript
-var headers = {
-  'Accept':'*/*'
-
-};
-
-$.ajax({
-  url: 'https://flatchr.io/company/{company}/search/applicants',
-  method: 'get',
-
-  headers: headers,
-  success: function(data) {
-    console.log(JSON.stringify(data));
-  }
-})
-
-```
-
-```javascript--nodejs
-const fetch = require('node-fetch');
-
-const headers = {
-  'Accept':'*/*'
-
-};
-
-fetch('https://flatchr.io/company/{company}/search/applicants',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```python
-import requests
-headers = {
-  'Accept': '*/*'
-}
-
-r = requests.get('https://flatchr.io/company/{company}/search/applicants', params={
-
-}, headers = headers)
-
-print r.json()
-
-```
-
-
-`GET /company/{company}/search/applicants`
-
-Chercher un candidat dans la CVthèque.
-
-<h3 id="getcompanycompanysearchapplicants-parameters">Paramètres</h3>
-
-|Libellé|In|Type|Obligatoire|Description|
-|---|---|---|---|---|
-|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
-|term|query|string|||
-|email|query|string||E-mail du candidat|
-|vacancy|query|number||Annonce|
-|column|query|number||Nom de la colonne concernée|
-|status|query|number||Statut du candidat|
-|offerer|query|number||Nom de la source|
-|tag|query|string||Nom du tag|
-|start|query|string||Date de début à partir de laquelle chercher|
-|end|query|string||Date de fin|
-
-> Exemples de réponses
-
-```json
-{
-  "vacancy": "string",
-  "column": "string",
-  "firstname": "string",
-  "lastname": "string",
-  "created_at": "string",
-  "source": "string"
-}
-```
-
-
-<h3 id="getcompanycompanysearchapplicants-responses">Réponses</h3>
-
-|Libellé|Type|Description|
-|---|---|---|---|
-|vacancy|string|Annonce|
-|column|string|Colonne concernée|
-|firstname|string|Prénom du candidat|
-|lastname|string|Nom du candidat|
-|created_at|timestamp|Date de la création du candidat|
-|source|string|Origine du candidat|
-
-<h1 id="flatchr-api-documentation-response">Réponse (answer)</h1>
-
-## POST
+## Créer une réponse
 
 <a id="opIdpostApplicantApplicantAnswer"></a>
 
@@ -2391,9 +2387,9 @@ Créer une réponse à une question.
 |type|string|Exemple: "text"|
 |value|string|Contenu de la réponse|
 
-<h1 id="flatchr-api-documentation-tasks">Tâches (tasks)</h1>
+<h1 id="flatchr-api-documentation-tasks">Tâches</h1>
 
-## GET
+## Entreprise
 
 <a id="opIdgetCompanyCompanyTasks"></a>
 
@@ -2498,7 +2494,7 @@ Obtenir toutes les tâches d'une entreprise.
 |id|string|Identifiant unique de la tâche|
 |type|string|Type de tâche|
 
-## POST
+## Créer une tâche utilisateur
 
 <a id="opIdpostCompanyCompanyTaskUserUser"></a>
 
@@ -2654,7 +2650,7 @@ Créer une tâche d'utilisateur.
 
 
 
-## DELETE
+## Effacer une tâche utilisateur
 
 <a id="opIddeleteCompanyCompanyTaskTask"></a>
 
@@ -2749,7 +2745,7 @@ Effacer une tâche d'utilisateur.
 
 
 
-## PUT
+## Modifier une tâche utilisateur
 
 <a id="opIdputCompanyCompanyTaskTask"></a>
 
@@ -2881,7 +2877,7 @@ Mettre à jour ou modifier une tâche d'utilisateur.
 
 <h1 id="flatchr-api-documentation-tag">Tag</h1>
 
-## POST
+## Créer un tag candidat
 
 <a id="opIdpostCompanyCompanyApplicantApplicantTrait"></a>
 
