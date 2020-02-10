@@ -56,19 +56,19 @@ p {
 }
 
 .toc-wrapper {
-  transition: left 0.3s ease-in-out;
+  // transition: left 0.3s ease-in-out;
 
-  overflow-y: auto;
-  overflow-x: hidden;
-  position: fixed;
-  z-index: 30;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: $nav-width;
-  background-color: $nav-bg;
-  font-size: 13px;
-  font-weight: bold;
+  // overflow-y: auto;
+  // overflow-x: hidden;
+  // position: fixed;
+  // z-index: 30;
+  // top: 0;
+  // left: 0;
+  // bottom: 0;
+  // width: $nav-width;
+  // background-color: $nav-bg;
+  // font-size: 13px;
+  // font-weight: bold;
 
   // language selector for mobile devices
   .lang-selector {
@@ -146,10 +146,10 @@ p {
   // unordered lists.  These styles remove the default
   // styling of an unordered list because it is ugly.
   ul, li {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    line-height: 28px;
+    // list-style: none;
+    // margin: 0;
+    // padding: 0;
+    // line-height: 28px;
   }
 
   li {
@@ -161,25 +161,25 @@ p {
 
   // This is the currently selected ToC entry
   .toc-link.active {
-    background-color: $nav-active-bg;
-    color: $nav-active-text;
+    // background-color: $nav-active-bg;
+    // color: $nav-active-text;
   }
 
   // this is parent links of the currently selected ToC entry
   .toc-link.active-parent {
-    background-color: $nav-active-parent-bg;
-    color: $nav-active-parent-text;
+    // background-color: $nav-active-parent-bg;
+    // color: $nav-active-parent-text;
   }
 
   .toc-list-h2 {
-    display: none;
-    background-color: $nav-subitem-bg;
-    font-weight: 500;
+    // display: none;
+    // background-color: $nav-subitem-bg;
+    // font-weight: 500;
   }
 
   .toc-h2 {
-    padding-left: $nav-padding + $nav-indent;
-    font-size: 12px;
+    // padding-left: $nav-padding + $nav-indent;
+    // font-size: 12px;
   }
 
   .toc-footer {
@@ -354,14 +354,14 @@ p {
 
   h1 {
     @extend %header-font;
-    font-size: 25px;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    margin-bottom: $h1-margin-bottom;
-    margin-top: 2em;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    background-color: #fdfdfd;
+    // font-size: 25px;
+    // padding-top: 0.5em;
+    // padding-bottom: 0.5em;
+    // margin-bottom: $h1-margin-bottom;
+    // margin-top: 2em;
+    // border-top: 1px solid #ccc;
+    // border-bottom: 1px solid #ccc;
+    // background-color: #fdfdfd;
   }
 
   h1:first-child, div:first-child + h1 {
@@ -435,7 +435,7 @@ p {
     border-left: 1px solid #00AEC8;
     }
 
-    
+
 
     tr:nth-child(odd)>td {
       background-color: lighten($main-bg,4.2%);
@@ -628,3 +628,5 @@ p {
 .highlight, .highlight .w {
   background-color: $code-bg;
 }
+
+@import 'docs';

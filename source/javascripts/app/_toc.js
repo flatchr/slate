@@ -61,10 +61,10 @@
       }
 
       // Catch the initial load case
-      if (currentTop == scrollOffset && !loaded) {
+      // if (currentTop == scrollOffset && !loaded) {
         best = window.location.hash;
         loaded = true;
-      }
+      // }
 
       var $best = $toc.find("[href='" + best + "']").first();
       if (!$best.hasClass("active")) {

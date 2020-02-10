@@ -1,19 +1,18 @@
 ---
 title: Flatchr API Documentation
 language_tabs:
-  - shell: Shell
   - javascript: JavaScript
   - javascript--nodejs: Node.JS
   - python: Python
 toc_footers: []
 includes: []
-search: true
+search: false
 highlight_theme: darkula
 headingLevel: 2
 ---
 
 
-<h1 id="flatchr-api-documentation">Flatchr API Documentation v1.8.2</h1>
+<h1 id="flatchr-api-documentation">Flatchr API Documentation v2</h1>
 
 > Utiliser le menu de droite pour sélectionner le langage qui vous intéresse pour des exemples de code, des exemples de requêtes et de réponses.
 
@@ -61,26 +60,11 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 Le code à intégrer à votre page varie selon que l'iframe est publique ou en intranet.
 
-## Mise en place iframe (WordPress)
-
-```
-<IFRAME SRC=“HTTPS://CAREERS.FLATCHR.IO/COMPANY/[SLUG]?IFRAME=true” WIDTH=[LARGEUR
-EN PIXELS] HEIGHT=[HAUTEUR EN PIXELS] FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=
-0></IFRAME>
-```
-
-Vous pouvez insérer au sein de votre page le code de votre iframe, bien renseigné (avec url, couleur des boutons, largeur de l'iframe, etc.).
-
-Une offre dans le flux json flatchr existe dans « items->vacancy » et se compose comme ceci : activity, address formatted_address, locality, postal_code, route, addressFormated, apply_url, channel, company (informations sur l’entreprise), contract_type, created_at, description, driver_license, education_level, end_date, experience, id, mensualité, metier, mission, profile, reference, salary, slug, start_date, status, title, updated_at, vacancy_id.
-
-
 
 ## Mise en place iframe
 
 ```
-<IFRAME SRC=“HTTPS://CAREERS.FLATCHR.IO/COMPANY/[SLUG]?IFRAME=true” WIDTH=[LARGEUR
-EN PIXELS] HEIGHT=[HAUTEUR EN PIXELS] FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=
-0></IFRAME>
+<IFRAME SRC=“HTTPS://CAREERS.FLATCHR.IO/COMPANY/[SLUG]?IFRAME=true” WIDTH=100% HEIGHT=100% FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0></IFRAME>
 ```
 
 Le site flatchr.io met a disposition un système de récupération d’annonces via Iframe. Ce système
@@ -111,14 +95,9 @@ Le code iframe a insérer est indiqué ci-contre.
 |career_redirect_url|url||Url de redirection vers site carrière|
 |response_text|string||Texte de remerciement|
 |iframe|boolean||Suppression des styles|
-|ifram_redirect_url|boolean||Ouverture dans l'iframe|
+|iframe_redirect_url|boolean||Ouverture dans l'iframe|
 
 ## Mise en place iframe Intranet
-
-```
-<IFRAME SRC=“[VOTRE URL]?IFRAME=true” WIDTH=[LARGEUR EN PIXELS] HEIGHT=[HAUTEUR
-EN PIXELS] FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0></IFRAME>
-```
 
 Le site flatchr.io met a disposition un système de récupération d’annonces via Iframe. Ce système permet l’intégration des annonces du client sur son intranet sans nécessité de connaissance informatique et par simple copier-coller. Dans votre espace flatchr « Paramètres Avancée -> Configuration Intranet », vous devez renseigner l’url de votre site intranet. Votre iframe ne s’affichera que sur les sites ayant été renseignés dans l’espace « restriction web ».
 
@@ -145,9 +124,9 @@ Le code à insérer indiqué ci-contre.
 |career_redirect_url|url||Url de redirection vers site carrière|
 |response_text|string||Texte de remerciement|
 |iframe|boolean||Suppression des styles|
-|ifram_redirect_url|boolean||Ouverture dans l'iframe|
+|iframe_redirect_url|boolean||Ouverture dans l'iframe|
 
-<h1 id="formulaire-de-candidature">- Formulaire de candidature</h1>
+<h1 id="formulaire-de-candidature">Candidature</h1>
 
 > Extraits de code
 
@@ -177,12 +156,11 @@ $.ajax({
   "api_key": "string",
   "email": "email",
   "phone": "integer",
-  "lastposition": "string",
   "type": "string",
   "resume": {
-            "fileName": "test.pdf",
-            "data": "base64 data file"
-            },
+    "fileName": "test.pdf",
+    "data": "base64 data file"
+  },
   "comment": "string",
   "offerer_id": "integer",
   "urls": "object",
@@ -207,18 +185,17 @@ const inputBody = '{
   "api_key": "string",
   "email": "email",
   "phone": "integer",
-  "lastposition": "string",
   "type": "string",
   "resume": {
-            "fileName": "test.pdf",
-            "data": "base64 data file"
-            },
+    "fileName": "test.pdf",
+    "data": "base64 data file"
+  },
   "comment": "string",
   "offerer_id": "integer",
   "urls": "object",
   "legalNewsletterPartners": true,
   "smilarities": false,
-  "response_text": "string" 
+  "response_text": "string"
 }';
 const headers = {
   'Content-Type':'application/json',
@@ -255,12 +232,11 @@ body = {
   "api_key": "string",
   "email": "email",
   "phone": "integer",
-  "lastposition": "string",
   "type": "string",
   "resume": {
-            "fileName": "test.pdf",
-            "data": "base64 data file"
-            },
+    "fileName": "test.pdf",
+    "data": "base64 data file"
+  },
   "comment": "string",
   "offerer_id": "integer",
   "urls": "object",
@@ -299,7 +275,7 @@ print r.json()
   "legalNewsletterPartners": true,
   "smilarities": false,
   "response_text": "string",
-  } 
+  }
 ``` -->
 
 Le site flatchr.io met à disposition un système de candidature par API.
@@ -316,7 +292,7 @@ https://careers.flatchr.io/vacancy/candidate/custom
 Vous pouvez tester vos requêtes en utilisant l’url:<br>
 https://careers.flatchr.io/vacancy/candidate/test
 
-### Paramètres
+### Formulaire
 
 |Libellé|Type|Obligatoire|Description|
 |---|---|---|---|
@@ -326,8 +302,6 @@ https://careers.flatchr.io/vacancy/candidate/test
 |api_key|string|<i class="fas fa-check"></i> |Clé API. Elle est créée dans l’interface Flatchr|
 |email|email||Email|
 |phone|integer||Téléphone|
-|last_position|string||Dernier poste|
-|type|string||Permis obligatoire|
 |resume|base64 / hr-xml / url|<i class="fas fa-check"></i> |Type de format pour le CV: document (si cv base64, default), json(si cv, format hr-xml)|
 |comment|string||Commentaire du candidat|
 |offerer_id|integer||Identifiant Flatchr a demander à l'équipe|
@@ -336,7 +310,7 @@ https://careers.flatchr.io/vacancy/candidate/test
 |similarities|boolean||Retourne offres similaires|
 |response_text|string||Texte de retour|
 
-<h1 id="recuperation-des-annonces">- Récupération des annonces</h1>
+<h1 id="recuperation-des-annonces">Annonces</h1>
 
 Afin de récupérer vos annonces, il faut que vous récupérer votre « slug », c’est la référence unique de votre entreprise. Celui-ci se trouve dans l’URL de votre site carrière.
 
@@ -366,7 +340,6 @@ $.ajax({
   url: 'https://careers.flatchr.io/company/[slug].json',
   method: 'get',
   headers: headers,
-  data: '',
   dataType: 'json',
   success: function(data) {
     console.log(JSON.stringify(data));
@@ -426,7 +399,7 @@ print r.json()
   "created_at": "2019-10-24T09:42:10.024Z",
   "vacancy": "string",
   "vacancy_id": "string"
-  } 
+  }
 ```
 
 
@@ -530,7 +503,7 @@ Obtenir tous les évènements d'un calendrier d'une entreprise.
   "id": "string",
   "type": "string",
   "value": "url"
-  } 
+  }
 ```
 
 
@@ -639,7 +612,7 @@ Obtenir tous les évènements d'un calendrier d'un candidat.
   "id": "string",
   "type": "string",
   "value": "url"
-  } 
+  }
 ```
 
 
@@ -752,22 +725,14 @@ Obtenir des informations sur un candidat de la CVthèque.
   "status": "integer",
   "seen": true,
   "candidate": {
-                "email": "email",
-                "firstname": "string",
-                "lastname": "string",
-                "phone": "string",
-                "cv": "",
-                "aws":"",
-               },
-  "foreigner": "string",
-  "count_message": "string",
-  "count_message_new": true,
-  "count_comment": "string",
-  "count_comment_new": true
-  } 
+    "email": "email",
+    "firstname": "string",
+    "lastname": "string",
+    "phone": "string",
+    "cv": "",
+   }
+  }
 ```
-
-
 
 <h3 id="getcompanycompanyapplicantapplicant-responses">Réponses</h3>
 
@@ -782,13 +747,6 @@ Obtenir des informations sur un candidat de la CVthèque.
 |status|integer|Statut du candidat|
 |seen|boolean|Vu|
 |candidate|[Candidate](#schemamodel_12)|Détails candidats|
-|foreigner|boolean|Candidat de nationalité étrangère|
-|count_message|integer|Nombre de messages|
-|count_message_new|boolean|Présence de nouveaux messages|
-|count_comment|integer|Nombre de commentaires|
-|count_comment_new|boolean|Présence de nouveaux commentaires|
-
-
 
 ## POST
 
@@ -825,20 +783,15 @@ $.ajax({
   "resume": {
     "path": "string",
     "key": "string"
-    },
+  },
   "comment": "string",
   "note": "string",
   "urls": "string",
   "offerer_id": 0,
   "user_id": "string",
-  "creator": "string",
-  "hash": "stringstringst",
-  "import": true,
-  "external_id": "string",
-  "disable_mail": true,
   "answers": [
     "string"
-    ],
+  ],
   "api_key": "string"
   },
   headers: headers,
@@ -921,11 +874,6 @@ body = {
   "urls": "string",
   "offerer_id": 0,
   "user_id": "string",
-  "creator": "string",
-  "hash": "stringstringst",
-  "import": True,
-  "external_id": "string",
-  "disable_mail": True,
   "answers": [
     "string"
   ],
@@ -945,47 +893,16 @@ print r.json()
 
 Créer un nouveau candidat dans la CVthèque.
 
-<!-- > Body parameter
-
-```json
-{
-  "firstname": "string",
-  "lastname": "string",
-  "email": "string",
-  "phone": "string",
-  "last_position": "string",
-  "type": "json",
-  "resume": {
-    "path": "string",
-    "key": "string"
-  },
-  "comment": "string",
-  "note": "string",
-  "urls": "string",
-  "offerer_id": 0,
-  "user_id": "string",
-  "creator": "string",
-  "hash": "stringstringst",
-  "import": true,
-  "external_id": "string",
-  "disable_mail": true,
-  "answers": [
-    "string"
-  ],
-  "api_key": "string"
-}
-``` -->
-
 <h3 id="postvacancyvacancycandidate-parameters">Paramètres</h3>
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|vacancy|path|string|<i class="fas fa-check"></i> |Annonce|
-|firstname||string|<i class="fas fa-check"></i> |Prénom|
-|lastname||string|<i class="fas fa-check"></i> |Nom|
+|vacancy|path|string|<i class="fas fa-check"></i>|Annonce|
+|firstname||string|<i class="fas fa-check"></i>|Prénom|
+|lastname||string|<i class="fas fa-check"></i>|Nom|
+|api_key||string|<i class="fas fa-check"></i>|Clé API|
 |email||string||Email|
 |phone||string||Téléphone|
-|last_position||string||Dernière position|
 |type||string||Type|
 |resume||base64 / hr-xml||CV|
 |comment||string||Commentaire|
@@ -993,13 +910,7 @@ Créer un nouveau candidat dans la CVthèque.
 |urls||string||Urls|
 |offerer_id||integer||Identifiant jobboard|
 |user_id||string||Identifiant utilisateur|
-|creator||string||Créateur|
-|hash||string||Chaîne cryptée|
-|import||boolean||Importé|
-|external_id||string||Identifiant externe|
-|disable_mail||boolean||Désactiver l'email obligatoire|
 |answers||string||Réponse|
-|api_key||string||Clé API|
 
 > Exemples de réponses
 
@@ -1009,9 +920,8 @@ Créer un nouveau candidat dans la CVthèque.
   "status": "integer",
   "anonym": true
   },
- 
-```
 
+```
 
 <h3 id="postvacancyvacancycandidate-responses">Réponses</h3>
 
@@ -1020,7 +930,6 @@ Créer un nouveau candidat dans la CVthèque.
 |action|string|Action|
 |status|integer|Statut du candidat|
 |anonym|boolean|Statut anonyme|
-
 
 
 ## DELETE
@@ -1102,6 +1011,7 @@ Effacer un candidat de la CVthèque.
 |company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
 |vacancy|path|string|<i class="fas fa-check"></i> |Annonce|
 |applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
+|api_key||string|<i class="fas fa-check"></i>|Clé API|
 |disable_mail|query|boolean||Désactiver l'e-mail obligatoire|
 
 > Exemples de réponses
@@ -1116,8 +1026,6 @@ Effacer un candidat de la CVthèque.
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |default|Default|Successful|string|
-
-
 
 ## PUT
 
@@ -1221,20 +1129,6 @@ print r.json()
 
 Modifier les informations d'un candidat de la CVthèque.
 
-<!-- > Body parameter
-
-```json
-{
-  "vacancy_id": "string",
-  "column_id": 0,
-  "score": 0,
-  "firstname": "string",
-  "lastname": "string",
-  "email": "string",
-  "status": 1
-}
-``` -->
-
 <h3 id="putcompanycompanyvacancyvacancyapplicantapplicant-parameters">Paramètres</h3>
 
 |Libellé|In|Type|Obligatoire|Description|
@@ -1242,6 +1136,7 @@ Modifier les informations d'un candidat de la CVthèque.
 |company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
 |vacancy|path|string|<i class="fas fa-check"></i> |Annonce|
 |applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
+|api_key||string|<i class="fas fa-check"></i>|Clé API|
 |disable_mail|query|boolean||Désactiver l'e-mail obligatoire|
 |vacancy_id||string||Identifiant annonce|
 |column_id||integer||Identifiant colonne|
@@ -1264,19 +1159,13 @@ Modifier les informations d'un candidat de la CVthèque.
   "status": "integer",
   "seen": false,
   "candidate": {
-                "email": "email",
-                "firstname": "string",
-                "lastname": "string",
-                "phone": "string",
-                "cv": "",
-                "aws":"",
-               },
-  "foreigner": "string",
-  "count_message": "string",
-  "count_message_new": true,
-  "count_comment": "string",
-  "count_comment_new": true
-  }  
+    "email": "email",
+    "firstname": "string",
+    "lastname": "string",
+    "phone": "string",
+    "cv": ""
+  }
+}  
 ```
 
 
@@ -1397,7 +1286,7 @@ Obtenir les évaluations d'un candidat.
   "updated_at": "2019-10-24T09:42:10.024Z",
   "score": "string",
   "score_tag": "string"
-} 
+}
 ```
 
 
@@ -1858,22 +1747,22 @@ Obtenir tous les messages d'un candidat.
   "id": "string",
   "created_by": "string",
   "mail": {
-          "subject": "string",
-          "text": "string",
-          "html": "string",
-          "status": ""
-          },
+    "subject": "string",
+    "text": "string",
+    "html": "string",
+    "status": ""
+  },
   "delivered": true,
   "deliver_at": "2019-10-24T09:42:10.024Z",
   "author": {
-           "id": "string",
-           "firstname": "string",
-           "lastname": "string",
-           "picture": "string"
-            },
+    "id": "string",
+    "firstname": "string",
+    "lastname": "string",
+    "picture": "string"
+  },
   "picture": "string"
 }
- 
+
 ```
 
 
@@ -1978,18 +1867,18 @@ Obtenir tous les commentaires sur un candidat.
 ```json
 {
     "author": {
-           "id": "string",
-           "firstname": "string",
-           "lastname": "string",
-           "picture": "string"
-            },
+      "id": "string",
+      "firstname": "string",
+      "lastname": "string",
+      "picture": "string"
+    },
     "created_at": "2019-10-24T09:42:10.024Z",
     "created_by": "2019-10-24T09:42:10.024Z",
     "id": "string",
     "private": true,
     "ratings": "query",
     "text": "string"
-} 
+}
 ```
 
 
@@ -2138,7 +2027,7 @@ Créer un commentaire à propos d'un candidat.
   "id":"string",
   "private":true,
   "ratings":"string",
-  "text":"string" 
+  "text":"string"
 }
 ```
 
@@ -2239,7 +2128,7 @@ Effacer un commentaire de candidat.
 > Exemples de réponses
 
 ```json
- {"message": "Media deleted"} 
+ {"message": "Media deleted"}
 ```
 
 
@@ -2251,7 +2140,7 @@ Effacer un commentaire de candidat.
 
 
 
-<h1 id="flatchr-api-documentation-recherche-cvthèque">Recherche CVthèque (search)</h1>
+<h1 id="flatchr-api-documentation-recherche-cvtheque">Recherche CVthèque (search)</h1>
 
 ## GET
 
@@ -2335,12 +2224,10 @@ Chercher un candidat dans la CVthèque.
 |vacancy|query|number||Annonce|
 |column|query|number||Nom de la colonne concernée|
 |status|query|number||Statut du candidat|
-|offerer|query|number||Numéro de l'offre|
+|offerer|query|number||Nom de la source|
 |tag|query|string||Nom du tag|
 |start|query|string||Date de début à partir de laquelle chercher|
 |end|query|string||Date de fin|
-|p|query|number|||
-|limit|query|number||Nombre maximal de résultats|
 
 > Exemples de réponses
 
@@ -2352,7 +2239,7 @@ Chercher un candidat dans la CVthèque.
   "lastname": "string",
   "created_at": "string",
   "source": "string"
-  } 
+}
 ```
 
 
@@ -2491,7 +2378,7 @@ Créer une réponse à une question.
   "question":"string",
   "type":"string",
   "value":"string"
-} 
+}
 ```
 
 
@@ -2597,7 +2484,7 @@ Obtenir toutes les tâches d'une entreprise.
   "done": true,
   "id": "string",
   "type": "string"
-  } 
+}
 ```
 
 
@@ -2745,13 +2632,13 @@ Créer une tâche d'utilisateur.
 > Exemples de réponses
 
 ```json
-{ 
+{
   "date": "2019-10-24T09:42:10.024Z",
   "description": "integer",
   "done": true,
   "id": "string",
   "type": "string"
-  }  
+}  
 ```
 
 
@@ -2850,7 +2737,7 @@ Effacer une tâche d'utilisateur.
 > Exemples de réponses
 
 ```json
- {"message": "Task deleted"}
+{"message": "Task deleted"}
 ```
 
 
@@ -2972,13 +2859,13 @@ Mettre à jour ou modifier une tâche d'utilisateur.
 > Exemples de réponses
 
 ```json
-{ 
+{
   "date": "2019-10-24T09:42:10.024Z",
   "description": "integer",
   "done": false,
   "id": "string",
   "type": "string"
-  }  
+}  
 ```
 
 
@@ -3182,35 +3069,35 @@ Créer un tag candidat.
   "channel":"string",
   "metier":"string",
   "address":{
-              "location_lat": 47.889,
-              "location_lng": 15.43,
-              "postal_code": 75016,
-              "route":"string",
-              "street_number": 10,
-              "locality":"string",
-              "administrative_area_level_1":"string",
-              "administrative_area_level_2":"string",
-              "formated_address":"string",
-              "country":"string"
-            },
+    "location_lat": 47.889,
+    "location_lng": 15.43,
+    "postal_code": 75016,
+    "route":"string",
+    "street_number": 10,
+    "locality":"string",
+    "administrative_area_level_1":"string",
+    "administrative_area_level_2":"string",
+    "formated_address":"string",
+    "country":"string"
+  },
   "company":{
-              "id":"string",
-              "name": "string",
-              "description":"string",
-              "slug":"string",
-              "size": 30,
-              "email":"string",
-              "web":"sting",
-              "phone":"string",
-              "status":"integer",
-              "siren":"string",
-              "vat_number":"string",
-              "activity":"string",
-              "logo": "string",
-              "retention":"string",
-              "address":"string",
-              "created_at":"2019-10-24T09:42:10.024Z"
-            }
+    "id":"string",
+    "name": "string",
+    "description":"string",
+    "slug":"string",
+    "size": 30,
+    "email":"string",
+    "web":"sting",
+    "phone":"string",
+    "status":"integer",
+    "siren":"string",
+    "vat_number":"string",
+    "activity":"string",
+    "logo": "string",
+    "retention":"string",
+    "address":"string",
+    "created_at":"2019-10-24T09:42:10.024Z"
+  }
 }
 
 ```
@@ -3345,8 +3232,7 @@ Créer un tag candidat.
   "firstname":"string",
   "lastname":"string",
   "phone":"string",
-  "cv":"",
-  "aws":""
+  "cv":""
 }
 ```
 
@@ -3357,7 +3243,6 @@ Créer un tag candidat.
 |lastname|string|Nom|
 |phone||Téléphone|
 |cv|string|url|
-|aws|||
 
 <h2 id="tocSmodel_13">Author</h2>
 
