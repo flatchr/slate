@@ -197,7 +197,7 @@
   color: #f92672;
 }
     </style>
-    <link href="stylesheets/screen-1f68e8e3.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-51456fab.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-bccf8c07.css" rel="stylesheet" media="print" />
       <script src="javascripts/all_nosearch-d8f89891.js"></script>
   </head>
@@ -217,7 +217,7 @@
         <div class="toc toc-wrapper">
           <ul id="toc" class="toc-list-h1">
               <li>
-                <a href="#flatchr-api-documentation" class="toc-h1 toc-link" data-title="Flatchr API Documentation v2">Flatchr API Documentation v2</a>
+                <a href="#flatchr-api-documentation" class="toc-h1 toc-link" data-title="Flatchr API Documentation">Flatchr API Documentation</a>
                   <ul class="toc-list-h2">
                       <li>
                         <a href="#generalites" class="toc-h2 toc-link" data-title="Généralités">Généralités</a>
@@ -393,19 +393,20 @@
                         <a href="#tocSmodel_15" class="toc-h2 toc-link" data-title="Mail">Mail</a>
                       </li>
                       <li>
-                        <a href="#tocSmodel_16" class="toc-h2 toc-link" data-title="Author">Author</a>
+                        <a href="#tocSmodel_16" class="toc-h2 toc-link" data-title="Answer">Answer</a>
                       </li>
                   </ul>
               </li>
           </ul>
             <ul class="toc-footer">
+                <li><a href='mailto:support@flachr.io'>Nous contacter</a></li>
             </ul>
         </div>
       </nav>
       <article class="article">
         <div class="article-content">
           <div class="content">
-          <h1 id="flatchr-api-documentation">Flatchr API Documentation v2</h1>
+          <h1 id="flatchr-api-documentation">Flatchr API Documentation</h1>
 
 <blockquote>
 <p>Utiliser le menu de droite pour sélectionner le langage qui vous intéresse pour des exemples de code, des exemples de requêtes et de réponses.</p>
@@ -436,17 +437,22 @@ Avant toute mise en place, veuillez valider l’adéquation de ce service et vot
 
 <h1 id="authentification">Identification</h1>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p>Flatchr uses OAuth tokens to allow access to the API. We expect the OAuth token to be included in all API requests:</p>
+
+<p>1/ Either in a header that looks like the following:<br>
+<code>Authorization: Bearer API_KEY</code></p>
+
+<p>2/ Or, through query string:<br>
+<code>?api_key=API_KEY</code></p>
+
+<aside class="info">
+Votre <code>API_KEY</code> doit être générés dans votre espace Flatchr Administration > clés.
+</aside>
 
 <h1 id="iframe">Iframe et WordPress</h1>
 
 <p>Le code à intégrer à votre page varie selon que l&#39;iframe est publique ou en intranet.</p>
-<h2 id='iframe'>Iframe</h2><pre class="highlight plaintext"><code>&lt;IFRAME SRC=“HTTPS://CAREERS.FLATCHR.IO/COMPANY/[SLUG]?IFRAME=true” WIDTH=100% HEIGHT=100% FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0&gt;&lt;/IFRAME&gt;
+<h2 id='iframe'>Iframe</h2><pre class="highlight plaintext"><code>&lt;iframe src="https://careers.flatchr.io/company/[slug]?iframe=true” width=100% height=100% frameborder=0 marginwidth=0 marginheight=0&gt;&lt;/iframe&gt;
 </code></pre>
 <p>Le site flatchr.io met a disposition un système de récupération d’annonces via Iframe. Ce système
 permet l’intégration des annonces du client sur son site sans nécessité de connaissance informatique
@@ -681,6 +687,13 @@ curl -X POST https://careers.flatchr.io/vacancy/candidate/json <span class="se">
   <span class="s2">"legalNewsletterPartners"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
   <span class="s2">"smilarities"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
   <span class="s2">"response_text"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"answers"</span><span class="p">:</span> <span class="p">[{</span>
+    <span class="s2">"questions"</span><span class="p">:</span> <span class="s2">"Avez-vous le permis de conduire ?"</span><span class="p">,</span>
+    <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"Oui"</span>
+  <span class="p">},</span> <span class="p">{</span>
+    <span class="s2">"questions"</span><span class="p">:</span> <span class="mi">531</span><span class="p">,</span>
+    <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"Oui"</span>
+  <span class="p">}]</span>  
   <span class="p">},</span>
   <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
   <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
@@ -706,7 +719,14 @@ curl -X POST https://careers.flatchr.io/vacancy/candidate/json <span class="se">
   "urls": "object",
   "legalNewsletterPartners": true,
   "smilarities": false,
-  "response_text": "string"
+  "response_text": "string",
+  "answers": [{
+    "questions": "Avez-vous le permis de conduire ?",
+    "value": "Oui"
+  }, {
+    "questions": 531,
+    "value": "Oui"
+  }]  
 }'</span><span class="p">;</span>
 <span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
@@ -750,6 +770,13 @@ curl -X POST https://careers.flatchr.io/vacancy/candidate/json <span class="se">
   <span class="s">"legalNewsletterPartners"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
   <span class="s">"smilarities"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
   <span class="s">"response_text"</span><span class="p">:</span> <span class="s">"string"</span><span class="p">,</span>
+  <span class="s">"answers"</span><span class="p">:</span> <span class="p">[{</span>
+    <span class="s">"questions"</span><span class="p">:</span> <span class="s">"Avez-vous le permis de conduire ?"</span><span class="p">,</span>
+    <span class="s">"value"</span><span class="p">:</span> <span class="s">"Oui"</span>
+  <span class="p">},</span> <span class="p">{</span>
+    <span class="s">"questions"</span><span class="p">:</span> <span class="mi">531</span><span class="p">,</span>
+    <span class="s">"value"</span><span class="p">:</span> <span class="s">"Oui"</span>
+  <span class="p">}]</span>
 <span class="p">}</span>
 
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://careers.flatchr.io/vacancy/candidate/json'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
@@ -883,6 +910,12 @@ https://careers.flatchr.io/vacancy/candidate/test</p>
 <td>string</td>
 <td></td>
 <td>Texte de retour</td>
+</tr>
+<tr>
+<td>answers</td>
+<td><a href="#schemamodel_16">Answer</a></td>
+<td>Réponses aux questions/tags</td>
+<td></td>
 </tr>
 </tbody></table>
 
@@ -1540,13 +1573,6 @@ curl -X DELETE https://flatchr.io/company/<span class="o">{</span>company<span c
 <td><i class="fas fa-check"></i></td>
 <td>Clé API</td>
 </tr>
-<tr>
-<td>disable_mail</td>
-<td>query</td>
-<td>boolean</td>
-<td></td>
-<td>Désactiver l&#39;e-mail obligatoire</td>
-</tr>
 </tbody></table>
 
 <blockquote>
@@ -1701,13 +1727,6 @@ curl -X PUT https://flatchr.io/company/<span class="o">{</span>company<span clas
 <td>Clé API</td>
 </tr>
 <tr>
-<td>disable_mail</td>
-<td>query</td>
-<td>boolean</td>
-<td></td>
-<td>Désactiver l&#39;e-mail obligatoire</td>
-</tr>
-<tr>
 <td>vacancy_id</td>
 <td></td>
 <td>string</td>
@@ -1834,29 +1853,14 @@ curl -X PUT https://flatchr.io/company/<span class="o">{</span>company<span clas
 <td>Détails candidats</td>
 </tr>
 <tr>
-<td>foreigner</td>
-<td>boolean</td>
-<td>Candidat de nationalité étrangère</td>
-</tr>
-<tr>
 <td>count_message</td>
 <td>integer</td>
 <td>Nombre de messages</td>
 </tr>
 <tr>
-<td>count_message_new</td>
-<td>boolean</td>
-<td>Présence de nouveaux messages</td>
-</tr>
-<tr>
 <td>count_comment</td>
 <td>integer</td>
 <td>Nombre de commentaires</td>
-</tr>
-<tr>
-<td>count_comment_new</td>
-<td>boolean</td>
-<td>Présence de nouveaux messages</td>
 </tr>
 </tbody></table>
 <h2 id='rechercher-un-candidat'>Rechercher un candidat</h2>
@@ -1936,6 +1940,13 @@ curl -X GET https://flatchr.io/company/<span class="o">{</span>company<span clas
 <td>string</td>
 <td><i class="fas fa-check"></i></td>
 <td>Nom de l&#39;entreprise</td>
+</tr>
+<tr>
+<td>operation</td>
+<td>query</td>
+<td>string</td>
+<td><i class="fas fa-check"></i></td>
+<td>&quot;search&quot;</td>
 </tr>
 <tr>
 <td>term</td>
@@ -2151,8 +2162,7 @@ curl -X GET https://flatchr.io/company/<span class="o">{</span>company<span clas
   </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"integer"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-09-24T09:42:10.024Z"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-24T09:42:10.024Z"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"score"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"score_tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+  </span><span class="s2">"score"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <h3 id="getcompanycompanyapplicantapplicantratings-responses">Réponses</h3>
@@ -2190,13 +2200,8 @@ curl -X GET https://flatchr.io/company/<span class="o">{</span>company<span clas
 <td>Score du candidat</td>
 </tr>
 <tr>
-<td>score_tag</td>
-<td>string</td>
-<td>Tag de score</td>
-</tr>
-<tr>
 <td>author</td>
-<td><a href="#schemamodel_16">Author</a></td>
+<td><a href="#schemamodel_13">Author</a></td>
 <td></td>
 </tr>
 </tbody></table>
@@ -2300,6 +2305,7 @@ curl -X GET https://flatchr.io/company/<span class="o">{</span>company<span clas
            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
            </span><span class="s2">"firstname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
            </span><span class="s2">"lastname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"email"</span><span class="p">:</span><span class="s2">"string"</span><span class="p">,</span><span class="w">
            </span><span class="s2">"picture"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
             </span><span class="p">},</span><span class="w">
   </span><span class="s2">"attachment"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2477,6 +2483,7 @@ curl -X POST https://flatchr.io/company/<span class="o">{</span>company<span cla
            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
            </span><span class="s2">"firstname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
            </span><span class="s2">"lastname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"email"</span><span class="p">:</span><span class="s2">"string"</span><span class="p">,</span><span class="w">
            </span><span class="s2">"picture"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
             </span><span class="p">},</span><span class="w">
   </span><span class="s2">"attachment"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2745,6 +2752,7 @@ curl -X GET https://flatchr.io/company/<span class="o">{</span>company<span clas
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"firstname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"lastname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"picture"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"picture"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
@@ -2898,6 +2906,7 @@ curl -X GET https://flatchr.io/company/<span class="o">{</span>company<span clas
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"firstname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"lastname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"email"</span><span class="p">:</span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"picture"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-24T09:42:10.024Z"</span><span class="p">,</span><span class="w">
@@ -3102,7 +3111,7 @@ curl -X POST https://flatchr.io/company/<span class="o">{</span>company<span cla
 <td></td>
 <td>boolean</td>
 <td></td>
-<td>Caractère privé</td>
+<td>Rendre privé</td>
 </tr>
 </tbody></table>
 
@@ -3305,7 +3314,7 @@ curl -X POST https://flatchr.io/applicant/<span class="o">{</span>applicant<span
   <span class="s2">"applicant"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
-  <span class="s2">"question"</span><span class="p">:</span> <span class="p">{}</span>
+  <span class="s2">"question"</span><span class="p">:</span> <span class="s2">"string"</span>
   <span class="p">},</span>
   <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
   <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
@@ -3318,7 +3327,7 @@ curl -X POST https://flatchr.io/applicant/<span class="o">{</span>applicant<span
   "applicant": "string",
   "value": "string",
   "type": "string",
-  "question": {}
+  "question": "string"
 }'</span><span class="p">;</span>
 <span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
@@ -3348,7 +3357,7 @@ curl -X POST https://flatchr.io/applicant/<span class="o">{</span>applicant<span
   <span class="s">"applicant"</span><span class="p">:</span> <span class="s">"string"</span><span class="p">,</span>
   <span class="s">"value"</span><span class="p">:</span> <span class="s">"string"</span><span class="p">,</span>
   <span class="s">"type"</span><span class="p">:</span> <span class="s">"string"</span><span class="p">,</span>
-  <span class="s">"question"</span><span class="p">:</span> <span class="p">{}</span>
+  <span class="s">"question"</span><span class="p">:</span> <span class="s">"string"</span>
 <span class="p">}</span>
 
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://flatchr.io/applicant/{applicant}/answer'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
@@ -3369,7 +3378,7 @@ curl -X POST https://flatchr.io/applicant/<span class="o">{</span>applicant<span
   "applicant": "string",
   "value": "string",
   "type": "string",
-  "question": {}
+  "question": "string"
 }
 ``` -->
 
@@ -4814,6 +4823,7 @@ curl -X POST https://flatchr.io/company/<span class="o">{</span>company<span cla
   </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"firstname"</span><span class="p">:</span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"lastname"</span><span class="p">:</span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"email"</span><span class="p">:</span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"picture"</span><span class="p">:</span><span class="s2">"string"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -4925,14 +4935,12 @@ curl -X POST https://flatchr.io/company/<span class="o">{</span>company<span cla
 </tr>
 </tbody></table>
 
-<h2 id="tocSmodel_16">Author</h2>
+<h2 id="tocSmodel_16">Answer</h2>
 
 <p><a id="schemamodel_16"></a></p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"firstname"</span><span class="p">:</span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"lastname"</span><span class="p">:</span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"email"</span><span class="p">:</span><span class="s2">"string"</span><span class="w">
+  </span><span class="s2">"question"</span><span class="p">:</span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"value"</span><span class="p">:</span><span class="s2">"string"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <table><thead>
@@ -4943,24 +4951,14 @@ curl -X POST https://flatchr.io/company/<span class="o">{</span>company<span cla
 </tr>
 </thead><tbody>
 <tr>
-<td>id</td>
-<td>string</td>
-<td>Identifiant de l&#39;auteur</td>
+<td>question</td>
+<td>string/integer</td>
+<td>Texte de la question ou ID du tag</td>
 </tr>
 <tr>
-<td>firstname</td>
+<td>value</td>
 <td>string</td>
-<td>Prénom de l&#39;auteur</td>
-</tr>
-<tr>
-<td>lastname</td>
-<td>string</td>
-<td>Nom de l&#39;auteur</td>
-</tr>
-<tr>
-<td>email</td>
-<td>string</td>
-<td>Adresse mail</td>
+<td>Valeur de la réponse ou du tag</td>
 </tr>
 </tbody></table>
 
