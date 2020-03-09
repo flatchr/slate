@@ -4,7 +4,8 @@ language_tabs:
   - javascript: JavaScript
   - javascript--nodejs: Node.JS
   - python: Python
-toc_footers: []
+toc_footers:
+   - <a href='mailto:support@flachr.io'>Nous contacter</a>
 includes: []
 search: false
 highlight_theme: darkula
@@ -12,7 +13,7 @@ headingLevel: 2
 ---
 
 
-<h1 id="flatchr-api-documentation">Flatchr API Documentation v2</h1>
+<h1 id="flatchr-api-documentation">Flatchr API Documentation</h1>
 
 > Utiliser le menu de droite pour sélectionner le langage qui vous intéresse pour des exemples de code, des exemples de requêtes et de réponses.
 
@@ -49,22 +50,27 @@ Avant toute mise en place, veuillez valider l’adéquation de ce service et vot
 
 <h1 id="authentification">Identification</h1>
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Flatchr uses OAuth tokens to allow access to the API. We expect the OAuth token to be included in all API requests:
+
+1/ Either in a header that looks like the following:<br>
+<code>Authorization: Bearer API_KEY</code>
+
+2/ Or, through query string:<br>
+<code>?api_key=API_KEY</code>
+
+<aside class="info">
+Votre <code>API_KEY</code> doit être générés dans votre espace Flatchr Administration > clés.
+</aside>
 
 <h1 id="iframe">Iframe et WordPress</h1>
 
 Le code à intégrer à votre page varie selon que l'iframe est publique ou en intranet.
 
 
-## Mise en place iframe
+## Iframe
 
 ```
-<IFRAME SRC=“HTTPS://CAREERS.FLATCHR.IO/COMPANY/[SLUG]?IFRAME=true” WIDTH=100% HEIGHT=100% FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0></IFRAME>
+<iframe src="https://careers.flatchr.io/company/[slug]?iframe=true” width=100% height=100% frameborder=0 marginwidth=0 marginheight=0></iframe>
 ```
 
 Le site flatchr.io met a disposition un système de récupération d’annonces via Iframe. Ce système
@@ -97,7 +103,7 @@ Le code iframe a insérer est indiqué ci-contre.
 |iframe|boolean||Suppression des styles|
 |iframe_redirect_url|boolean||Ouverture dans l'iframe|
 
-## Mise en place iframe Intranet
+## Intranet
 
 Le site flatchr.io met a disposition un système de récupération d’annonces via Iframe. Ce système permet l’intégration des annonces du client sur son intranet sans nécessité de connaissance informatique et par simple copier-coller. Dans votre espace flatchr « Paramètres Avancée -> Configuration Intranet », vous devez renseigner l’url de votre site intranet. Votre iframe ne s’affichera que sur les sites ayant été renseignés dans l’espace « restriction web ».
 
@@ -167,6 +173,13 @@ $.ajax({
   "legalNewsletterPartners": true,
   "smilarities": false,
   "response_text": "string",
+  "answers": [{
+    "questions": "Avez-vous le permis de conduire ?",
+    "value": "Oui"
+  }, {
+    "questions": 531,
+    "value": "Oui"
+  }]  
   },
   headers: headers,
   success: function(data) {
@@ -195,7 +208,14 @@ const inputBody = '{
   "urls": "object",
   "legalNewsletterPartners": true,
   "smilarities": false,
-  "response_text": "string"
+  "response_text": "string",
+  "answers": [{
+    "questions": "Avez-vous le permis de conduire ?",
+    "value": "Oui"
+  }, {
+    "questions": 531,
+    "value": "Oui"
+  }]  
 }';
 const headers = {
   'Content-Type':'application/json',
@@ -243,6 +263,13 @@ body = {
   "legalNewsletterPartners": true,
   "smilarities": false,
   "response_text": "string",
+  "answers": [{
+    "questions": "Avez-vous le permis de conduire ?",
+    "value": "Oui"
+  }, {
+    "questions": 531,
+    "value": "Oui"
+  }]
 }
 
 r = requests.post('https://careers.flatchr.io/vacancy/candidate/json', params={
@@ -309,6 +336,7 @@ https://careers.flatchr.io/vacancy/candidate/test
 |legalNewsletterPartners|boolean||Opt-in newsletter|
 |similarities|boolean||Retourne offres similaires|
 |response_text|string||Texte de retour|
+|answers|[Answer](#schemamodel_16)|Réponses aux questions/tags|
 
 <h1 id="recuperation-des-annonces">Annonces</h1>
 
@@ -414,7 +442,7 @@ print r.json()
 
 <h1 id="flatchr-api-documentation-calendars">Calendriers</h1>
 
-## Entreprise
+## Calendrier d'entreprise
 
 <a id="opIdgetCompanyCompanyCalendars"></a>
 
@@ -520,7 +548,7 @@ Obtenir tous les évènements d'un calendrier d'une entreprise.
 |value|url|Adresse url|
 
 
-## Candidat
+## Calendrier de candidat
 
 <a id="opIdgetCompanyCompanyApplicantApplicantCalendars"></a>
 
@@ -630,7 +658,7 @@ Obtenir tous les évènements d'un calendrier d'un candidat.
 <h1 id="flatchr-api-documentation-applicants">CVthèque</h1>
 
 
-## Informations candidat
+## Récupérer un candidat
 
 <a id="opIdgetCompanyCompanyApplicantApplicant"></a>
 
@@ -747,191 +775,7 @@ Obtenir des informations sur un candidat de la CVthèque.
 |seen|boolean|Vu|
 |candidate|[Candidate](#schemamodel_12)|Détails candidats|
 
-## Créer un profil candidat
-
-<a id="opIdpostVacancyVacancyCandidate"></a>
-
-> Extraits de code
-
-```shell
-# Vous pouvez également utiliser wget
-curl -X POST https://flatchr.io/vacancy/{vacancy}/candidate \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: */*'
-
-```
-
-
-```javascript
-var headers = {
-  'Content-Type':'application/json',
-  'Accept':'*/*'
-
-};
-
-$.ajax({
-  url: 'https://flatchr.io/vacancy/{vacancy}/candidate',
-  method: 'post',
-  body: {
-  "firstname": "string",
-  "lastname": "string",
-  "email": "string",
-  "phone": "string",
-  "last_position": "string",
-  "type": "json",
-  "resume": {
-    "path": "string",
-    "key": "string"
-  },
-  "comment": "string",
-  "note": "string",
-  "urls": "string",
-  "offerer_id": 0,
-  "user_id": "string",
-  "answers": [
-    "string"
-  ],
-  "api_key": "string"
-  },
-  headers: headers,
-  success: function(data) {
-    console.log(JSON.stringify(data));
-  }
-})
-
-```
-
-```javascript--nodejs
-const fetch = require('node-fetch');
-const inputBody = '{
-  "firstname": "string",
-  "lastname": "string",
-  "email": "string",
-  "phone": "string",
-  "last_position": "string",
-  "type": "json",
-  "resume": {
-    "path": "string",
-    "key": "string"
-  },
-  "comment": "string",
-  "note": "string",
-  "urls": "string",
-  "offerer_id": 0,
-  "user_id": "string",
-  "creator": "string",
-  "hash": "stringstringst",
-  "import": true,
-  "external_id": "string",
-  "disable_mail": true,
-  "answers": [
-    "string"
-  ],
-  "api_key": "string"
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Accept':'*/*'
-
-};
-
-fetch('https://flatchr.io/vacancy/{vacancy}/candidate',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-
-```python
-import requests
-headers = {
-  'Content-Type': 'application/json',
-  'Accept': '*/*'
-}
-
-body = {
-  "firstname": "string",
-  "lastname": "string",
-  "email": "string",
-  "phone": "string",
-  "last_position": "string",
-  "type": "json",
-  "resume": {
-    "path": "string",
-    "key": "string"
-  },
-  "comment": "string",
-  "note": "string",
-  "urls": "string",
-  "offerer_id": 0,
-  "user_id": "string",
-  "answers": [
-    "string"
-  ],
-  "api_key": "string"
-}
-
-r = requests.post('https://flatchr.io/vacancy/{vacancy}/candidate', params={
-
-}, headers = headers)
-
-print r.json()
-
-```
-
-
-`POST /vacancy/{vacancy}/candidate`
-
-Créer un nouveau candidat dans la CVthèque.
-
-<h3 id="postvacancyvacancycandidate-parameters">Paramètres</h3>
-
-|Libellé|In|Type|Obligatoire|Description|
-|---|---|---|---|---|
-|vacancy|path|string|<i class="fas fa-check"></i>|Annonce|
-|firstname||string|<i class="fas fa-check"></i>|Prénom|
-|lastname||string|<i class="fas fa-check"></i>|Nom|
-|api_key||string|<i class="fas fa-check"></i>|Clé API|
-|email||string||Email|
-|phone||string||Téléphone|
-|type||string||Type|
-|resume||base64 / hr-xml||CV|
-|comment||string||Commentaire|
-|note||string||Note|
-|urls||string||Urls|
-|offerer_id||integer||Identifiant jobboard|
-|user_id||string||Identifiant utilisateur|
-|answers||string||Réponse|
-
-> Exemples de réponses
-
-```json
-{
-  "action": "string",
-  "status": "integer",
-  "anonym": true
-  },
-
-```
-
-<h3 id="postvacancyvacancycandidate-responses">Réponses</h3>
-
-|Libellé|Type|Description|
-|---|---|---|
-|action|string|Action|
-|status|integer|Statut du candidat|
-|anonym|boolean|Statut anonyme|
-
-
-## Effacer un profil candidat
+## Supprimer un candidat
 
 <a id="opIddeleteCompanyCompanyVacancyVacancyApplicantApplicant"></a>
 
@@ -1011,7 +855,6 @@ Effacer un candidat de la CVthèque.
 |vacancy|path|string|<i class="fas fa-check"></i> |Annonce|
 |applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
 |api_key||string|<i class="fas fa-check"></i>|Clé API|
-|disable_mail|query|boolean||Désactiver l'e-mail obligatoire|
 
 > Exemples de réponses
 
@@ -1026,7 +869,7 @@ Effacer un candidat de la CVthèque.
 |---|---|---|---|
 |default|Default|Successful|string|
 
-## Modifier un profil candidat
+## Modifier un candidat
 
 <a id="opIdputCompanyCompanyVacancyVacancyApplicantApplicant"></a>
 
@@ -1136,7 +979,6 @@ Modifier les informations d'un candidat de la CVthèque.
 |vacancy|path|string|<i class="fas fa-check"></i> |Annonce|
 |applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
 |api_key||string|<i class="fas fa-check"></i>|Clé API|
-|disable_mail|query|boolean||Désactiver l'e-mail obligatoire|
 |vacancy_id||string||Identifiant annonce|
 |column_id||integer||Identifiant colonne|
 |score||integer||Score|
@@ -1182,14 +1024,11 @@ Modifier les informations d'un candidat de la CVthèque.
 |status|integer|Statut du candidat|
 |seen|boolean||
 |candidate|[Candidate](#schemamodel_12)|Détails candidats|
-|foreigner|boolean|Candidat de nationalité étrangère|
 |count_message|integer|Nombre de messages|
-|count_message_new|boolean|Présence de nouveaux messages|
 |count_comment|integer|Nombre de commentaires|
-|count_comment_new|boolean|Présence de nouveaux messages|
 
 
-## Trouver un candidat
+## Rechercher un candidat
 
 <a id="opIdgetCompanyCompanySearchApplicants"></a>
 
@@ -1265,7 +1104,8 @@ Chercher un candidat dans la CVthèque.
 
 |Libellé|In|Type|Obligatoire|Description|
 |---|---|---|---|---|
-|company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
+|company|path|string|<i class="fas fa-check"></i>|Nom de l'entreprise|
+|operation|query|string|<i class="fas fa-check"></i>|"search"|
 |term|query|string|||
 |email|query|string||E-mail du candidat|
 |vacancy|query|number||Annonce|
@@ -1395,8 +1235,7 @@ Obtenir les évaluations d'un candidat.
   "value": "integer",
   "created_at": "2019-09-24T09:42:10.024Z",
   "updated_at": "2019-10-24T09:42:10.024Z",
-  "score": "string",
-  "score_tag": "string"
+  "score": "string"
 }
 ```
 
@@ -1410,13 +1249,12 @@ Obtenir les évaluations d'un candidat.
 |created_at|timestamp|Date de création|
 |updated_at|timestamp|Date de dernière modification|
 |score|string|Score du candidat|
-|score_tag|string|Tag de score|
-|author|[Author](#schemamodel_16)||
+|author|[Author](#schemamodel_13)||
 
 
 <h1 id="flatchr-api-documentation-medias">Fichiers</h1>
 
-## Récupérer des PJ
+## Récupérer des médias
 
 <a id="opIdgetCompanyCompanyApplicantApplicantMedias"></a>
 
@@ -1488,7 +1326,7 @@ print r.json()
 
 `GET /company/{company}/applicant/{applicant}/medias`
 
-Obtenir les fichiers liés à un candidat. 
+Obtenir les fichiers liés à un candidat.
 
 <h3 id="getcompanycompanyapplicantapplicantmedias-parameters">Paramètres</h3>
 
@@ -1509,6 +1347,7 @@ Obtenir les fichiers liés à un candidat.
            "id": "string",
            "firstname": "string",
            "lastname": "string",
+           "email":"string",
            "picture": "string"
             },
   "attachment": {
@@ -1533,7 +1372,7 @@ Obtenir les fichiers liés à un candidat.
 
 
 
-## Ajouter une PJ
+## Ajouter un média
 
 <a id="opIdpostCompanyCompanyApplicantApplicantMedia"></a>
 
@@ -1650,6 +1489,7 @@ Ajouter un fichier à un candidat.
            "id": "string",
            "firstname": "string",
            "lastname": "string",
+           "email":"string",
            "picture": "string"
             },
   "attachment": {
@@ -1675,7 +1515,7 @@ Ajouter un fichier à un candidat.
 
 
 
-## Effacer une PJ
+## Effacer un média
 
 <a id="opIddeleteCompanyCompanyApplicantApplicantMediaMedia"></a>
 
@@ -1869,6 +1709,7 @@ Obtenir tous les messages d'un candidat.
     "id": "string",
     "firstname": "string",
     "lastname": "string",
+    "email":"string",
     "picture": "string"
   },
   "picture": "string"
@@ -1981,6 +1822,7 @@ Obtenir tous les commentaires sur un candidat.
       "id": "string",
       "firstname": "string",
       "lastname": "string",
+      "email":"string",
       "picture": "string"
     },
     "created_at": "2019-10-24T09:42:10.024Z",
@@ -2127,7 +1969,7 @@ Créer un commentaire à propos d'un candidat.
 |text||string|<i class="fas fa-check"></i> |Texte|
 |file||string||Fichier|
 |mentions||string||Mentions|
-|private||boolean||Caractère privé|
+|private||boolean||Rendre privé|
 
 > Exemples de réponses
 
@@ -2281,7 +2123,7 @@ $.ajax({
   "applicant": "string",
   "value": "string",
   "type": "string",
-  "question": {}
+  "question": "string"
   },
   headers: headers,
   success: function(data) {
@@ -2297,7 +2139,7 @@ const inputBody = '{
   "applicant": "string",
   "value": "string",
   "type": "string",
-  "question": {}
+  "question": "string"
 }';
 const headers = {
   'Content-Type':'application/json',
@@ -2330,7 +2172,7 @@ body = {
   "applicant": "string",
   "value": "string",
   "type": "string",
-  "question": {}
+  "question": "string"
 }
 
 r = requests.post('https://flatchr.io/applicant/{applicant}/answer', params={
@@ -2353,7 +2195,7 @@ Créer une réponse à une question.
   "applicant": "string",
   "value": "string",
   "type": "string",
-  "question": {}
+  "question": "string"
 }
 ``` -->
 
@@ -2389,7 +2231,7 @@ Créer une réponse à une question.
 
 <h1 id="flatchr-api-documentation-tasks">Tâches</h1>
 
-## Entreprise
+## Récupérer les taches
 
 <a id="opIdgetCompanyCompanyTasks"></a>
 
@@ -2461,7 +2303,7 @@ print r.json()
 `GET /company/{company}/tasks`
 
 
-Obtenir toutes les tâches d'une entreprise.
+Obtenir toutes les tâches d'un membre
 
 <h3 id="getcompanycompanytasks-parameters">Paramètres</h3>
 
@@ -3249,6 +3091,7 @@ Créer un tag candidat.
   "id":"string",
   "firstname":"string",
   "lastname":"string",
+  "email":"string",
   "picture":"string"
 }
 ```
@@ -3302,22 +3145,18 @@ Créer un tag candidat.
 |html|string||
 |status|string|Statut|
 
-<h2 id="tocSmodel_16">Author</h2>
+<h2 id="tocSmodel_16">Answer</h2>
 
 <a id="schemamodel_16"></a>
 
 ```json
 {
-  "id":"string",
-  "firstname":"string",
-  "lastname":"string",
-  "email":"string"
+  "question":"string",
+  "value":"string"
 }
 ```
 
 |Libellé|Type|Description|
 |---|---|---|---|
-|id|string|Identifiant de l'auteur|
-|firstname|string|Prénom de l'auteur|
-|lastname|string|Nom de l'auteur|
-|email|string|Adresse mail|
+|question|string/integer|Texte de la question ou ID du tag|
+|value|string|Valeur de la réponse ou du tag|

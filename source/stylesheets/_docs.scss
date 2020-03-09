@@ -309,8 +309,8 @@ nav.sidebar .toc li {
   color: #89949b;
 }
 nav.sidebar .toc li > a {
-  font-size: 18px;
-  padding: 0 30px;
+  font-size: 16px;
+  padding: 0 10px;
   display: block;
   overflow-x: hidden;
   white-space: nowrap;
@@ -693,4 +693,17 @@ article.article .lang-selector:after {
 ul.toc-list-h1 {
   padding: 0;
   margin: 0;
+}
+.toc-wrapper .toc-footer {
+  border-top: 1px solid #01AEC9;
+  background: #01AEC9;
+}
+nav.sidebar .toc-wrapper .toc-footer a {
+  color: #FFFFFF;
+}
+nav.sidebar:after {
+  display: none;
+}
+ul>li>ul {
+  padding: 0 20px;
 }
