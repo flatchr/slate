@@ -336,7 +336,7 @@ https://careers.flatchr.io/vacancy/candidate/test
 |legalNewsletterPartners|boolean||Opt-in newsletter|
 |similarities|boolean||Retourne offres similaires|
 |response_text|string||Texte de retour|
-|answers|[Answer](#schemamodel_16)|Réponses aux questions/tags|
+|answers|[Answer](#schemamodel_16)||Réponses aux questions/tags|
 
 <h1 id="recuperation-des-annonces">Annonces</h1>
 
