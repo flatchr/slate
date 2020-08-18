@@ -56,7 +56,7 @@ Flatchr uses OAuth tokens to allow access to the API. We expect the OAuth token 
 <code>Authorization: Bearer API_KEY</code>
 
 2/ Or, through query string:<br>
-<code>?api_key=API_KEY</code>
+<code>?token=API_KEY</code>
 
 <aside class="info">
 Votre <code>API_KEY</code> doit être générés dans votre espace Flatchr Administration > clés.
@@ -70,7 +70,7 @@ Le code à intégrer à votre page varie selon que l'iframe est publique ou en i
 ## Iframe
 
 ```
-<iframe src="https://careers.flatchr.io/company/[slug]?iframe=true” width=100% height=100% frameborder=0 marginwidth=0 marginheight=0></iframe>
+<iframe src="https://careers.flatchr.io/company/[slug]?iframe=true&btn_color=000000&background_color=FFFFFF" width=100% height=100% frameborder=0 marginwidth=0 marginheight=0></iframe>
 ```
 
 Le site flatchr.io met a disposition un système de récupération d’annonces via Iframe. Ce système
@@ -78,6 +78,11 @@ permet l’intégration des annonces du client sur son site sans nécessité de 
 et par simple copier-coller. Cet iframe peut être utilisé pour un formulaire de postulation.
 Afin de récupérer vos annonces, il faut récupérer votre « slug », c’est la référence unique de votre
 entreprise. Elle se trouve dans l’URL de votre site carrière (exemple: dans "https://avivacuisines.flatchr.io", "avivacuisines" est la référence unique ou "slug").
+
+Exemple
+```
+<iframe src="https://careers.flatchr.io/company/[slug]?iframe=true&btn_color=000000&background_color=FFFFFF" width=100% height=100% frameborder=0 marginwidth=0 marginheight=0></iframe>
+```
 
 Le code iframe a insérer est indiqué ci-contre.
 
@@ -98,8 +103,9 @@ Le code iframe a insérer est indiqué ci-contre.
 |background_color|hex code||Couleur du fond|
 |submit_text|string||Texte sur les boutons|
 |disable_email|boolean||Désactive l'email obligatoire|
-|career_redirect_url|url||Url de redirection vers site carrière|
+|career_redirect_url|url||Url de redirection vers site carrière (lien logo)|
 |response_text|string||Texte de remerciement|
+|spontaneous|string||Position de la candidature spontanée (top, bottom, none)|
 |iframe|boolean||Suppression des styles|
 |iframe_redirect_url|boolean||Ouverture dans l'iframe|
 
@@ -109,12 +115,16 @@ Le site flatchr.io met a disposition un système de récupération d’annonces 
 
 Le code à insérer indiqué ci-contre.
 
+```
+<iframe src="https://careers.flatchr.io/intranet/[slug]?iframe=true&btn_color=000000&background_color=FFFFFF" width=100% height=100% frameborder=0 marginwidth=0 marginheight=0></iframe>
+```
+
 ### Paramètres Iframe liste d'annonces
 
 |Libellé|Type|Obligatoire|Description|
 |---|---|---|---|
-|btn_color|hex code||Couleur des boutons|
-|background_color|hex code||Couleur du fond|
+|btn_color|hex code||Couleur des boutons (ex: 0E0E0E) |
+|background_color|hex code||Couleur du fond (ex: 0E0E0E) |
 |submit_text|string||Texte sur les boutons|
 |iframe|string|<i class="fas fa-check"></i> |Suppression des styles|
 
@@ -123,12 +133,13 @@ Le code à insérer indiqué ci-contre.
 
 |Libellé|Type|Obligatoire|Description|
 |---|---|---|---|
-|btn_color|hex code||Couleur des boutons|
-|background_color|hex code||Couleur du fond|
+|btn_color|hex code||Couleur des boutons (ex: 0E0E0E)|
+|background_color|hex code||Couleur du fond (ex: 0E0E0E) |
 |submit_text|string||Texte sur les boutons|
 |disable_email|boolean||Désactive l'email obligatoire|
 |career_redirect_url|url||Url de redirection vers site carrière|
 |response_text|string||Texte de remerciement|
+|spontaneous|string||Position de la candidature spontanée (top, bottom, none)|
 |iframe|boolean||Suppression des styles|
 |iframe_redirect_url|boolean||Ouverture dans l'iframe|
 
@@ -155,13 +166,13 @@ var headers = {
 $.ajax({
   url: 'https://careers.flatchr.io/vacancy/candidate/json',
   method: 'post',
-  body: {
+  data: {
+  "token": "string",
   "vacancy": "string",
   "firstname": "string",
   "lastname": "string",
-  "api_key": "string",
   "email": "email",
-  "phone": "integer",
+  "phone": "string",
   "type": "string",
   "resume": {
     "fileName": "test.pdf",
@@ -195,7 +206,7 @@ const inputBody = '{
   "vacancy": "string",
   "firstname": "string",
   "lastname": "string",
-  "api_key": "string",
+  "token": "string",
   "email": "email",
   "phone": "integer",
   "type": "string",
@@ -249,7 +260,7 @@ body = {
   "vacancy": "string",
   "firstname": "string",
   "lastname": "string",
-  "api_key": "string",
+  "token": "string",
   "email": "email",
   "phone": "integer",
   "type": "string",
@@ -287,7 +298,7 @@ print r.json()
   "vacancy": "string",
   "firstname": "string",
   "lastname": "string",
-  "api_key": "string",
+  "token": "string",
   "email": "email",
   "phone": "integer",
   "lastposition": "string",
@@ -326,7 +337,7 @@ https://careers.flatchr.io/vacancy/candidate/test
 |vacancy|string|<i class="fas fa-check"></i> |Identifiant unique de l’annonce|
 |firstname|string|<i class="fas fa-check"></i> |Prénom /[a-zA-Z]/|
 |lastname|string|<i class="fas fa-check"></i> |Nom /[a-zA-Z]/|
-|api_key|string|<i class="fas fa-check"></i> |Clé API. Elle est créée dans l’interface Flatchr|
+|token|string|<i class="fas fa-check"></i> |Clé API. Elle est créée dans l’interface Flatchr|
 |email|email||Email|
 |phone|integer||Téléphone|
 |resume|base64 / hr-xml / url|<i class="fas fa-check"></i> |Type de format pour le CV: document (si cv base64, default), json(si cv, format hr-xml)|
@@ -854,7 +865,7 @@ Effacer un candidat de la CVthèque.
 |company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
 |vacancy|path|string|<i class="fas fa-check"></i> |Annonce|
 |applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
-|api_key||string|<i class="fas fa-check"></i>|Clé API|
+|token||string|<i class="fas fa-check"></i>|Clé API|
 
 > Exemples de réponses
 
@@ -893,7 +904,7 @@ var headers = {
 $.ajax({
   url: 'https://flatchr.io/company/{company}/vacancy/{vacancy}/applicant/{applicant}',
   method: 'put',
-  body: {
+  data: {
   "vacancy_id": "string",
   "column_id": 0,
   "score": 0,
@@ -978,7 +989,7 @@ Modifier les informations d'un candidat de la CVthèque.
 |company|path|string|<i class="fas fa-check"></i> |Nom de l'entreprise|
 |vacancy|path|string|<i class="fas fa-check"></i> |Annonce|
 |applicant|path|string|<i class="fas fa-check"></i> |Nom du candidat|
-|api_key||string|<i class="fas fa-check"></i>|Clé API|
+|token||string|<i class="fas fa-check"></i>|Clé API|
 |vacancy_id||string||Identifiant annonce|
 |column_id||integer||Identifiant colonne|
 |score||integer||Score|
@@ -1396,7 +1407,7 @@ var headers = {
 $.ajax({
   url: 'https://flatchr.io/company/{company}/applicant/{applicant}/media',
   method: 'post',
-  body: {
+  data: {
   "company": "string",
   "applicant": "string",
   "file": "fichier"
@@ -1873,7 +1884,7 @@ var headers = {
 $.ajax({
   url: 'https://flatchr.io/company/{company}/applicant/{applicant}/comment',
   method: 'post',
-  body: {
+  data: {
   "applicant": "string",
   "company": "string",
   "text": "string",
@@ -2119,7 +2130,7 @@ var headers = {
 $.ajax({
   url: 'https://flatchr.io/applicant/{applicant}/answer',
   method: 'post',
-  body: {
+  data: {
   "applicant": "string",
   "value": "string",
   "type": "string",
@@ -2360,7 +2371,7 @@ var headers = {
 $.ajax({
   url: 'https://flatchr.io/company/{company}/task/user/{user}',
   method: 'post',
-  body: {
+  data: {
   "company": "string",
   "user": "string",
   "description": "string",
@@ -2611,7 +2622,7 @@ var headers = {
 $.ajax({
   url: 'https://flatchr.io/company/{company}/task/{task}',
   method: 'put',
-  body: {
+  data: {
   "company": "string",
   "tasks": "string,"
   "done": true
@@ -2751,7 +2762,7 @@ var headers = {
 $.ajax({
   url: 'https://flatchr.io/company/{company}/applicant/{applicant}/trait',
   method: 'post',
-  body: {
+  data: {
   "company": "string",
   "applicant": "string",
   "tag": "string",
