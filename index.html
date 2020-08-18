@@ -443,7 +443,7 @@ Avant toute mise en place, veuillez valider l’adéquation de ce service et vot
 <code>Authorization: Bearer API_KEY</code></p>
 
 <p>2/ Or, through query string:<br>
-<code>?api_key=API_KEY</code></p>
+<code>?token=API_KEY</code></p>
 
 <aside class="info">
 Votre <code>API_KEY</code> doit être générés dans votre espace Flatchr Administration > clés.
@@ -452,13 +452,18 @@ Votre <code>API_KEY</code> doit être générés dans votre espace Flatchr Admin
 <h1 id="iframe">Iframe et WordPress</h1>
 
 <p>Le code à intégrer à votre page varie selon que l&#39;iframe est publique ou en intranet.</p>
-<h2 id='iframe'>Iframe</h2><pre class="highlight plaintext"><code>&lt;iframe src="https://careers.flatchr.io/company/[slug]?iframe=true” width=100% height=100% frameborder=0 marginwidth=0 marginheight=0&gt;&lt;/iframe&gt;
+<h2 id='iframe'>Iframe</h2><pre class="highlight plaintext"><code>&lt;iframe src="https://careers.flatchr.io/company/[slug]?iframe=true&amp;btn_color=000000&amp;background_color=FFFFFF" width=100% height=100% frameborder=0 marginwidth=0 marginheight=0&gt;&lt;/iframe&gt;
 </code></pre>
 <p>Le site flatchr.io met a disposition un système de récupération d’annonces via Iframe. Ce système
 permet l’intégration des annonces du client sur son site sans nécessité de connaissance informatique
 et par simple copier-coller. Cet iframe peut être utilisé pour un formulaire de postulation.
 Afin de récupérer vos annonces, il faut récupérer votre « slug », c’est la référence unique de votre
 entreprise. Elle se trouve dans l’URL de votre site carrière (exemple: dans &quot;https://avivacuisines.flatchr.io&quot;, &quot;avivacuisines&quot; est la référence unique ou &quot;slug&quot;).</p>
+
+<p>Exemple
+<code>
+&lt;iframe src=&quot;https://careers.flatchr.io/company/[slug]?iframe=true&amp;btn_color=000000&amp;background_color=FFFFFF&quot; width=100% height=100% frameborder=0 marginwidth=0 marginheight=0&gt;&lt;/iframe&gt;
+</code></p>
 
 <p>Le code iframe a insérer est indiqué ci-contre.</p>
 <h3 id='parametres-iframe-liste-d-39-annonces'>Paramètres iframe liste d&#39;annonces</h3>
@@ -532,13 +537,19 @@ entreprise. Elle se trouve dans l’URL de votre site carrière (exemple: dans &
 <td>career_redirect_url</td>
 <td>url</td>
 <td></td>
-<td>Url de redirection vers site carrière</td>
+<td>Url de redirection vers site carrière (lien logo)</td>
 </tr>
 <tr>
 <td>response_text</td>
 <td>string</td>
 <td></td>
 <td>Texte de remerciement</td>
+</tr>
+<tr>
+<td>spontaneous</td>
+<td>string</td>
+<td></td>
+<td>Position de la candidature spontanée (top, bottom, none)</td>
 </tr>
 <tr>
 <td>iframe</td>
@@ -557,7 +568,8 @@ entreprise. Elle se trouve dans l’URL de votre site carrière (exemple: dans &
 <p>Le site flatchr.io met a disposition un système de récupération d’annonces via Iframe. Ce système permet l’intégration des annonces du client sur son intranet sans nécessité de connaissance informatique et par simple copier-coller. Dans votre espace flatchr « Paramètres Avancée -&gt; Configuration Intranet », vous devez renseigner l’url de votre site intranet. Votre iframe ne s’affichera que sur les sites ayant été renseignés dans l’espace « restriction web ».</p>
 
 <p>Le code à insérer indiqué ci-contre.</p>
-<h3 id='parametres-iframe-liste-d-39-annonces-2'>Paramètres Iframe liste d&#39;annonces</h3>
+<pre class="highlight plaintext"><code>&lt;iframe src="https://careers.flatchr.io/intranet/[slug]?iframe=true&amp;btn_color=000000&amp;background_color=FFFFFF" width=100% height=100% frameborder=0 marginwidth=0 marginheight=0&gt;&lt;/iframe&gt;
+</code></pre><h3 id='parametres-iframe-liste-d-39-annonces-2'>Paramètres Iframe liste d&#39;annonces</h3>
 <table><thead>
 <tr>
 <th>Libellé</th>
@@ -570,13 +582,13 @@ entreprise. Elle se trouve dans l’URL de votre site carrière (exemple: dans &
 <td>btn_color</td>
 <td>hex code</td>
 <td></td>
-<td>Couleur des boutons</td>
+<td>Couleur des boutons (ex: 0E0E0E)</td>
 </tr>
 <tr>
 <td>background_color</td>
 <td>hex code</td>
 <td></td>
-<td>Couleur du fond</td>
+<td>Couleur du fond (ex: 0E0E0E)</td>
 </tr>
 <tr>
 <td>submit_text</td>
@@ -604,13 +616,13 @@ entreprise. Elle se trouve dans l’URL de votre site carrière (exemple: dans &
 <td>btn_color</td>
 <td>hex code</td>
 <td></td>
-<td>Couleur des boutons</td>
+<td>Couleur des boutons (ex: 0E0E0E)</td>
 </tr>
 <tr>
 <td>background_color</td>
 <td>hex code</td>
 <td></td>
-<td>Couleur du fond</td>
+<td>Couleur du fond (ex: 0E0E0E)</td>
 </tr>
 <tr>
 <td>submit_text</td>
@@ -635,6 +647,12 @@ entreprise. Elle se trouve dans l’URL de votre site carrière (exemple: dans &
 <td>string</td>
 <td></td>
 <td>Texte de remerciement</td>
+</tr>
+<tr>
+<td>spontaneous</td>
+<td>string</td>
+<td></td>
+<td>Position de la candidature spontanée (top, bottom, none)</td>
 </tr>
 <tr>
 <td>iframe</td>
@@ -669,13 +687,13 @@ curl -X POST https://careers.flatchr.io/vacancy/candidate/json <span class="se">
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s1">'https://careers.flatchr.io/vacancy/candidate/json'</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'post'</span><span class="p">,</span>
-  <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+  <span class="s2">"token"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"vacancy"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"firstname"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"lastname"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
-  <span class="s2">"api_key"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"email"</span><span class="p">,</span>
-  <span class="s2">"phone"</span><span class="p">:</span> <span class="s2">"integer"</span><span class="p">,</span>
+  <span class="s2">"phone"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"resume"</span><span class="p">:</span> <span class="p">{</span>
     <span class="s2">"fileName"</span><span class="p">:</span> <span class="s2">"test.pdf"</span><span class="p">,</span>
@@ -706,7 +724,7 @@ curl -X POST https://careers.flatchr.io/vacancy/candidate/json <span class="se">
   "vacancy": "string",
   "firstname": "string",
   "lastname": "string",
-  "api_key": "string",
+  "token": "string",
   "email": "email",
   "phone": "integer",
   "type": "string",
@@ -756,7 +774,7 @@ curl -X POST https://careers.flatchr.io/vacancy/candidate/json <span class="se">
   <span class="s">"vacancy"</span><span class="p">:</span> <span class="s">"string"</span><span class="p">,</span>
   <span class="s">"firstname"</span><span class="p">:</span> <span class="s">"string"</span><span class="p">,</span>
   <span class="s">"lastname"</span><span class="p">:</span> <span class="s">"string"</span><span class="p">,</span>
-  <span class="s">"api_key"</span><span class="p">:</span> <span class="s">"string"</span><span class="p">,</span>
+  <span class="s">"token"</span><span class="p">:</span> <span class="s">"string"</span><span class="p">,</span>
   <span class="s">"email"</span><span class="p">:</span> <span class="s">"email"</span><span class="p">,</span>
   <span class="s">"phone"</span><span class="p">:</span> <span class="s">"integer"</span><span class="p">,</span>
   <span class="s">"type"</span><span class="p">:</span> <span class="s">"string"</span><span class="p">,</span>
@@ -793,7 +811,7 @@ curl -X POST https://careers.flatchr.io/vacancy/candidate/json <span class="se">
   "vacancy": "string",
   "firstname": "string",
   "lastname": "string",
-  "api_key": "string",
+  "token": "string",
   "email": "email",
   "phone": "integer",
   "lastposition": "string",
@@ -852,7 +870,7 @@ https://careers.flatchr.io/vacancy/candidate/test</p>
 <td>Nom /[a-zA-Z]/</td>
 </tr>
 <tr>
-<td>api_key</td>
+<td>token</td>
 <td>string</td>
 <td><i class="fas fa-check"></i></td>
 <td>Clé API. Elle est créée dans l’interface Flatchr</td>
@@ -1567,7 +1585,7 @@ curl -X DELETE https://flatchr.io/company/<span class="o">{</span>company<span c
 <td>Nom du candidat</td>
 </tr>
 <tr>
-<td>api_key</td>
+<td>token</td>
 <td></td>
 <td>string</td>
 <td><i class="fas fa-check"></i></td>
@@ -1617,7 +1635,7 @@ curl -X PUT https://flatchr.io/company/<span class="o">{</span>company<span clas
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s1">'https://flatchr.io/company/{company}/vacancy/{vacancy}/applicant/{applicant}'</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'put'</span><span class="p">,</span>
-  <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
   <span class="s2">"vacancy_id"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"column_id"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
   <span class="s2">"score"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -1720,7 +1738,7 @@ curl -X PUT https://flatchr.io/company/<span class="o">{</span>company<span clas
 <td>Nom du candidat</td>
 </tr>
 <tr>
-<td>api_key</td>
+<td>token</td>
 <td></td>
 <td>string</td>
 <td><i class="fas fa-check"></i></td>
@@ -2371,7 +2389,7 @@ curl -X POST https://flatchr.io/company/<span class="o">{</span>company<span cla
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s1">'https://flatchr.io/company/{company}/applicant/{applicant}/media'</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'post'</span><span class="p">,</span>
-  <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
   <span class="s2">"company"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"applicant"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"file"</span><span class="p">:</span> <span class="s2">"fichier"</span>
@@ -2982,7 +3000,7 @@ curl -X POST https://flatchr.io/company/<span class="o">{</span>company<span cla
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s1">'https://flatchr.io/company/{company}/applicant/{applicant}/comment'</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'post'</span><span class="p">,</span>
-  <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
   <span class="s2">"applicant"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"company"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"text"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
@@ -3310,7 +3328,7 @@ curl -X POST https://flatchr.io/applicant/<span class="o">{</span>applicant<span
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s1">'https://flatchr.io/applicant/{applicant}/answer'</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'post'</span><span class="p">,</span>
-  <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
   <span class="s2">"applicant"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
@@ -3625,7 +3643,7 @@ curl -X POST https://flatchr.io/company/<span class="o">{</span>company<span cla
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s1">'https://flatchr.io/company/{company}/task/user/{user}'</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'post'</span><span class="p">,</span>
-  <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
   <span class="s2">"company"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"user"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
@@ -3943,7 +3961,7 @@ curl -X PUT https://flatchr.io/company/<span class="o">{</span>company<span clas
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s1">'https://flatchr.io/company/{company}/task/{task}'</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'put'</span><span class="p">,</span>
-  <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
   <span class="s2">"company"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"tasks"</span><span class="p">:</span> <span class="s2">"string,"</span>
   <span class="s2">"done"</span><span class="p">:</span> <span class="kc">true</span>
@@ -4116,7 +4134,7 @@ curl -X POST https://flatchr.io/company/<span class="o">{</span>company<span cla
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s1">'https://flatchr.io/company/{company}/applicant/{applicant}/trait'</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'post'</span><span class="p">,</span>
-  <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
   <span class="s2">"company"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"applicant"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
   <span class="s2">"tag"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
